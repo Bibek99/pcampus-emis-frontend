@@ -1,11 +1,10 @@
-import { Flex, Progress } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 const AppLoading = () => (
-  <Flex flex={1} align={'flex-start'}>
-    <Progress w={'full'} h={'0.4rem'} isIndeterminate />
-  </Flex>
+  <div className="flex flex-col items-center justify-center">
+    <span>Loading...</span>
+  </div>
 );
 
 const AppComponent = dynamic<{}>(
