@@ -5,15 +5,15 @@ export type UserRole =
   | 'ROLE_DEPT_ADMIN';
 
 export interface User {
-  id: number;
-  firstName: string;
+  id?: number;
+  firstName?: string;
   middleName?: string;
-  lastName: string;
-  email: string;
+  lastName?: string;
+  email?: string;
   activated?: boolean;
 }
 
 export interface UserList {
-  content: User[];
-  totalItems: number;
+  content?: User[];
+  totalItems?: number;
 }

@@ -1,7 +1,7 @@
 import { Page } from '@app/layout';
 import { useRedirectFromurl } from '@app/router/useRedirectFromUrl';
-import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAuthContext } from './AuthContext';
 import LoginForm from './LoginForm';
 
 const LoginFooter: React.FC<{}> = () => {
@@ -15,13 +15,18 @@ const LoginFooter: React.FC<{}> = () => {
 const LoginPage: React.FC<{}> = () => {
   const redirect = useRedirectFromurl();
 
-  const onLogin = () => {
-    redirect();
-  };
+  const { isAuthenticated } = useAuthContext();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      redirect();
+    }
+  }, [isAuthenticated, redirect]);
+
   return (
     <Page title="Login" description="Login to your account">
       <div className="flex min-h-screen flex-col items-center p-4">
-        <LoginForm onSuccess={onLogin} />
+        <LoginForm />
         <LoginFooter />
       </div>
     </Page>

@@ -15,15 +15,8 @@ const LoginSchema = Yup.object().shape({
   remember: Yup.boolean(),
 });
 
-interface LoginFormProps {
-  onSuccess: () => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({
-  onSuccess = () => undefined,
-}) => {
+const LoginForm: React.FC<{}> = () => {
   const { mutate: login, isLoading } = useLogin({
-    onSuccess,
     onError: (error: any) => {
       toast.error(error.message);
     },
@@ -36,15 +29,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
       remember: false,
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      login({
-        email: values.email,
-        password: values.password,
-      });
+    onSubmit: ({ email, password }) => {
+      login({ email, password });
     },
   });
-
-  console.log('loading', isLoading);
 
   return (
     <div className="flex flex-auto flex-col justify-center">

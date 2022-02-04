@@ -10,27 +10,16 @@ export const useLogin = (
     { email: string; password: string }
   > = {}
 ) => {
-  const { updateToken } = useAuthContext();
+  const { updateToken, updateUser } = useAuthContext();
 
   return useMutation(
     ({ email, password }) =>
-      axios.post(
-        getBackendApi('users/login/'),
-        { email, password },
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      ),
+      axios.post(getBackendApi('users/login/'), { email, password }),
     {
-      mutationKey: 'login',
       ...config,
-      onSuccess: (data, ...rest) => {
+      onSuccess: ({ data }) => {
+        updateUser({ ...data });
         updateToken(data.token);
-        if (config.onSuccess) {
-          config.onSuccess(data, ...rest);
-        }
       },
     }
   );

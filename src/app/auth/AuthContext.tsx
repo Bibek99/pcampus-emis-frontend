@@ -4,6 +4,8 @@ import React, { ReactNode, useCallback, useContext, useState } from 'react';
 
 interface AuthContextValue {
   isAuthenticated: boolean;
+  authenticatedUser: object | undefined;
+  updateUser(newUser: object): void;
   updateToken(token: string): void;
 }
 
@@ -21,6 +23,8 @@ const updateToken = (newToken: string) => {
 
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
+  authenticatedUser: undefined,
+  updateUser: () => undefined,
   updateToken: updateToken,
 });
 
@@ -31,6 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isBrowser && localStorage.getItem(AUTH_TOKEN_KEY)
   );
 
+  const [authenticatedUser, setAuthenticatedUser] = useState(undefined);
+
   const handleUpdateToken = useCallback(
     (newToken: string) => {
       setToken(newToken);
@@ -39,10 +45,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     [setToken]
   );
 
+  const handleUpdateUser = useCallback(
+    (newUser) => {
+      setAuthenticatedUser(newUser);
+    },
+    [setAuthenticatedUser]
+  );
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated: !!token,
+        authenticatedUser: authenticatedUser,
+        updateUser: handleUpdateUser,
         updateToken: handleUpdateToken,
       }}
     >
