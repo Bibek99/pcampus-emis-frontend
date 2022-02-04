@@ -24,8 +24,8 @@ export const useLogin = (
         }
       ),
     {
-      ...config,
       mutationKey: 'login',
+      ...config,
       onSuccess: (data, ...rest) => {
         updateToken(data.token);
         if (config.onSuccess) {

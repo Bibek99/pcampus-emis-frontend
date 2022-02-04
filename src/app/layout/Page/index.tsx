@@ -4,15 +4,9 @@ interface Page {
   title?: string;
   description?: string;
   children?: React.ReactNode;
-  footer?: React.ReactNode;
 }
 
-export const Page: React.FC<Page> = ({
-  title,
-  description,
-  footer,
-  children,
-}) => {
+export const Page: React.FC<Page> = ({ title, description, children }) => {
   return (
     <>
       {title || description ? (
@@ -21,7 +15,7 @@ export const Page: React.FC<Page> = ({
           {description && <meta name="description" content={description} />}
         </Head>
       ) : null}
-      <main className="min-h-screen">{children}</main>
+      <main>{children}</main>
     </>
   );
 };
