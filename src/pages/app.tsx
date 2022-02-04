@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 const AppLoading = () => (
@@ -21,7 +22,14 @@ const App = () => {
     setIsLoading(false);
   }, []);
 
-  return isLoading ? <AppLoading /> : <AppComponent />;
+  return (
+    <>
+      <Head>
+        <title>Pulchowk EMIS</title>
+      </Head>
+      {isLoading ? <AppLoading /> : <AppComponent />}
+    </>
+  );
 };
 
 export default App;

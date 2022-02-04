@@ -1,6 +1,6 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { getBackendApi } from '@utils/getBackendApi';
-import Axios from 'axios';
+import axios from 'axios';
 import { useMutation, UseMutationOptions } from 'react-query';
 
 export const useLogin = (
@@ -14,9 +14,18 @@ export const useLogin = (
 
   return useMutation(
     ({ email, password }) =>
-      Axios.post(getBackendApi('/users/login'), { email, password }),
+      axios.post(
+        getBackendApi('users/login/'),
+        { email, password },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      ),
     {
       ...config,
+      mutationKey: 'login',
       onSuccess: (data, ...rest) => {
         updateToken(data.token);
         if (config.onSuccess) {

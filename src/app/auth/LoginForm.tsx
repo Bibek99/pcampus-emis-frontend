@@ -3,28 +3,48 @@ import React from 'react';
 import NextLink from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useLogin } from '@app/services/auth.service';
+import { Spinner } from '@app/components';
+import { toast } from 'react-toastify';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Please enter a valid email')
     .required('Email is required'),
   password: Yup.string().required('Password is required'),
+  remember: Yup.boolean(),
 });
 
-const LoginForm: React.FC<{}> = () => {
+interface LoginFormProps {
+  onSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({
+  onSuccess = () => undefined,
+}) => {
+  const { mutate: login, isLoading } = useLogin({
+    onSuccess,
+    onError: (error: any) => {
+      toast.error(error.message);
+    },
+  });
+
   const loginForm = useFormik({
     initialValues: {
       email: '',
       password: '',
-      remember: '',
+      remember: false,
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      console.log(values);
+      login({
+        email: values.email,
+        password: values.password,
+      });
     },
   });
 
-  console.log(loginForm.errors);
+  console.log('loading', isLoading);
 
   return (
     <div className="mx-auto flex max-w-sm flex-col items-center justify-center gap-8 py-8">
@@ -89,7 +109,9 @@ const LoginForm: React.FC<{}> = () => {
             <input
               type="checkbox"
               name="remember"
-              className="h-4 w-4 rounded text-emerald-500"
+              className="form-checkbox h-4 w-4 rounded text-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 focus:ring-offset-0"
+              onChange={loginForm.handleChange}
+              onBlur={loginForm.handleBlur}
             />
             <label htmlFor="remember" className="ml-2">
               Remember Me
@@ -101,9 +123,10 @@ const LoginForm: React.FC<{}> = () => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-lg bg-emerald-500 py-3 font-semibold text-white"
+          className="flex w-full items-center justify-center rounded-lg bg-emerald-500 py-3 font-semibold text-white"
         >
-          Sign in
+          <Spinner className={isLoading ? 'mr-2 animate-spin' : 'hidden'} />
+          <span>{isLoading ? 'Signing In' : 'Sign in'}</span>
         </button>
       </form>
     </div>

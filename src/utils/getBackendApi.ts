@@ -1,3 +1,4 @@
 export const getBackendApi = (path: string) => {
-  return `${process.env.BACKEND_API_URL}${path}`;
+  const root = process.env.BACKEND_API_URL;
+  return `${root}${path}`;
 };
