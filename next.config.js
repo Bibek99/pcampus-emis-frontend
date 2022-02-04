@@ -12,4 +12,7 @@ module.exports = {
       },
     ];
   },
+  images: {
+    domains: ['joeschmoe.io'],
+  },
 };

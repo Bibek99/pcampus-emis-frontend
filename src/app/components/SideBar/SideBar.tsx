@@ -13,8 +13,8 @@ export const SideBar: React.FC<SideBarType> = ({
   isSidebarOpen,
   setSidebarOpen,
 }) => {
-  const trigger = useRef(null);
-  const sidebar = useRef(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const sidebar = useRef<HTMLButtonElement>(null);
 
   // Closing the navbar on clicking outside
   useEffect(() => {
