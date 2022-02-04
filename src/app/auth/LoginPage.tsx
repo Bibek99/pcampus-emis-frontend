@@ -20,7 +20,7 @@ const LoginPage: React.FC<{}> = () => {
   };
   return (
     <Page title="Login" description="Login to your account">
-      <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="flex min-h-screen flex-col items-center p-4">
         <LoginForm onSuccess={onLogin} />
         <LoginFooter />
       </div>
