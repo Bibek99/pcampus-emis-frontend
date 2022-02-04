@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import { SideBarMenuItem } from '.';
+import { DashboardIcon } from '@app/elements/icons';
+import { AdminRoutes } from '@app/elements/routes';
 
 type SideBarType = {
   isSidebarOpen: boolean;
@@ -69,14 +72,10 @@ export const SideBar: React.FC<SideBarType> = ({
           </button>
         </div>
         <div className="flex flex-col space-y-6">
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
-          <span>Menu Link</span>
+          {AdminRoutes.map(
+            (route, index) =>
+              (<SideBarMenuItem key={index} route={route} />) as any
+          )}
         </div>
       </aside>
     </div>
