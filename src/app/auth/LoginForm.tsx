@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useLogin } from '@app/services/auth.service';
 import { Spinner } from '@app/components';
 import { toast } from 'react-toastify';
+import { EyeCloseIcon, EyeOpenIcon } from '@app/elements/icons';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,6 +34,8 @@ const LoginForm: React.FC<{}> = () => {
       login({ email, password });
     },
   });
+
+  const [showPassword, setShowPassword] = React.useState(false);
 
   return (
     <div className="flex flex-auto flex-col justify-center">
@@ -68,7 +71,9 @@ const LoginForm: React.FC<{}> = () => {
               value={loginForm.values.email}
               className="mt-2 h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
             />
-            {loginForm.touched.email && loginForm.errors.email ? (
+            {loginForm.touched.email &&
+            loginForm.errors.email &&
+            loginForm.values.email ? (
               <span className="mt-1 text-sm italic text-red-500">
                 {loginForm.errors.email}
               </span>
@@ -78,16 +83,31 @@ const LoginForm: React.FC<{}> = () => {
             <label htmlFor="password">
               Password <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              onChange={loginForm.handleChange}
-              onBlur={loginForm.handleBlur}
-              value={loginForm.values.password}
-              className="mt-2 h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
-            />
-            {loginForm.touched.password && loginForm.errors.password ? (
+            <div className="relative">
+              <input
+                type={!showPassword ? 'password' : 'text'}
+                name="password"
+                placeholder="Enter your password"
+                onChange={loginForm.handleChange}
+                onBlur={loginForm.handleBlur}
+                value={loginForm.values.password}
+                className="mt-2 h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
+              />
+              <button
+                type="button"
+                className="absolute right-4 top-5"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOpenIcon className="text-gray-400 hover:text-emerald-500" />
+                ) : (
+                  <EyeCloseIcon className="text-gray-400 hover:text-emerald-500" />
+                )}
+              </button>
+            </div>
+            {loginForm.touched.password &&
+            loginForm.errors.password &&
+            loginForm.values.password ? (
               <span className="mt-1 text-sm italic text-red-500">
                 {loginForm.errors.password}
               </span>

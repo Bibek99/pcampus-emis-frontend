@@ -71,10 +71,16 @@ export const SideBar: React.FC<SideBarType> = ({
             <CloseIcon />
           </button>
         </div>
-        <div className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-4">
           {AdminRoutes.map(
             (route, index) =>
-              (<SideBarMenuItem key={index} route={route} />) as any
+              (
+                <SideBarMenuItem
+                  key={index}
+                  route={route}
+                  onClick={() => setSidebarOpen(false)}
+                />
+              ) as any
           )}
         </div>
       </aside>

@@ -1,4 +1,4 @@
-import { MainNav, SideBar } from '@app/components';
+import { BreadCrumb, MainNav, SideBar } from '@app/components';
 import { DashboardLayout } from '@app/layout';
 import React, { useState } from 'react';
 
@@ -19,6 +19,7 @@ const DashboardPage: React.FC<{}> = ({ children }) => {
         />
       }
     >
+      <BreadCrumb />
       {children}
     </DashboardLayout>
   );

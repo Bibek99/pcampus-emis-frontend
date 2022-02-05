@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export const useRedirectFromurl = (defaultTo = '/') => {
+export const useRedirectFromurl = (defaultTo = '/dashboard') => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
