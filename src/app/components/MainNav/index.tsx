@@ -2,16 +2,14 @@ import Image from 'next/image';
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon } from '@app/elements/icons';
+import { useAuthContext } from '@app/auth/AuthContext';
 
 type MainNavProps = {
   isSidebarOpen?: boolean;
   setSidebarOpen: (isSidebarOpen: boolean) => void;
 };
 
-export const MainNav: React.FC<MainNavProps> = ({
-  isSidebarOpen,
-  setSidebarOpen,
-}) => {
+export const MainNav: React.FC<MainNavProps> = ({ setSidebarOpen }) => {
   return (
     <nav className="sticky top-0 z-10 border-gray-500 bg-gray-100">
       <div className="px-4 py-4 sm:px-6 lg:px-8">
@@ -40,6 +38,8 @@ export const MainNav: React.FC<MainNavProps> = ({
 };
 
 const AvatarDropdown = () => {
+  const { logout } = useAuthContext();
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -65,7 +65,7 @@ const AvatarDropdown = () => {
               <Menu.Item>
                 <button
                   type="button"
-                  onClick={() => console.log('logout')}
+                  onClick={() => logout()}
                   className="flex items-center space-x-2"
                 >
                   <LogoutIcon className="text-emerald-600 group-hover:fill-white" />

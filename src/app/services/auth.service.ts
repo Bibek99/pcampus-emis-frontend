@@ -18,7 +18,7 @@ export const useLogin = (
     {
       ...config,
       onSuccess: ({ data }) => {
-        updateUser({ ...data });
+        updateUser({ data });
         updateToken(data.token);
       },
     }

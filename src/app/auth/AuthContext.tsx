@@ -7,6 +7,7 @@ interface AuthContextValue {
   authenticatedUser: object | undefined;
   updateUser(newUser: object): void;
   updateToken(token: string): void;
+  logout(): void;
 }
 
 const updateToken = (newToken: string) => {
@@ -26,6 +27,7 @@ const AuthContext = React.createContext<AuthContextValue>({
   authenticatedUser: undefined,
   updateUser: () => undefined,
   updateToken: updateToken,
+  logout: () => undefined,
 });
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -51,6 +53,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     },
     [setAuthenticatedUser]
   );
+
+  const handleLogOut = useCallback(() => {
+    setToken('');
+    setAuthenticatedUser(undefined);
+    updateToken('');
+  }, []);
   return (
     <AuthContext.Provider
       value={{
@@ -58,6 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         authenticatedUser: authenticatedUser,
         updateUser: handleUpdateUser,
         updateToken: handleUpdateToken,
+        logout: handleLogOut,
       }}
     >
       {children}
