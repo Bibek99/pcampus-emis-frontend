@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const TeachersAdd = () => {
+export const TeachersAddView = () => {
   return <div></div>;
 };

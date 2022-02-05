@@ -1,2 +1,2 @@
-export * from './TeachersAdd';
+export * from './TeachersAddView';
 export * from './TeachersView';
