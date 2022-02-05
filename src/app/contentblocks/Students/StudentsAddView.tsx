@@ -8,7 +8,11 @@ export const StudentsAddView = () => {
         <h1 className="text-2xl font-semibold">Add Students</h1>
       </div>
       <hr className="border border-gray-300" />
-      <CustomFileUpload />
+      <CustomFileUpload
+        accept={['.csv', '.jpg', '.png', '.pdf']}
+        maxFiles={1}
+        maxSize={5000 * 1024}
+      />
     </div>
   );
 };

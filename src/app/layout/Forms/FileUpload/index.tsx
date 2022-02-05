@@ -8,7 +8,17 @@ export interface AllFiles {
   errors: FileError[];
 }
 
-export const CustomFileUpload = () => {
+type FileTypes = '.jpg' | '.jpeg' | '.png' | '.csv' | '.pdf';
+
+export interface FileUploadProps {
+  maxFiles?: number;
+  maxSize?: number;
+  accept?: FileTypes[];
+}
+
+export const CustomFileUpload: React.FC<FileUploadProps> = (
+  options: FileUploadProps
+) => {
   const [files, setFiles] = useState<AllFiles[]>([]);
 
   const onDrop = useCallback(
@@ -17,16 +27,15 @@ export const CustomFileUpload = () => {
         file,
         errors: [],
       }));
-      setFiles((currentFiles) => [
-        ...currentFiles,
-        ...ErroredAcceptedFiles,
-        ...fileRejections,
-      ]);
+      setFiles((_) => [...ErroredAcceptedFiles, ...fileRejections]);
     },
     []
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    ...options,
+  });
 
   const deleteFile = (file: File) => {
     setFiles((currentFiles) =>
@@ -63,17 +72,24 @@ export const CustomFileUpload = () => {
       {files.length > 0 && (
         <div className="xxl:grid-cols-3 grid grid-cols-1 gap-6 xl:grid-cols-2">
           {files.map(({ file, errors }, index) => (
-            <div
-              key={index}
-              className={classNames(
-                'flex w-full justify-between rounded-md border border-gray-300 p-4',
-                errors.length > 0 ? 'border-red-300' : 'border-emerald-300'
+            <div>
+              <div
+                key={index}
+                className={classNames(
+                  'flex w-full justify-between rounded-md border border-gray-300 p-4',
+                  errors.length > 0 ? 'border-red-300' : 'border-emerald-300'
+                )}
+              >
+                <span>{file.name}</span>
+                <button type="button" onClick={() => deleteFile(file)}>
+                  <CloseIcon />
+                </button>
+              </div>
+              {errors[0]?.message && (
+                <span className="text-sm italic text-red-500">
+                  {errors[0]?.message}
+                </span>
               )}
-            >
-              <span>{file.name}</span>
-              <button type="button" onClick={() => deleteFile(file)}>
-                <CloseIcon />
-              </button>
             </div>
           ))}
         </div>
