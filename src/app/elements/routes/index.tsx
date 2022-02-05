@@ -34,7 +34,7 @@ export const AdminRoutes = [
   {
     title: 'Teachers',
     icon: <TeachersIcon className="" />,
-    path: '/students',
+    path: '/teachers',
   },
   {
     title: 'Calendar',

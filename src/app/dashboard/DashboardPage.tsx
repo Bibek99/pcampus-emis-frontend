@@ -2,7 +2,7 @@ import { MainNav, SideBar } from '@app/components';
 import { DashboardLayout } from '@app/layout';
 import React, { useState } from 'react';
 
-const DashboardPage: React.FC<{}> = () => {
+const DashboardPage: React.FC<{}> = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
     <DashboardLayout
@@ -19,16 +19,7 @@ const DashboardPage: React.FC<{}> = () => {
         />
       }
     >
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
-      <div className="bg-gray-50 p-12">Ram</div>
+      {children}
     </DashboardLayout>
   );
 };
