@@ -9,7 +9,7 @@ export const StudentsAddView = () => {
     <>
       <div className="flex flex-col space-y-4">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-2xl font-semibold">Students</h1>
+          <h1 className="text-2xl font-semibold">Add Students</h1>
           <button
             type="button"
             className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
@@ -22,11 +22,6 @@ export const StudentsAddView = () => {
           </button>
         </div>
         <hr className="border border-gray-300" />
-        {/* <CustomFileUpload
-        accept={['.csv', '.jpg', '.png', '.pdf']}
-        maxFiles={1}
-        maxSize={5000 * 1024}
-      /> */}
       </div>
       <Modal
         title="Upload CSV File"
@@ -57,6 +52,7 @@ export const StudentsAddView = () => {
           </button>
         }
       />
+      <span>Text</span>
     </>
   );
 };
