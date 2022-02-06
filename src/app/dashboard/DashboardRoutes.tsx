@@ -12,20 +12,16 @@ const DashboardRoutes: React.FC<{}> = () => {
     <Routes>
       <Route
         path="dashboard"
-        element={
-          <div className="h-full rounded-md bg-gray-50 p-12">Dashboard</div>
-        }
+        element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
       />
       <Route
         path="notices"
-        element={
-          <div className="h-full  rounded-md bg-gray-50 p-12">Notices</div>
-        }
+        element={<div className="rounded-md bg-gray-50 p-12">Notices</div>}
       />
       <Route
         path="students/*"
         element={
-          <div className="h-full rounded-md bg-gray-50 p-6">
+          <div className="rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<StudentsView />} />
               <Route path="/add" element={<StudentsAddView />} />
@@ -36,7 +32,7 @@ const DashboardRoutes: React.FC<{}> = () => {
       <Route
         path="teachers/*"
         element={
-          <div className="h-full rounded-md bg-gray-50 p-6">
+          <div className="rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<TeachersView />} />
               <Route path="/add" element={<div>Add Teachers</div>} />

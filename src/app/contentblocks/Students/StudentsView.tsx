@@ -1,4 +1,5 @@
-import { AddUserIcon, SearchIcon } from '@app/elements/icons';
+import { AddUserIcon } from '@app/elements/icons';
+import { TableView } from '@app/layout';
 import { Link } from 'react-router-dom';
 
 export const StudentsView: React.FC = () => {
@@ -17,36 +18,8 @@ export const StudentsView: React.FC = () => {
         </Link>
       </div>
       <hr className="border border-gray-300" />
-      <div className="flex flex-col">
-        <div className="flex space-x-4 rounded-md bg-gray-200/50 p-4">
-          <div className="relative flex w-full flex-auto items-center">
-            <input
-              type="text"
-              name="search"
-              className="w-full rounded-md rounded-r-none border border-r-0 border-gray-300 bg-gray-50 py-2 pr-6 pl-10 focus:outline-none focus:ring-2"
-              placeholder="Search by name"
-            />
-            <button
-              type="button"
-              className="rounded-r-md bg-emerald-500 px-4 py-2 text-white"
-            >
-              <SearchIcon />
-            </button>
-            <SearchIcon className="absolute top-3 left-2 h-5 w-5 text-gray-400" />
-          </div>
-          <button
-            type="button"
-            className="rounded-md border border-emerald-500 bg-gray-50 px-6 text-emerald-500"
-          >
-            Filter
-          </button>
-          <button
-            type="button"
-            className="rounded-md border border-emerald-500 bg-gray-50 px-6 text-emerald-500"
-          >
-            Export
-          </button>
-        </div>
+      <div className="flex flex-col space-y-4">
+        <TableView />
       </div>
     </div>
   );
