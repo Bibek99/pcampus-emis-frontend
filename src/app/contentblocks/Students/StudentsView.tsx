@@ -19,7 +19,7 @@ export const StudentsView: React.FC = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="flex flex-col space-y-4">
-        <TableView />
+        <TableView exportOption />
       </div>
     </div>
   );

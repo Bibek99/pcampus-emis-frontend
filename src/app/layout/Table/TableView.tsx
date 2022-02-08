@@ -12,6 +12,10 @@ import { SearchFilter } from './SearchFilter';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 
+type TableViewProps = {
+  exportOption?: boolean;
+};
+
 const COLUMNS = [
   {
     Header: 'First Name',
@@ -35,7 +39,9 @@ const COLUMNS = [
   },
 ];
 
-export const TableView = () => {
+export const TableView: React.FC<TableViewProps> = ({
+  exportOption = false,
+}) => {
   const columns = useMemo<Column[]>(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
 
@@ -64,7 +70,11 @@ export const TableView = () => {
 
   return (
     <>
-      <SearchFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      <SearchFilter
+        filter={globalFilter}
+        setFilter={setGlobalFilter}
+        exportOption={exportOption}
+      />
 
       <div className="overflow-x-auto overflow-y-hidden border-b border-gray-200 shadow sm:rounded-lg">
         <table

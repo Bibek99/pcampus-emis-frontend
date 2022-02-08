@@ -11,6 +11,7 @@ export interface AllFiles {
 type FileTypes = '.jpg' | '.jpeg' | '.png' | '.csv' | '.pdf';
 
 export interface FileUploadProps {
+  label?: string;
   maxFiles: number;
   maxSize?: number;
   accept?: FileTypes[];
@@ -45,10 +46,11 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (
   };
 
   return (
-    <>
+    <div>
+      {options.label && <label>{options.label}</label>}
       <div
         {...getRootProps()}
-        className="relative rounded-md border-2 border-dashed border-gray-300"
+        className="relative mt-2 rounded-md border-2 border-dashed border-gray-300"
       >
         <div className="flex w-full flex-col items-center justify-center p-12 text-center">
           <UploadIcon className="mb-6 h-12 w-12 text-emerald-500" />
@@ -95,6 +97,6 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };

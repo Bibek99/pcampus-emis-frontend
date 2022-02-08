@@ -5,9 +5,14 @@ import { SearchIcon } from '@heroicons/react/outline';
 interface SearchFilter {
   filter: any;
   setFilter: (filterValue: any) => void;
+  exportOption?: boolean;
 }
 
-export const SearchFilter: React.FC<SearchFilter> = ({ filter, setFilter }) => {
+export const SearchFilter: React.FC<SearchFilter> = ({
+  filter,
+  setFilter,
+  exportOption = false,
+}) => {
   const [value, setValue] = useState(filter);
 
   const onChange = useAsyncDebounce((value) => {
@@ -43,12 +48,14 @@ export const SearchFilter: React.FC<SearchFilter> = ({ filter, setFilter }) => {
         >
           Filter
         </button>
-        <button
-          type="button"
-          className="w-full rounded-md border border-emerald-500 bg-gray-50 px-6 py-2 text-emerald-500"
-        >
-          Export
-        </button>
+        {exportOption && (
+          <button
+            type="button"
+            className="w-full rounded-md border border-emerald-500 bg-gray-50 px-6 py-2 text-emerald-500"
+          >
+            Export
+          </button>
+        )}
       </div>
     </div>
   );
