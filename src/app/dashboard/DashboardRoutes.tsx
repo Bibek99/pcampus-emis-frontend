@@ -1,6 +1,7 @@
 import {
   StudentsAddView,
   StudentsView,
+  TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
 import Error404 from '@errors/Error404';
@@ -35,7 +36,7 @@ const DashboardRoutes: React.FC<{}> = () => {
           <div className="rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<TeachersView />} />
-              <Route path="/add" element={<div>Add Teachers</div>} />
+              <Route path="/add" element={<TeachersAddView />} />
             </Routes>
           </div>
         }

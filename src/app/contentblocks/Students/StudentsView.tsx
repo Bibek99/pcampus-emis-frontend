@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const StudentsView: React.FC = () => {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-semibold">Students</h1>
         <Link

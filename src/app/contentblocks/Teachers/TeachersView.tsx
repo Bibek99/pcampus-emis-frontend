@@ -1,4 +1,5 @@
 import { AddUserIcon } from '@app/elements/icons';
+import { TableView } from '@app/layout';
 import { Link } from 'react-router-dom';
 
 export const TeachersView: React.FC = () => {
@@ -15,6 +16,10 @@ export const TeachersView: React.FC = () => {
           </span>
           <span className="hidden sm:block">Add Teacher</span>
         </Link>
+      </div>
+      <hr className="border border-gray-300" />
+      <div className="flex flex-col space-y-4">
+        <TableView />
       </div>
     </div>
   );
