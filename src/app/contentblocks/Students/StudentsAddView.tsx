@@ -2,6 +2,7 @@ import { UploadIcon } from '@app/elements/icons';
 import { Modal } from '@app/layout';
 import { CustomFileUpload } from '@app/layout/Forms';
 import React, { useState } from 'react';
+import { StudentAddForm } from '.';
 
 export const StudentsAddView = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -52,7 +53,7 @@ export const StudentsAddView = () => {
           </button>
         }
       />
-      <span>Text</span>
+      <StudentAddForm />
     </>
   );
 };

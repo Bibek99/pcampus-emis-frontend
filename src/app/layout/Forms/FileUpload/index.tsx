@@ -1,6 +1,6 @@
 import { CloseIcon, UploadIcon } from '@app/elements/icons';
 import classNames from 'classnames';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FileError, FileRejection, useDropzone } from 'react-dropzone';
 
 export interface AllFiles {
@@ -74,9 +74,8 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (
       {files.length > 0 && (
         <div className="mt-4 grid grid-cols-1 gap-4">
           {files.map(({ file, errors }, index) => (
-            <div>
+            <div key={index}>
               <div
-                key={index}
                 className={classNames(
                   'flex w-full justify-between rounded-md border border-gray-300 p-4',
                   errors.length > 0 ? 'border-red-300' : 'border-emerald-300'
