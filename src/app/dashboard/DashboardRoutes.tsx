@@ -1,10 +1,12 @@
 import {
+  DepartmentDetail,
+  DepartmentView,
   StudentsAddView,
   StudentsView,
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
-import { NoticeCreate, NoticeView } from '@app/contentblocks/Notices';
+import { NoticeCreate, NoticeView } from '@app/contentblocks';
 import Error404 from '@errors/Error404';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -23,6 +25,18 @@ const DashboardRoutes: React.FC<{}> = () => {
             <Routes>
               <Route path="/" element={<NoticeView />} />
               <Route path="/create" element={<NoticeCreate />} />
+            </Routes>
+          </div>
+        }
+      />
+      <Route
+        path="departments/*"
+        element={
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
+            <Routes>
+              <Route path="/" element={<DepartmentView />} />
+              <Route path="/create" element={<div>Department Create</div>} />
+              <Route path="/:id" element={<DepartmentDetail />} />
             </Routes>
           </div>
         }
