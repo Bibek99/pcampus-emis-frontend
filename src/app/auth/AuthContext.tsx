@@ -1,9 +1,16 @@
 import { AUTH_TOKEN_KEY } from '@constants/auth';
 import { isBrowser } from '@utils/windowType';
-import React, { ReactNode, useCallback, useContext, useState } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 interface AuthContextValue {
   isAuthenticated: boolean;
+  setIsAuthenticated(arg: boolean): void;
   authenticatedUser: object | undefined;
   updateUser(newUser: object): void;
   updateToken(token: string): void;
@@ -24,6 +31,7 @@ const updateToken = (newToken: string) => {
 
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
+  setIsAuthenticated: () => undefined,
   authenticatedUser: undefined,
   updateUser: () => undefined,
   updateToken: updateToken,
@@ -38,6 +46,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!token);
+  }, [token, authenticatedUser, isAuthenticated, setIsAuthenticated]);
 
   const handleUpdateToken = useCallback(
     (newToken: string) => {
@@ -59,10 +72,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthenticatedUser(undefined);
     updateToken('');
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!token,
+        isAuthenticated: isAuthenticated,
+        setIsAuthenticated: setIsAuthenticated,
         authenticatedUser: authenticatedUser,
         updateUser: handleUpdateUser,
         updateToken: handleUpdateToken,

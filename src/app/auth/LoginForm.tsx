@@ -16,12 +16,20 @@ const LoginSchema = Yup.object().shape({
   remember: Yup.boolean(),
 });
 
-const LoginForm: React.FC<{}> = () => {
-  const { mutate: login, isLoading } = useLogin({
+const LoginForm = ({ onLogin }: { onLogin?: () => void }) => {
+  const {
+    mutate: login,
+    isLoading,
+    isSuccess,
+  } = useLogin({
     onError: (error: any) => {
       toast.error(error.message);
     },
   });
+
+  if (isSuccess && onLogin) {
+    onLogin();
+  }
 
   const loginForm = useFormik({
     initialValues: {

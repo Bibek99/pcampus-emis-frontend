@@ -21,7 +21,7 @@ export const DepartmentView = () => {
       <hr className="border border-gray-300" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((key) => (
-          <Link to={`${key}`}>
+          <Link key={key} to={`${key}`}>
             <SimpleCard key={key} />
           </Link>
         ))}
