@@ -6,6 +6,7 @@ import {
   CustomTextInput,
 } from '@app/layout/Forms';
 import * as Yup from 'yup';
+import { useFetchBatch } from '@app/services/user.service';
 
 const studentAddSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is requied'),
@@ -26,12 +27,14 @@ export const StudentAddForm: React.FC<{}> = () => {
       batch: '',
       section: '',
       department: '',
+      rollNo: '',
     },
     validationSchema: studentAddSchema,
     onSubmit: (values) => {
       console.log(values);
     },
   });
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-4 py-6">
       <p className="text-sm italic text-gray-600">
@@ -168,6 +171,16 @@ export const StudentAddForm: React.FC<{}> = () => {
               touched={studentAddForm.touched.section}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
+            />
+            <CustomTextInput
+              name="rollNo"
+              placeholder="Enter Roll no"
+              label="Roll No."
+              error={studentAddForm.errors?.rollNo}
+              touched={studentAddForm.touched.rollNo}
+              onChange={studentAddForm.handleChange}
+              onBlur={studentAddForm.handleBlur}
+              value={studentAddForm.values.rollNo}
             />
           </div>
         </section>

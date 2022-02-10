@@ -8,7 +8,7 @@ const DashboardPage: React.FC<{}> = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const { account } = useAccount();
-  console.log(account);
+
   return (
     <DashboardLayout
       navbar={

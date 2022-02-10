@@ -10,6 +10,17 @@ export interface User {
   middleName?: string;
   lastName?: string;
   email?: string;
+  address?: string;
+  gender?: string;
+  phone?: string;
+  refresh?: string;
+  access?: string;
+  token?: string;
+  admin?: boolean;
+  staff?: boolean;
+  student?: boolean;
+  teacher?: boolean;
+  images?: string;
   activated?: boolean;
 }
 

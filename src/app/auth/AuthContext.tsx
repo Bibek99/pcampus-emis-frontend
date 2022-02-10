@@ -1,4 +1,5 @@
-import { AUTH_TOKEN_KEY } from '@constants/auth';
+import { User } from '@app/types/users.types';
+import { AUTH_TOKEN_KEY, AUTH_USER_KEY } from '@constants/auth';
 import { isBrowser } from '@utils/windowType';
 import React, {
   ReactNode,
@@ -17,7 +18,7 @@ interface AuthContextValue {
   logout(): void;
 }
 
-const updateToken = (newToken: string) => {
+const updateToken = (newToken: any) => {
   if (!isBrowser) {
     return () => undefined;
   }
@@ -26,6 +27,18 @@ const updateToken = (newToken: string) => {
     localStorage.removeItem(AUTH_TOKEN_KEY);
   } else {
     localStorage.setItem(AUTH_TOKEN_KEY, newToken);
+  }
+};
+
+const updateUser = (newUser: any) => {
+  if (!isBrowser) {
+    return () => undefined;
+  }
+
+  if (!newUser) {
+    localStorage.removeItem(AUTH_USER_KEY);
+  } else {
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(newUser));
   }
 };
 
@@ -45,7 +58,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isBrowser && localStorage.getItem(AUTH_TOKEN_KEY)
   );
 
-  const [authenticatedUser, setAuthenticatedUser] = useState(undefined);
+  const [authenticatedUser, setAuthenticatedUser] = useState<any>(
+    isBrowser && localStorage.getItem(AUTH_USER_KEY)
+  );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -61,15 +76,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const handleUpdateUser = useCallback(
-    (newUser) => {
+    (newUser: any) => {
       setAuthenticatedUser(newUser);
+      updateUser(newUser);
     },
     [setAuthenticatedUser]
   );
 
   const handleLogOut = useCallback(() => {
     setToken('');
-    setAuthenticatedUser(undefined);
+    setAuthenticatedUser('');
+    updateUser('');
     updateToken('');
   }, []);
 
