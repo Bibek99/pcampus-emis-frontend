@@ -7,7 +7,7 @@ import {
 } from '@app/components/Forms';
 import * as Yup from 'yup';
 import {
-  useCreateAccount,
+  useCreateStudentAccount,
   useFetchBatch,
   useFetchDepartment,
   useFetchSection,
@@ -21,7 +21,7 @@ const studentAddSchema = Yup.object().shape({
 });
 
 export const StudentAddForm: React.FC<{}> = () => {
-  const { mutate: createStudent } = useCreateAccount({
+  const { mutate: createStudent } = useCreateStudentAccount({
     onError: (error) => {
       toast.error(error);
     },

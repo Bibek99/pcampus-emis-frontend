@@ -7,7 +7,7 @@ interface UserRoleType {
   role: 'student' | 'department' | 'staff' | 'admin';
 }
 
-export const useCreateAccount = (
+export const useCreateStudentAccount = (
   config: UseMutationOptions<User, any, any>
 ) => {
   const booleans = {
@@ -17,7 +17,32 @@ export const useCreateAccount = (
     department: 'False',
   };
   return useMutation(
-    (newStudent) => api.post('register/user/', { ...newStudent, ...booleans }),
+    (newStudent) =>
+      api.post('register/user/', {
+        ...newStudent,
+        ...booleans,
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useCreateTeacherAccount = (
+  config: UseMutationOptions<User, any, any>
+) => {
+  const booleans = {
+    admin: 'False',
+    student: 'False',
+    staff: 'True',
+    department: 'False',
+  };
+  return useMutation(
+    (newTeacher) =>
+      api.post('/register/user/', {
+        ...newTeacher,
+        ...booleans,
+      }),
     {
       ...config,
     }
