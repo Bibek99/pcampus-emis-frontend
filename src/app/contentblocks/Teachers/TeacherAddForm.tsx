@@ -4,7 +4,7 @@ import {
   CustomDatePicker,
   CustomSelectInput,
   CustomTextInput,
-} from '@app/layout/Forms';
+} from '@app/components/Forms';
 import * as Yup from 'yup';
 
 const teacherAddSchema = Yup.object().shape({

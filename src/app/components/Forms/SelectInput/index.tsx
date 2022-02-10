@@ -11,10 +11,7 @@ interface CustomSelectInput {
   onChange?: ChangeEventHandler;
   value?: string | number;
   onBlur?: (e: any) => void;
-  options?: {
-    name: string;
-    value: string;
-  }[];
+  options?: any;
 }
 
 export const CustomSelectInput: React.FC<CustomSelectInput> = ({
@@ -27,6 +24,7 @@ export const CustomSelectInput: React.FC<CustomSelectInput> = ({
   onChange,
   onBlur,
   options,
+  value,
 }) => {
   return (
     <div className="flex w-full flex-col">
@@ -45,8 +43,14 @@ export const CustomSelectInput: React.FC<CustomSelectInput> = ({
           <option value={placeholder} disabled>
             {placeholder}
           </option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
+          {options &&
+            options.map((option: any) => {
+              return (
+                <option key={option.id} value={option.name}>
+                  {option.name}
+                </option>
+              );
+            })}
         </select>
         <div className="pointer-events-none absolute top-6 right-0 flex items-center px-3 text-gray-700">
           <ChevronDownIcon className="h-5 w-5" />

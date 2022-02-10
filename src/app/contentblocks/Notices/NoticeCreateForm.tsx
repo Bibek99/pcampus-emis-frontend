@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { CustomFileUpload, CustomTextInput } from '@app/layout/Forms';
-import { CustomTextArea } from '@app/layout/Forms/TextArea';
+import { CustomFileUpload, CustomTextInput } from '@app/components/Forms';
+import { CustomTextArea } from '@app/components/Forms/TextArea';
 
 const noticeCreateSchema = Yup.object().shape({});
 

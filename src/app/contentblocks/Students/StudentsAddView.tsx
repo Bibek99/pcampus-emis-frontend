@@ -1,6 +1,6 @@
 import { UploadIcon } from '@app/elements/icons';
 import { Modal } from '@app/layout';
-import { CustomFileUpload } from '@app/layout/Forms';
+import { CustomFileUpload } from '@app/components/Forms';
 import React, { useState } from 'react';
 import { StudentAddForm } from '.';
 
