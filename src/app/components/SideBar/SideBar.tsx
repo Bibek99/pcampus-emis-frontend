@@ -7,11 +7,13 @@ import { CloseIcon } from '@app/elements/icons';
 type SideBarType = {
   isSidebarOpen: boolean;
   setSidebarOpen: (isSidebarOpen: boolean) => void;
+  routes?: any;
 };
 
 export const SideBar: React.FC<SideBarType> = ({
   isSidebarOpen,
   setSidebarOpen,
+  routes,
 }) => {
   const trigger = useRef<HTMLButtonElement>(null);
   const sidebar = useRef<HTMLButtonElement>(null);
@@ -72,16 +74,17 @@ export const SideBar: React.FC<SideBarType> = ({
           </button>
         </div>
         <div className="flex flex-col space-y-4">
-          {AdminRoutes.map(
-            (route, index) =>
-              (
-                <SideBarMenuItem
-                  key={index}
-                  route={route}
-                  onClick={() => setSidebarOpen(false)}
-                />
-              ) as any
-          )}
+          {routes &&
+            routes.map(
+              (route: any, index: number) =>
+                (
+                  <SideBarMenuItem
+                    key={index}
+                    route={route}
+                    onClick={() => setSidebarOpen(false)}
+                  />
+                ) as any
+            )}
         </div>
       </aside>
     </div>

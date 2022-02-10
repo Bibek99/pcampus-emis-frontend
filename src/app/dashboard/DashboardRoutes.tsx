@@ -3,10 +3,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminRoutes } from './admin/AdminRoutes';
 
-const DashboardRoutes: React.FC<{}> = () => {
+const DashboardRoutes = ({ role }: any) => {
   return (
     <Routes>
-      <Route path="/*" element={<AdminRoutes />} />
+      <Route path="/*" element={role === 'STUDENT' && <AdminRoutes />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

@@ -3,8 +3,8 @@ import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
-interface UserRoleType {
-  role: 'student' | 'department' | 'staff' | 'admin';
+export interface UserRoleType {
+  role: 'STUDENT' | 'DEPT_ADMIN' | 'TEACHER' | 'ADMIN';
 }
 
 export const useCreateStudentAccount = (

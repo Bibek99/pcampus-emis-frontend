@@ -10,3 +10,12 @@ export const authHeader = (): AxiosRequestHeaders => {
   }
   return {};
 };
+
+export const getAccessToken = () => {
+  const user = JSON.parse(localStorage.getItem(AUTH_USER_KEY) || '');
+  if (user && user.access) {
+    return user.access;
+  } else {
+    return null;
+  }
+};
