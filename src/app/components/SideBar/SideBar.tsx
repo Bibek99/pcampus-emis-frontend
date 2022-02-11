@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { SideBarMenuItem } from '.';
-import { AdminRoutes } from '@app/elements/routes';
 import { CloseIcon } from '@app/elements/icons';
 
 type SideBarType = {

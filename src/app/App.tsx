@@ -5,10 +5,6 @@ import LoginPage from './auth/LoginPage';
 import { Loader } from '@app/layout';
 import { RoleBasedDashboardWrapper } from './dashboard/RoleBasedDashboardWrapper';
 
-const DashboardRoutes = React.lazy(
-  () => import('@app/dashboard/DashboardRoutes')
-);
-
 export const App = () => {
   return (
     <BrowserRouter basename="/app">

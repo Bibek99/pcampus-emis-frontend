@@ -1,4 +1,8 @@
-import { AdminRoutes } from '@app/elements/routes';
+import {
+  adminRoutes,
+  studentRoutes,
+  teacherRoutes,
+} from '@app/elements/routes';
 import { AuthenticatedRouteGuard } from '@app/router/guards';
 import { useUserRole } from '@app/services/account.service';
 import React from 'react';
@@ -15,16 +19,16 @@ export const RoleBasedDashboardWrapper = () => {
 
   switch (role?.data) {
     case 'ADMIN':
-      routes = AdminRoutes;
+      routes = adminRoutes;
       break;
     case 'DEPT_ADMIN':
-      routes = AdminRoutes;
+      routes = adminRoutes;
       break;
     case 'TEACHER':
-      routes = AdminRoutes;
+      routes = adminRoutes;
       break;
     case 'STUDENT':
-      routes = AdminRoutes;
+      routes = studentRoutes;
       break;
     default:
       return <h1>No role</h1>;
