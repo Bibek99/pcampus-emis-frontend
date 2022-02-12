@@ -7,7 +7,7 @@ import { StudentRoutes } from './students/StudentRoutes';
 const DashboardRoutes = ({ role }: any) => {
   return (
     <Routes>
-      <Route path="/*" element={role === 'STUDENT' && <StudentRoutes />} />
+      <Route path="/*" element={role === 'STUDENT' && <AdminRoutes />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

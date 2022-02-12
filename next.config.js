@@ -13,6 +13,6 @@ module.exports = {
     ];
   },
   images: {
-    domains: ['joeschmoe.io'],
+    domains: ['joeschmoe.io', 'localhost'],
   },
 };

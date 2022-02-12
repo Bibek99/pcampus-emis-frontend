@@ -1,5 +1,10 @@
 import { User } from '@app/types/users.types';
-import { useMutation, UseMutationOptions, useQuery } from 'react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -25,6 +30,24 @@ export const useCreateStudentAccount = (
     {
       ...config,
     }
+  );
+};
+
+export const useGetStudents = (config?: UseQueryOptions) => {
+  const header = authHeader();
+  return useQuery('get-students', () =>
+    api.get('show/all_students/', {
+      headers: header,
+    })
+  );
+};
+
+export const useGetTeachers = () => {
+  const header = authHeader();
+  return useQuery('get-teachers', () =>
+    api.get('show/all_teacher/', {
+      headers: header,
+    })
   );
 };
 

@@ -28,7 +28,7 @@ export const RoleBasedDashboardWrapper = () => {
       routes = adminRoutes;
       break;
     case 'STUDENT':
-      routes = studentRoutes;
+      routes = adminRoutes;
       break;
     default:
       return <h1>No role</h1>;

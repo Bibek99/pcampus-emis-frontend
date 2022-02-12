@@ -1,8 +1,11 @@
 import { AddUserIcon } from '@app/elements/icons';
 import { TableView } from '@app/layout';
+import { useGetTeachers } from '@app/services/user.service';
 import { Link } from 'react-router-dom';
 
 export const TeachersView: React.FC = () => {
+  const { data: teachers } = useGetTeachers();
+  console.log(teachers?.data);
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">
@@ -19,7 +22,7 @@ export const TeachersView: React.FC = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="flex flex-col space-y-4">
-        <TableView exportOption />
+        {/* <TableView exportOption /> */}
       </div>
     </div>
   );
