@@ -36,7 +36,7 @@ export const FeedView = () => {
 
       <div className="flex flex-col space-y-6 divide-y-2">
         {[1, 2, 3].map((feed, index) => (
-          <FeedItem />
+          <FeedItem key={index} />
         ))}
       </div>
     </>
