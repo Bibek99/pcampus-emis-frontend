@@ -19,9 +19,7 @@ export const NoticeView = () => {
         </Link>
       </div>
       <hr className="border border-gray-300" />
-      <div className="flex flex-col space-y-4">
-        <TableView />
-      </div>
+      <div className="flex flex-col space-y-4">{/* <TableView /> */}</div>
     </div>
   );
 };

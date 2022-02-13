@@ -71,6 +71,7 @@ export const StudentsView: React.FC = () => {
       };
     });
     setStudents(normalizedStudentData);
+    console.log(normalizedStudentData);
   };
 
   useEffect(() => {

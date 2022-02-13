@@ -1,4 +1,3 @@
-import { User } from '@app/types/users.types';
 import { AUTH_TOKEN_KEY, AUTH_USER_KEY } from '@constants/auth';
 import { isBrowser } from '@utils/windowType';
 import React, {
@@ -15,6 +14,8 @@ interface AuthContextValue {
   authenticatedUser: object | undefined;
   updateUser(newUser: object): void;
   updateToken(token: string): void;
+  role: string;
+  setRole(role: string): void;
   logout(): void;
 }
 
@@ -46,8 +47,10 @@ const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
   setIsAuthenticated: () => undefined,
   authenticatedUser: undefined,
-  updateUser: () => undefined,
+  updateUser: updateUser,
   updateToken: updateToken,
+  role: '',
+  setRole: () => undefined,
   logout: () => undefined,
 });
 
@@ -62,6 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isBrowser && localStorage.getItem(AUTH_USER_KEY)
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     setIsAuthenticated(!!token);
@@ -88,6 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthenticatedUser('');
     updateUser('');
     updateToken('');
+    setRole('');
   }, []);
 
   return (
@@ -98,6 +103,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         authenticatedUser: authenticatedUser,
         updateUser: handleUpdateUser,
         updateToken: handleUpdateToken,
+        role: role,
+        setRole: setRole,
         logout: handleLogOut,
       }}
     >

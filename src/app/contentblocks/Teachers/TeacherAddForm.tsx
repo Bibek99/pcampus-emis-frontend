@@ -11,19 +11,26 @@ import {
   useFetchDepartment,
 } from '@app/services/user.service';
 import { toast } from 'react-toastify';
+import { Spinner } from '@app/components';
 
 const teacherAddSchema = Yup.object().shape({
   first_name: Yup.string().required('First Name is requied'),
+  last_name: Yup.string().required('Last Name is requied'),
   gender: Yup.string().required('Please select a gender'),
+  email: Yup.string()
+    .email('Please provide a valid email')
+    .required('Email is required'),
+  department_name: Yup.string().required('Department is required'),
 });
 
 export const TeacherAddForm: React.FC<{}> = () => {
-  const { mutate: createTeacher } = useCreateTeacherAccount({
+  const { mutate: createTeacher, isLoading } = useCreateTeacherAccount({
     onError: (error) => {
       toast.error(error);
     },
     onSuccess: () => {
       toast.success('Teacher Added To Database');
+      teacherAddForm.resetForm();
     },
   });
   const teacherAddForm = useFormik({
@@ -181,9 +188,10 @@ export const TeacherAddForm: React.FC<{}> = () => {
         <div className="mt-6 flex w-full justify-center">
           <button
             type="submit"
-            className="w-full rounded-md bg-emerald-500 py-2 px-6 text-gray-50 sm:w-32"
+            className="flex items-center justify-center rounded-lg bg-emerald-500 px-16 py-3 font-semibold text-white"
           >
-            Submit
+            <Spinner className={isLoading ? 'mr-2 animate-spin' : 'hidden'} />
+            <span>{isLoading ? 'Submitting Data' : 'Submit'}</span>
           </button>
         </div>
       </form>

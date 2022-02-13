@@ -1,11 +1,71 @@
 import { AddUserIcon } from '@app/elements/icons';
 import { TableView } from '@app/layout';
 import { useGetTeachers } from '@app/services/user.service';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const columns = [
+  {
+    Header: 'Image',
+    accessor: 'images',
+    Cell: ({ row }: { row: any }) => {
+      return row.values.images ? (
+        <Image
+          src={`http://localhost:8000${row.values.images}`}
+          height={48}
+          width={48}
+          className="rounded-full"
+        />
+      ) : (
+        <span></span>
+      );
+    },
+  },
+  {
+    Header: 'First Name',
+    accessor: 'first_name',
+  },
+  {
+    Header: 'Middle Name',
+    accessor: 'middle_name',
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'last_name',
+  },
+  {
+    Header: 'Email',
+    accessor: 'email',
+  },
+  {
+    Header: 'Phone',
+    accessor: 'phone',
+  },
+  {
+    Header: 'Department',
+    accessor: 'department_t',
+  },
+];
+
 export const TeachersView: React.FC = () => {
-  const { data: teachers } = useGetTeachers();
-  console.log(teachers?.data);
+  const { data } = useGetTeachers();
+  const [teachers, setTeachers] = useState<any[]>([]);
+
+  const normalizeTeacherData = () => {
+    let normalizedTeacherData: any[] = [];
+    data?.data.map((teacher: any, index: number) => {
+      normalizedTeacherData[index] = {
+        department_t: teacher?.department.name,
+        ...teacher?.teacher,
+      };
+    });
+    setTeachers(normalizedTeacherData);
+  };
+
+  useEffect(() => {
+    normalizeTeacherData();
+  }, [data]);
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">
@@ -22,7 +82,7 @@ export const TeachersView: React.FC = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="flex flex-col space-y-4">
-        {/* <TableView exportOption /> */}
+        <TableView exportOption tableData={teachers} columnData={columns} />
       </div>
     </div>
   );

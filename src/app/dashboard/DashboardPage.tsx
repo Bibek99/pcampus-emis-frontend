@@ -1,3 +1,4 @@
+import { useAuthContext } from '@app/auth/AuthContext';
 import { LoginInterceptorModal } from '@app/auth/LoginInterceptorModal';
 import { BreadCrumb, MainNav, SideBar } from '@app/components';
 import { DashboardLayout } from '@app/layout';
@@ -10,6 +11,9 @@ interface DashboardPage {
 
 const DashboardPage: React.FC<DashboardPage> = ({ routes, children }: any) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const { role } = useAuthContext();
+  console.log('role', role);
 
   return (
     <DashboardLayout

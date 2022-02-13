@@ -59,6 +59,7 @@ export const useCreateTeacherAccount = (
     student: 'False',
     staff: 'True',
     department: 'False',
+    password_changed: 'False',
   };
   return useMutation(
     (newTeacher) =>
@@ -66,6 +67,17 @@ export const useCreateTeacherAccount = (
         ...newTeacher,
         ...booleans,
       }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useCreateDepartment = (
+  config: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (newDepartment) => api.post('register/department/', { ...newDepartment }),
     {
       ...config,
     }
