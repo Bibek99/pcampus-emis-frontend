@@ -6,16 +6,16 @@ import {
 } from '@app/elements/routes';
 import { AuthenticatedRouteGuard } from '@app/router/guards';
 import { useUserRole } from '@app/services/account.service';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import DashboardPage from './DashboardPage';
 import DashboardRoutes from './DashboardRoutes';
 
 export const RoleBasedDashboardWrapper = () => {
   const { role, isLoading } = useUserRole();
-  const { role: userRoleContext, setRole } = useAuthContext();
+  const { setRole } = useAuthContext();
   let routes;
 
-  useCallback(() => setRole(role?.data), []);
+  useEffect(() => setRole(role?.data), [role?.data]);
 
   if (isLoading) {
     return <h1>Loading</h1>;

@@ -1,3 +1,4 @@
+import { useAuthContext } from '@app/auth/AuthContext';
 import {
   ClipboardCheckIcon,
   FolderIcon,
@@ -6,7 +7,12 @@ import {
 import classNames from 'classnames';
 import React from 'react';
 import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import { AssignmentView, FeedView, MaterialView } from '.';
+import {
+  AssignmentCreateView,
+  AssignmentView,
+  FeedView,
+  MaterialView,
+} from '.';
 
 const ClassNav = () => {
   const { pathname } = useLocation();
@@ -81,13 +87,24 @@ const ClassNav = () => {
 };
 
 export const ClassView = () => {
+  const { role } = useAuthContext();
   return (
     <>
       <ClassNav />
       <div className="p-6">
         <Routes>
           <Route path="/" element={<FeedView />} />
-          <Route path="assignments" element={<AssignmentView />} />
+          <Route
+            path="assignments/*"
+            element={
+              <Routes>
+                <Route path="/" element={<AssignmentView />} />
+                {role === 'STUDENT' && (
+                  <Route path="create" element={<AssignmentCreateView />} />
+                )}
+              </Routes>
+            }
+          />
           <Route path="materials" element={<MaterialView />} />
         </Routes>
       </div>

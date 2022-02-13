@@ -9,6 +9,7 @@ import {
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
+import { ClassList, ClassView } from '@app/contentblocks/Class';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -60,6 +61,24 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<TeachersView />} />
               <Route path="/add" element={<TeachersAddView />} />
+            </Routes>
+          </div>
+        }
+      />
+      <Route
+        path="classes/*"
+        element={
+          <div className="rounded-md bg-gray-50">
+            <Routes>
+              <Route path="/" element={<ClassList />} />
+              <Route
+                path=":class/*"
+                element={
+                  <Routes>
+                    <Route path="/*" element={<ClassView />} />
+                  </Routes>
+                }
+              />
             </Routes>
           </div>
         }

@@ -102,6 +102,15 @@ export const useFetchDepartment = () => {
   );
 };
 
+export const useFetchClass = () => {
+  const header = authHeader();
+  return useQuery('fetch-classes', () =>
+    api.get('view/class/', {
+      headers: header,
+    })
+  );
+};
+
 export const useFetchSection = () => {
   const header = authHeader();
   return useQuery('fetch-section', () =>
