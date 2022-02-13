@@ -37,7 +37,7 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<DepartmentView />} />
               <Route path="/create" element={<DepartmentCreateView />} />
-              <Route path="/:id" element={<DepartmentDetail />} />
+              <Route path="/:alias" element={<DepartmentDetail />} />
             </Routes>
           </div>
         }
