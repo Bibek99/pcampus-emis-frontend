@@ -6,7 +6,7 @@ import {
 } from '@app/elements/routes';
 import { AuthenticatedRouteGuard } from '@app/router/guards';
 import { useUserRole } from '@app/services/account.service';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import DashboardPage from './DashboardPage';
 import DashboardRoutes from './DashboardRoutes';
 
@@ -35,7 +35,7 @@ export const RoleBasedDashboardWrapper = () => {
       routes = adminRoutes;
       break;
     default:
-      return <h1>No role</h1>;
+      break;
   }
   return (
     <AuthenticatedRouteGuard>

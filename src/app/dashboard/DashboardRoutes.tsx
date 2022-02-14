@@ -14,7 +14,9 @@ const DashboardRoutes = ({ role }: any) => {
           role === 'ADMIN' ? (
             <AdminRoutes />
           ) : role === 'STUDENT' ? (
-            <StudentRoutes />
+            <AdminRoutes />
+          ) : role === 'TEACHER' ? (
+            <AdminRoutes />
           ) : (
             <h1>No role</h1>
           )

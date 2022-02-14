@@ -9,7 +9,11 @@ import {
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
-import { ClassList, ClassView } from '@app/contentblocks/Class';
+import {
+  ClassCreateView,
+  ClassList,
+  ClassView,
+} from '@app/contentblocks/Class';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -71,6 +75,7 @@ export const AdminRoutes = () => {
           <div className="rounded-md bg-gray-50">
             <Routes>
               <Route path="/" element={<ClassList />} />
+              <Route path="create" element={<ClassCreateView />} />
               <Route
                 path=":class/*"
                 element={

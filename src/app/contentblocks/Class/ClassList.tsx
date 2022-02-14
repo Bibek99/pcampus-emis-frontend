@@ -30,7 +30,7 @@ export const ClassList = () => {
             <span>
               <PlusIcon className="h-4 w-4" />
             </span>
-            <span className="hidden sm:block">Add Class</span>
+            <span className="hidden sm:block">Create Class</span>
           </Link>
         )}
       </div>

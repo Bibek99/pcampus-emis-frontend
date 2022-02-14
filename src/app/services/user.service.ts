@@ -20,6 +20,7 @@ export const useCreateStudentAccount = (
     student: 'True',
     staff: 'False',
     department: 'False',
+    password_changed: 'False',
   };
   return useMutation(
     (newStudent) =>
@@ -105,7 +106,7 @@ export const useFetchDepartment = () => {
 export const useFetchClass = () => {
   const header = authHeader();
   return useQuery('fetch-classes', () =>
-    api.get('view/class/', {
+    api.get('show/class/all/', {
       headers: header,
     })
   );
