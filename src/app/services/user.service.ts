@@ -34,6 +34,25 @@ export const useCreateStudentAccount = (
   );
 };
 
+export const useCreateStudentsInBulk = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  const header = authHeader();
+
+  return useMutation(
+    (files) =>
+      api.post('import/user/', files, {
+        headers: {
+          ...header,
+          'Content-Type': 'multipart/form-data; boundary=999999999999',
+        },
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
 export const useGetStudents = (config?: UseQueryOptions) => {
   const header = authHeader();
   return useQuery('get-students', () =>
