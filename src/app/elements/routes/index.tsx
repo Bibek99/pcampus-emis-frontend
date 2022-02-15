@@ -119,3 +119,46 @@ export const teacherRoutes = [
     path: '/archived-classes',
   },
 ];
+
+export const departmentAdminRoutes = [
+  {
+    title: 'Dashboard',
+    icon: <TemplateIcon className="h-6 w-6" />,
+    path: '/dashboard',
+  },
+  {
+    title: 'Notices',
+    icon: <InformationCircleIcon className="h-6 w-6" />,
+    path: '/notices',
+  },
+  {
+    title: 'Students',
+    icon: <UserGroupIcon className="h-6 w-6" />,
+    path: '/students',
+  },
+  {
+    title: 'Teachers',
+    icon: <AcademicCapIcon className="h-6 w-6" />,
+    path: '/teachers',
+  },
+  {
+    title: 'Calendar',
+    icon: <CalendarIcon className="h-6 w-6" />,
+    path: '/calendar',
+  },
+  {
+    title: 'Results',
+    icon: <ClipboardListIcon className="h-6 w-6" />,
+    path: '/results',
+  },
+  {
+    title: 'Classes',
+    icon: <PresentationChartBarIcon className="h-6 w-6" />,
+    path: '/classes',
+  },
+  {
+    title: 'Archived Classes',
+    icon: <ArchiveIcon className="h-6 w-6" />,
+    path: '/archived-classes',
+  },
+];
