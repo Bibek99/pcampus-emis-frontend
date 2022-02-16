@@ -7,3 +7,5 @@ export * from './AssignmentView';
 export * from './AssignmentCreateView';
 export * from './AssignmentCreateForm';
 export * from './MaterialView';
+export * from './CreateFolderForm';
+export * from './UploadFilesForm';

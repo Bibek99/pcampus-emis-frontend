@@ -6,7 +6,6 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 export const AssignmentItem = ({ assignment }: { assignment: any }) => {
-  console.log(assignment);
   return (
     <div className="flex w-full space-x-6 pt-4">
       <div>
