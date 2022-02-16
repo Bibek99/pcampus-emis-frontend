@@ -1,22 +1,39 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomTextArea } from '@app/components/Forms/TextArea';
-import { usecreateClassNotice } from '@app/services';
+import { usecreateClassNotice, useFetchClassNotice } from '@app/services';
 import { useFormik } from 'formik';
+import moment from 'moment';
 import Image from 'next/image';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useQueryClient } from 'react-query';
 
-export const FeedItem = () => {
+export const FeedItem = ({ feed }: { feed: any }) => {
   return (
     <div className="flex w-full space-x-4 pt-4">
-      <div>Avatar</div>
-      <div>Someone posted about the assignment.</div>
+      <div>
+        <Image
+          src="https://joeschmoe.io/api/v1/random"
+          height={32}
+          width={32}
+          priority
+        />
+      </div>
+      <div className="space-y-2">
+        <h3 className="font-semibold">{feed.publish_by}</h3>
+        <p className="text-gray-800">{feed?.content}</p>
+        <span className="text-sm italic text-gray-500">
+          {moment(feed?.created_at).fromNow()}
+        </span>
+      </div>
     </div>
   );
 };
 
 export const FeedCreate = () => {
+  const queryClient = useQueryClient();
+
   const { id } = useParams();
   const { authenticatedUser } = useAuthContext();
 
@@ -30,6 +47,7 @@ export const FeedCreate = () => {
       onSuccess: () => {
         toast.success('success');
         feedCreateForm.resetForm();
+        queryClient.invalidateQueries(['classNotice', id]);
       },
     },
     id,
@@ -87,13 +105,26 @@ export const FeedCreate = () => {
 };
 
 export const FeedView = () => {
+  const { id } = useParams();
+
+  const { data: feeds } = useFetchClassNotice(
+    {
+      onError: () => {
+        toast.error('Notice fetch error');
+      },
+      onSuccess: () => {
+        toast.success('Notice fetch success');
+      },
+    },
+    id
+  );
   return (
     <>
       <FeedCreate />
 
       <div className="flex flex-col space-y-6 divide-y-2">
-        {[1, 2, 3].map((feed, index) => (
-          <FeedItem key={index} />
+        {feeds?.data.map((feed: any, index: number) => (
+          <FeedItem feed={feed} key={index} />
         ))}
       </div>
     </>

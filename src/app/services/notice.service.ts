@@ -1,4 +1,9 @@
-import { useMutation, UseMutationOptions } from 'react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -19,5 +24,16 @@ export const usecreateClassNotice = (
     {
       ...config,
     }
+  );
+};
+
+export const useFetchClassNotice = (
+  config?: UseQueryOptions<any, any, any>,
+  class_id?: string
+) => {
+  return useQuery(['classNotice', class_id], () =>
+    api.get(`notice/show/${class_id || ''}/`, {
+      headers: authHeader(),
+    })
   );
 };
