@@ -69,25 +69,6 @@ export const AdminRoutes = () => {
           </div>
         }
       />
-      <Route
-        path="classes/*"
-        element={
-          <div className="rounded-md bg-gray-50">
-            <Routes>
-              <Route path="/" element={<ClassList />} />
-              <Route path="create" element={<ClassCreateView />} />
-              <Route
-                path=":class/*"
-                element={
-                  <Routes>
-                    <Route path="/*" element={<ClassView />} />
-                  </Routes>
-                }
-              />
-            </Routes>
-          </div>
-        }
-      />
     </Routes>
   );
 };

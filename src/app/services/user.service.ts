@@ -139,3 +139,36 @@ export const useFetchSection = () => {
     })
   );
 };
+
+// export const useFilterStudent = () => {
+//   const header = authHeader();
+//   return useQuery('filter-student', () => api.get('filter/student/'));
+// };
+
+export const useFilterTeacher = (
+  department?: string,
+  config?: UseQueryOptions
+) => {
+  const header = authHeader();
+  return useQuery('filter-teacher', () =>
+    api.get(`filter/teacher/?department=${department || ''}`, {
+      headers: header,
+    })
+  );
+};
+
+export const useCreateClass = (config?: UseMutationOptions<any, any, any>) => {
+  return useMutation(
+    (newClass) =>
+      api.post(
+        'create/class/',
+        { ...newClass },
+        {
+          headers: authHeader(),
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+};

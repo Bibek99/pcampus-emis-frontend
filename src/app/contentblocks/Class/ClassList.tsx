@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 
 export const ClassList = () => {
   const { data } = useFetchClass();
-  console.log(data?.data);
-
   const { role } = useAuthContext();
 
   const showButton = () => {

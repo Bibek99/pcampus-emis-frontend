@@ -32,3 +32,21 @@ export const useUserRole = (config: UseQueryOptions = {}) => {
 
   return { role, ...rest };
 };
+
+export const useUserDept = (config: UseQueryOptions = {}) => {
+  const { data: department, ...rest } = useQuery(
+    ['department'],
+    (): Promise<any> =>
+      api.post(
+        'users/self/department/',
+        {
+          access: getAccessToken(),
+        },
+        {
+          headers: authHeader(),
+        }
+      )
+  );
+
+  return { department, ...rest };
+};

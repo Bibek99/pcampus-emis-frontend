@@ -15,6 +15,8 @@ interface AuthContextValue {
   updateUser(newUser: object): void;
   updateToken(token: string): void;
   role: string;
+  department: string;
+  setDepartment: (arg: string) => void;
   setRole(role: string): void;
   logout(): void;
 }
@@ -51,6 +53,8 @@ const AuthContext = React.createContext<AuthContextValue>({
   updateToken: updateToken,
   role: '',
   setRole: () => undefined,
+  department: '',
+  setDepartment: () => undefined,
   logout: () => undefined,
 });
 
@@ -66,6 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState('');
+  const [department, setDepartment] = useState('');
 
   useEffect(() => {
     setIsAuthenticated(!!token);
@@ -105,6 +110,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         updateToken: handleUpdateToken,
         role: role,
         setRole: setRole,
+        department: department,
+        setDepartment: setDepartment,
         logout: handleLogOut,
       }}
     >

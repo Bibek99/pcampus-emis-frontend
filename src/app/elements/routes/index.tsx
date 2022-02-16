@@ -47,16 +47,6 @@ export const adminRoutes = [
     icon: <ClipboardListIcon className="h-6 w-6" />,
     path: '/results',
   },
-  {
-    title: 'Classes',
-    icon: <PresentationChartBarIcon className="h-6 w-6" />,
-    path: '/classes',
-  },
-  {
-    title: 'Archived Classes',
-    icon: <ArchiveIcon className="h-6 w-6" />,
-    path: '/archived-classes',
-  },
 ];
 
 export const studentRoutes = [
@@ -132,6 +122,11 @@ export const departmentAdminRoutes = [
     path: '/notices',
   },
   {
+    title: 'Classes',
+    icon: <PresentationChartBarIcon className="h-6 w-6" />,
+    path: '/classes',
+  },
+  {
     title: 'Students',
     icon: <UserGroupIcon className="h-6 w-6" />,
     path: '/students',
@@ -151,11 +146,7 @@ export const departmentAdminRoutes = [
     icon: <ClipboardListIcon className="h-6 w-6" />,
     path: '/results',
   },
-  {
-    title: 'Classes',
-    icon: <PresentationChartBarIcon className="h-6 w-6" />,
-    path: '/classes',
-  },
+
   {
     title: 'Archived Classes',
     icon: <ArchiveIcon className="h-6 w-6" />,

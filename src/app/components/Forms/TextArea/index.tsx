@@ -31,7 +31,7 @@ export const CustomTextArea: React.FC<CustomTextArea> = ({
       <textarea
         name={name}
         placeholder={placeholder}
-        className="mt-2 h-64 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
+        className="mt-2 h-32 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
         onChange={onChange}
         onBlur={onBlur}
         value={value}

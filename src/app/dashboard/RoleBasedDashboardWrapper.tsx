@@ -1,21 +1,28 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import {
   adminRoutes,
+  departmentAdminRoutes,
   studentRoutes,
   teacherRoutes,
 } from '@app/elements/routes';
 import { AuthenticatedRouteGuard } from '@app/router/guards';
-import { useUserRole } from '@app/services/account.service';
+import { useUserDept, useUserRole } from '@app/services/account.service';
 import React, { useEffect } from 'react';
 import DashboardPage from './DashboardPage';
 import DashboardRoutes from './DashboardRoutes';
 
 export const RoleBasedDashboardWrapper = () => {
   const { role, isLoading } = useUserRole();
-  const { setRole } = useAuthContext();
+  const { department } = useUserDept();
+
+  const { setRole, setDepartment } = useAuthContext();
+
   let routes;
 
-  useEffect(() => setRole(role?.data), [role?.data]);
+  useEffect(() => {
+    setRole(role?.data);
+    setDepartment(department?.data);
+  }, [role?.data, department?.data]);
 
   if (isLoading) {
     return <h1>Loading</h1>;
@@ -26,13 +33,13 @@ export const RoleBasedDashboardWrapper = () => {
       routes = adminRoutes;
       break;
     case 'DEPT_ADMIN':
-      routes = adminRoutes;
+      routes = departmentAdminRoutes;
       break;
     case 'TEACHER':
-      routes = adminRoutes;
+      routes = teacherRoutes;
       break;
     case 'STUDENT':
-      routes = adminRoutes;
+      routes = studentRoutes;
       break;
     default:
       break;

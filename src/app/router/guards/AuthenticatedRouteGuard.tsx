@@ -8,7 +8,6 @@ export const AuthenticatedRouteGuard: React.FC<{}> = ({ children }: any) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('checked auth');
     if (!isAuthenticated) {
       navigate(`/login?redirect=${encodeURIComponent(pathname + search)}`, {
         replace: true,

@@ -24,7 +24,6 @@ export const StudentsAddView = () => {
       toast.error('error');
     },
     onSuccess: () => {
-      console.log(data);
       toast.success('created');
     },
   });

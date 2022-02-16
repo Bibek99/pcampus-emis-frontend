@@ -12,9 +12,6 @@ interface DashboardPage {
 const DashboardPage: React.FC<DashboardPage> = ({ routes, children }: any) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  const { role } = useAuthContext();
-  console.log('role', role);
-
   return (
     <DashboardLayout
       navbar={
