@@ -3,7 +3,8 @@ import { SimpleCard } from '@app/components/Card';
 import { useFetchClass } from '@app/services/user.service';
 import { PlusIcon } from '@heroicons/react/outline';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+import { ClassCreateView, ClassView } from '.';
 
 export const ClassList = () => {
   const { data } = useFetchClass();
@@ -35,7 +36,7 @@ export const ClassList = () => {
       <hr className="border border-gray-300" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {data?.data.map((classobj: any, index: number) => (
-          <Link key={index} to={`${classobj.alias}`}>
+          <Link key={index} to={`${classobj.alias}-${classobj.id}`}>
             <SimpleCard data={classobj} />
           </Link>
         ))}

@@ -61,7 +61,7 @@ export const DepartmentAdminRoutes = () => {
               <Route path="/" element={<ClassList />} />
               <Route path="create" element={<ClassCreateView />} />
               <Route
-                path=":class/*"
+                path=":class-:id/*"
                 element={
                   <Routes>
                     <Route path="/*" element={<ClassView />} />
