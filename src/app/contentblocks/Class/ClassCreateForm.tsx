@@ -61,7 +61,6 @@ export const ClassCreateForm = () => {
         department: deptContext,
         t_id,
       };
-      console.log(newClass);
       createClass(newClass);
     },
   });

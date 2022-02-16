@@ -5,9 +5,10 @@ import { useFormik } from 'formik';
 import moment from 'moment';
 import Image from 'next/image';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from 'react-query';
+import * as Yup from 'yup';
 
 export const FeedItem = ({ feed }: { feed: any }) => {
   return (
@@ -21,8 +22,28 @@ export const FeedItem = ({ feed }: { feed: any }) => {
         />
       </div>
       <div className="space-y-2">
-        <h3 className="font-semibold">{feed.publish_by}</h3>
-        <p className="text-gray-800">{feed?.content}</p>
+        <h3>
+          {feed.title === 'Notice' ? (
+            <>
+              <span className="font-semibold">{feed.publish_by}</span>
+              <span className="ml-2 rounded-full bg-green-100 py-1 px-2 text-sm capitalize text-green-700">
+                Notice
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="font-semibold">{feed.publish_by}</span>
+              <span className="ml-2 rounded-full bg-red-100 py-1 px-2 text-sm capitalize text-red-700">
+                Assignment
+              </span>
+            </>
+          )}
+        </h3>
+        {feed.title !== 'Notice' ? (
+          <p className="text-gray-800">{feed.title}</p>
+        ) : (
+          <p className="text-gray-800">{feed?.content}</p>
+        )}
         <span className="text-sm italic text-gray-500">
           {moment(feed?.created_at).fromNow()}
         </span>
@@ -30,6 +51,10 @@ export const FeedItem = ({ feed }: { feed: any }) => {
     </div>
   );
 };
+
+const classNoticeSchema = Yup.object().shape({
+  content: Yup.string().required('Content is required'),
+});
 
 export const FeedCreate = () => {
   const queryClient = useQueryClient();
@@ -60,6 +85,7 @@ export const FeedCreate = () => {
       content: '',
       files: '',
     },
+    validationSchema: classNoticeSchema,
     onSubmit: (values) => {
       console.log(values);
       let newClassNotice = {
@@ -118,6 +144,7 @@ export const FeedView = () => {
     },
     id
   );
+
   return (
     <>
       <FeedCreate />

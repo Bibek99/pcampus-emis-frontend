@@ -99,7 +99,7 @@ export const ClassView = () => {
             element={
               <Routes>
                 <Route path="/" element={<AssignmentView />} />
-                {role === 'STUDENT' && (
+                {role === 'DEPT_ADMIN' && (
                   <Route path="create" element={<AssignmentCreateView />} />
                 )}
               </Routes>
