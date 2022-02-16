@@ -1,4 +1,9 @@
-import { useMutation, UseMutationOptions } from 'react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -22,5 +27,13 @@ export const useCreateAssignment = (
     {
       ...config,
     }
+  );
+};
+
+export const useFetchAssignments = (class_id?: string) => {
+  return useQuery(['assignments', class_id], () =>
+    api.get(`assignment/show/all/${class_id || ''}/`, {
+      headers: authHeader(),
+    })
   );
 };

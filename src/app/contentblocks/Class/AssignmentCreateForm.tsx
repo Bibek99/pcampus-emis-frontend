@@ -8,7 +8,7 @@ import { CustomTextArea } from '@app/components/Forms/TextArea';
 import { useCreateAssignment } from '@app/services';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -19,6 +19,8 @@ export const AssignmentCreateForm = () => {
   const { authenticatedUser } = useAuthContext();
   const userId = JSON.parse(authenticatedUser as any).id;
 
+  const navigate = useNavigate();
+
   const { mutate: createAssignment } = useCreateAssignment(
     {
       onError: () => {
@@ -27,6 +29,7 @@ export const AssignmentCreateForm = () => {
       onSuccess: () => {
         toast.success('Assignment created successfully!');
         assignmentCreateForm.resetForm();
+        navigate('../');
       },
     },
     id,
@@ -112,6 +115,7 @@ export const AssignmentCreateForm = () => {
               placeholder="Due Date"
               required
               label="Due Date"
+              type="datetime-local"
               error={assignmentCreateForm.errors?.due_date}
               touched={assignmentCreateForm.touched.due_date}
               onChange={assignmentCreateForm.handleChange}

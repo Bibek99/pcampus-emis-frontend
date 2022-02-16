@@ -22,7 +22,7 @@ const ClassNav = () => {
   else active = 'feed';
 
   return (
-    <section className="sticky -top-6 flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm">
+    <section className="sticky -top-6 z-[50] flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm ">
       <NavLink
         to="."
         className={classNames(

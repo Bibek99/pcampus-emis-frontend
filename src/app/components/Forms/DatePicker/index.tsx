@@ -10,6 +10,7 @@ interface CustomDatePicker {
   onChange?: ChangeEventHandler;
   value?: string | number;
   onBlur?: (e: any) => void;
+  type?: 'date' | 'datetime-local';
 }
 
 export const CustomDatePicker: React.FC<CustomDatePicker> = ({
@@ -22,6 +23,7 @@ export const CustomDatePicker: React.FC<CustomDatePicker> = ({
   onBlur,
   onChange,
   value,
+  type,
 }) => {
   return (
     <div className="flex w-full flex-col">
@@ -29,7 +31,7 @@ export const CustomDatePicker: React.FC<CustomDatePicker> = ({
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
-        type="date"
+        type={type ? type : 'date'}
         name={name}
         placeholder={placeholder}
         className="datepicker mt-2 h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
