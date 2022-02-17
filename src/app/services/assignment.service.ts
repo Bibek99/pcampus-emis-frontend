@@ -37,3 +37,37 @@ export const useFetchAssignments = (class_id?: string) => {
     })
   );
 };
+
+export const useFetchAssignmentDetails = (assignmentId?: string) => {
+  const { data, ...rest } = useQuery(['fetch-assignments', assignmentId], () =>
+    api.get(`assignment/show/${assignmentId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+
+  const assignmentData = data?.data;
+  return { assignmentData, ...rest };
+};
+
+export const useSubmitAssignment = (
+  config?: UseMutationOptions<any, any, any>,
+  assignment_id?: string,
+  student_id?: string
+) => {
+  return useMutation(
+    (studentFiles) =>
+      api.post(
+        `assignment/submit/${assignment_id || ''}/${student_id || ''}/`,
+        studentFiles,
+        {
+          headers: {
+            ...authHeader(),
+            'Content-Type': 'multipart/form-data; boundary=999999999999',
+          },
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+};

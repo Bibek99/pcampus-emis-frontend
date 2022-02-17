@@ -1,8 +1,5 @@
-import {
-  AssignmentCreateView,
-  ClassList,
-  ClassView,
-} from '@app/contentblocks/Class';
+import { ClassList, ClassView } from '@app/contentblocks/Class';
+import { AssignmentCreateView } from '@app/contentblocks/Class/Assignment';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -20,16 +17,12 @@ export const TeacherRoutes = () => {
             <Routes>
               <Route path="/" element={<ClassList />} />
               <Route
-                path=":class/*"
+                path=":class-:id/*"
                 element={
                   <Routes>
                     <Route path="/*" element={<ClassView />} />
                   </Routes>
                 }
-              />
-              <Route
-                path=":class/assignments/create"
-                element={<AssignmentCreateView />}
               />
             </Routes>
           </div>

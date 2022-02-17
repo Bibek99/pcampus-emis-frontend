@@ -5,6 +5,7 @@ import { LogoutIcon } from '@app/elements/icons';
 import { useAuthContext } from '@app/auth/AuthContext';
 import { BellIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
+import { QueryCache, useQueryClient } from 'react-query';
 
 type MainNavProps = {
   isSidebarOpen?: boolean;
@@ -45,6 +46,7 @@ export const MainNav: React.FC<MainNavProps> = ({ setSidebarOpen }) => {
 const AvatarDropdown = () => {
   const { logout } = useAuthContext();
   const navigate = useNavigate();
+  const queryCache = new QueryCache();
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -73,6 +75,7 @@ const AvatarDropdown = () => {
                   type="button"
                   onClick={() => {
                     logout();
+                    queryCache.clear();
                     navigate('/login');
                   }}
                   className="flex items-center space-x-2"

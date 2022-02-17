@@ -8,7 +8,7 @@ export interface AllFiles {
   errors: FileError[];
 }
 
-type FileTypes = '.jpg' | '.jpeg' | '.png' | '.csv' | '.pdf';
+export type FileTypes = '.jpg' | '.jpeg' | '.png' | '.csv' | '.pdf';
 
 export interface FileUploadProps {
   name?: string;
@@ -19,9 +19,7 @@ export interface FileUploadProps {
   setFieldValue: any;
 }
 
-export const CustomFileUpload: React.FC<FileUploadProps> = (
-  options: FileUploadProps
-) => {
+export const CustomFileUpload: React.FC<FileUploadProps> = (options) => {
   const [files, setFiles] = useState<AllFiles[]>([]);
 
   const onDrop = useCallback(

@@ -48,7 +48,7 @@ export const AssignmentCreateForm = () => {
     onSubmit: (values) => {
       console.log(values);
       const formData = new FormData();
-      formData.append('files', values.files[0]);
+      formData.append('teacher_files', values.files[0]);
       formData.append('title', values.title);
       formData.append('description', values.description);
       formData.append('total_points', values.total_points);
@@ -91,7 +91,7 @@ export const AssignmentCreateForm = () => {
             <CustomFileUpload
               label="Upload Files"
               name="files"
-              maxFiles={3}
+              maxFiles={1}
               accept={['.png', '.pdf']}
               setFieldValue={assignmentCreateForm.setFieldValue}
             />

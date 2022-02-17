@@ -89,10 +89,16 @@ export const useCreateTeacherAccount = (
   };
   return useMutation(
     (newTeacher) =>
-      api.post('/register/user/', {
-        ...newTeacher,
-        ...booleans,
-      }),
+      api.post(
+        '/register/user/',
+        {
+          ...newTeacher,
+          ...booleans,
+        },
+        {
+          headers: authHeader(),
+        }
+      ),
     {
       ...config,
     }

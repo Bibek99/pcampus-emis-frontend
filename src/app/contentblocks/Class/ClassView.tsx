@@ -7,7 +7,11 @@ import {
 import classNames from 'classnames';
 import React from 'react';
 import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import { AssignmentCreateView, AssignmentView } from './Assignment';
+import {
+  AssignmentCreateView,
+  AssignmentSubmitView,
+  AssignmentView,
+} from './Assignment';
 import { FeedView } from './Feed';
 import { FolderDetailView, MaterialView } from './Materials';
 
@@ -98,6 +102,12 @@ export const ClassView = () => {
                 <Route path="/" element={<AssignmentView />} />
                 {role === 'TEACHER' && (
                   <Route path="create" element={<AssignmentCreateView />} />
+                )}
+                {role === 'STUDENT' && (
+                  <Route
+                    path=":assignmentId/"
+                    element={<AssignmentSubmitView />}
+                  />
                 )}
               </Routes>
             }
