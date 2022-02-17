@@ -1,6 +1,6 @@
 import { CloseIcon, UploadIcon } from '@app/elements/icons';
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FileError, FileRejection, useDropzone } from 'react-dropzone';
 
 export interface AllFiles {
@@ -11,10 +11,12 @@ export interface AllFiles {
 type FileTypes = '.jpg' | '.jpeg' | '.png' | '.csv' | '.pdf';
 
 export interface FileUploadProps {
+  name?: string;
   label?: string;
   maxFiles: number;
   maxSize?: number;
   accept?: FileTypes[];
+  setFieldValue: any;
 }
 
 export const CustomFileUpload: React.FC<FileUploadProps> = (
@@ -38,6 +40,10 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (
       onDrop,
       ...options,
     });
+
+  useEffect(() => {
+    options.setFieldValue(options.name, acceptedFiles);
+  }, [files]);
 
   const deleteFile = (file: File) => {
     setFiles((currentFiles) =>

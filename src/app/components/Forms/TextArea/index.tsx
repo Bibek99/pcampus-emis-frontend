@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react';
 
-interface CustomTextInput {
+interface CustomTextArea {
   name: string;
   placeholder?: string;
   label: string;
@@ -12,7 +12,7 @@ interface CustomTextInput {
   onBlur?: (e: any) => void;
 }
 
-export const CustomTextInput: React.FC<CustomTextInput> = ({
+export const CustomTextArea: React.FC<CustomTextArea> = ({
   name,
   placeholder,
   label,
@@ -28,11 +28,10 @@ export const CustomTextInput: React.FC<CustomTextInput> = ({
       <label htmlFor={name}>
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      <input
-        type="text"
+      <textarea
         name={name}
         placeholder={placeholder}
-        className="mt-2 h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
+        className="mt-2 h-32 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
         onChange={onChange}
         onBlur={onBlur}
         value={value}

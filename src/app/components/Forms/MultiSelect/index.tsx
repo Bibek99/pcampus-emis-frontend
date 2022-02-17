@@ -1,41 +1,44 @@
-import { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler } from 'react';
+import Select from 'react-select';
 
-interface CustomTextArea {
+interface CustomMultiSelectInput {
   name: string;
   placeholder?: string;
   label: string;
   error?: string | object;
   touched?: boolean;
   required?: boolean;
-  onChange?: ChangeEventHandler;
-  value?: string;
+  onChange?: any;
+  value?: string | number;
   onBlur?: (e: any) => void;
+  options?: any;
 }
 
-export const CustomTextArea: React.FC<CustomTextArea> = ({
+export const CustomMultiSelectInput: React.FC<CustomMultiSelectInput> = ({
   name,
   placeholder,
-  label,
   error,
+  label,
   required,
   touched,
   onChange,
-  onBlur,
-  value,
+  options,
 }) => {
   return (
     <div className="flex w-full flex-col">
       <label htmlFor={name}>
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      <textarea
-        name={name}
-        placeholder={placeholder}
-        className="mt-2 h-64 w-full rounded-lg border border-gray-300 bg-gray-50 px-6 py-2 focus:outline-none focus:ring-2"
-        onChange={onChange}
-        onBlur={onBlur}
-        value={value}
-      />
+      <div className="">
+        <Select
+          name={name}
+          placeholder={placeholder}
+          onChange={onChange}
+          options={options}
+          isMulti
+          className="mt-2"
+        />
+      </div>
       {touched && error && (
         <span className="text-sm italic text-red-500">{error}</span>
       )}

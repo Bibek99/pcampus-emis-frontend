@@ -4,34 +4,63 @@ import {
   CustomDatePicker,
   CustomSelectInput,
   CustomTextInput,
-} from '@app/layout/Forms';
+} from '@app/components/Forms';
 import * as Yup from 'yup';
+import {
+  useCreateStudentAccount,
+  useFetchBatch,
+  useFetchDepartment,
+  useFetchSection,
+} from '@app/services/user.service';
+import { toast } from 'react-toastify';
 
 const studentAddSchema = Yup.object().shape({
-  firstName: Yup.string().required('First Name is requied'),
+  first_name: Yup.string().required('First Name is requied'),
   gender: Yup.string().required('Please select a gender'),
+  roll_no: Yup.number().required('Please enter roll no'),
 });
 
 export const StudentAddForm: React.FC<{}> = () => {
+  const { mutate: createStudent } = useCreateStudentAccount({
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: () => {
+      toast.success('Student Created');
+      studentAddForm.resetForm();
+      window.scrollTo(0, 0);
+    },
+  });
+
   const studentAddForm = useFormik({
     initialValues: {
-      firstName: '',
-      middleName: '',
-      lastName: '',
+      first_name: '',
+      middle_name: '',
+      last_name: '',
       gender: '',
-      date: '',
+      dob: '',
       email: '',
       phone: '',
       address: '',
       batch: '',
       section: '',
-      department: '',
+      department_name: '',
+      roll_no: '',
     },
     validationSchema: studentAddSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: ({ roll_no, ...rest }) => {
+      const newStudent = {
+        roll_no: Number(roll_no),
+        ...rest,
+      };
+      createStudent(newStudent);
     },
   });
+
+  const { data: batches } = useFetchBatch();
+  const { data: departments } = useFetchDepartment();
+  const { data: sections } = useFetchSection();
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-4 py-6">
       <p className="text-sm italic text-gray-600">
@@ -42,36 +71,36 @@ export const StudentAddForm: React.FC<{}> = () => {
           <h3 className="text-lg font-semibold">Personal Information</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             <CustomTextInput
-              name="firstName"
+              name="first_name"
               placeholder="Enter first name"
               required
               label="First Name"
-              error={studentAddForm.errors?.firstName}
-              touched={studentAddForm.touched.firstName}
+              error={studentAddForm.errors?.first_name}
+              touched={studentAddForm.touched.first_name}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
-              value={studentAddForm.values.firstName}
+              value={studentAddForm.values.first_name}
             />
             <CustomTextInput
-              name="middleName"
+              name="middle_name"
               placeholder="Enter middle name"
               label="Middle Name"
-              error={studentAddForm.errors?.middleName}
-              touched={studentAddForm.touched.middleName}
+              error={studentAddForm.errors?.middle_name}
+              touched={studentAddForm.touched.middle_name}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
-              value={studentAddForm.values.middleName}
+              value={studentAddForm.values.middle_name}
             />
             <CustomTextInput
-              name="lastName"
+              name="last_name"
               placeholder="Enter last name"
               required
               label="Last Name"
-              error={studentAddForm.errors?.lastName}
-              touched={studentAddForm.touched.lastName}
+              error={studentAddForm.errors?.last_name}
+              touched={studentAddForm.touched.last_name}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
-              value={studentAddForm.values.lastName}
+              value={studentAddForm.values.last_name}
             />
             <CustomSelectInput
               name="gender"
@@ -82,16 +111,27 @@ export const StudentAddForm: React.FC<{}> = () => {
               touched={studentAddForm.touched.gender}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
+              value={studentAddForm.values.gender}
+              options={[
+                {
+                  id: 1,
+                  name: 'Male',
+                },
+                {
+                  id: 2,
+                  name: 'Female',
+                },
+              ]}
             />
             <CustomDatePicker
-              name="date"
+              name="dob"
               placeholder="Date of birth"
               label="Date of birth"
-              error={studentAddForm.errors?.date}
-              touched={studentAddForm.touched.date}
+              error={studentAddForm.errors?.dob}
+              touched={studentAddForm.touched.dob}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
-              value={studentAddForm.values.date}
+              value={studentAddForm.values.dob}
             />
           </div>
         </section>
@@ -148,16 +188,20 @@ export const StudentAddForm: React.FC<{}> = () => {
               touched={studentAddForm.touched.batch}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
+              options={batches?.data}
+              value={studentAddForm.values.batch}
             />
             <CustomSelectInput
-              name="department"
+              name="department_name"
               placeholder="Select Department"
               required
               label="Department"
-              error={studentAddForm.errors?.department}
-              touched={studentAddForm.touched.department}
+              error={studentAddForm.errors?.department_name}
+              touched={studentAddForm.touched.department_name}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
+              options={departments?.data}
+              value={studentAddForm.values.department_name}
             />
             <CustomSelectInput
               name="section"
@@ -168,6 +212,18 @@ export const StudentAddForm: React.FC<{}> = () => {
               touched={studentAddForm.touched.section}
               onChange={studentAddForm.handleChange}
               onBlur={studentAddForm.handleBlur}
+              options={sections?.data}
+              value={studentAddForm.values.section}
+            />
+            <CustomTextInput
+              name="roll_no"
+              placeholder="Enter Roll no"
+              label="Roll No."
+              error={studentAddForm.errors?.roll_no}
+              touched={studentAddForm.touched.roll_no}
+              onChange={studentAddForm.handleChange}
+              onBlur={studentAddForm.handleBlur}
+              value={studentAddForm.values.roll_no}
             />
           </div>
         </section>

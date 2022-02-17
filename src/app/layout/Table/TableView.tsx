@@ -5,7 +5,6 @@ import {
   useGlobalFilter,
   usePagination,
 } from 'react-table';
-import MOCK_DATA from '@constants/MOCK_DATA.json';
 import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@app/elements/icons';
 import { SearchFilter } from './SearchFilter';
@@ -14,6 +13,8 @@ import classNames from 'classnames';
 
 type TableViewProps = {
   exportOption?: boolean;
+  tableData?: Array<any>;
+  columnData?: Array<any>;
 };
 
 const COLUMNS = [
@@ -41,9 +42,11 @@ const COLUMNS = [
 
 export const TableView: React.FC<TableViewProps> = ({
   exportOption = false,
+  tableData,
+  columnData,
 }) => {
-  const columns = useMemo<Column[]>(() => COLUMNS, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  const columns = useMemo<any>(() => columnData, []);
+  const data = useMemo<any>(() => tableData, [tableData]);
 
   const {
     getTableProps,
@@ -67,6 +70,10 @@ export const TableView: React.FC<TableViewProps> = ({
     useSortBy,
     usePagination
   );
+
+  if (!data) {
+    return <h1>loading</h1>;
+  }
 
   return (
     <>

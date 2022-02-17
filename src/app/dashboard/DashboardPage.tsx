@@ -1,9 +1,17 @@
+import { useAuthContext } from '@app/auth/AuthContext';
+import { LoginInterceptorModal } from '@app/auth/LoginInterceptorModal';
 import { BreadCrumb, MainNav, SideBar } from '@app/components';
 import { DashboardLayout } from '@app/layout';
 import React, { useState } from 'react';
 
-const DashboardPage: React.FC<{}> = ({ children }) => {
+interface DashboardPage {
+  routes?: any;
+  children?: any;
+}
+
+const DashboardPage: React.FC<DashboardPage> = ({ routes, children }: any) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <DashboardLayout
       navbar={
@@ -16,11 +24,13 @@ const DashboardPage: React.FC<{}> = ({ children }) => {
         <SideBar
           isSidebarOpen={isSidebarOpen}
           setSidebarOpen={setSidebarOpen}
+          routes={routes}
         />
       }
     >
       <BreadCrumb />
       {children}
+      <LoginInterceptorModal />
     </DashboardLayout>
   );
 };

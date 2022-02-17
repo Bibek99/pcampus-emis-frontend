@@ -3,6 +3,7 @@ import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon } from '@app/elements/icons';
 import { useAuthContext } from '@app/auth/AuthContext';
+import { BellIcon } from '@heroicons/react/outline';
 
 type MainNavProps = {
   isSidebarOpen?: boolean;
@@ -30,7 +31,10 @@ export const MainNav: React.FC<MainNavProps> = ({ setSidebarOpen }) => {
             />
             <span className="font-medium md:text-lg">Pulchowk Campus</span>
           </div>
-          <AvatarDropdown />
+          <div className="flex items-center space-x-4">
+            <BellIcon className="h-6 w-6" />
+            <AvatarDropdown />
+          </div>
         </div>
       </div>
     </nav>

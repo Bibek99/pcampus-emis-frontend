@@ -1,5 +1,5 @@
 import { Modal } from '@app/layout';
-import { CustomFileUpload } from '@app/layout/Forms';
+import { CustomFileUpload } from '@app/components/Forms';
 import { UploadIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { TeacherAddForm } from '.';
