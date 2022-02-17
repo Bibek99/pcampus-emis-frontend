@@ -1,5 +1,6 @@
 import { UploadIcon } from '@app/elements/icons';
 import { SimpleModal } from '@app/layout';
+import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import {
   useFetchAllMaterialsInFolder,
   useFetchFolderDetail,
@@ -44,17 +45,21 @@ export const FolderDetailView = () => {
           </span>
           <span className="hidden sm:block">Back</span>
         </button>
-        <h2 className="text-xl font-semibold">{folderDetail?.folder_name}</h2>
-        <button
-          type="button"
-          onClick={() => setUploadFilesModalOpen(true)}
-          className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
-        >
-          <span>
-            <UploadIcon className="h-4 w-4" />
-          </span>
-          <span className="hidden sm:block">Upload Files</span>
-        </button>
+        <h2 className="flex flex-auto justify-center text-xl font-semibold">
+          {folderDetail?.folder_name}
+        </h2>
+        <RoleBasedRenderer allowRoles={['TEACHER']}>
+          <button
+            type="button"
+            onClick={() => setUploadFilesModalOpen(true)}
+            className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
+          >
+            <span>
+              <UploadIcon className="h-4 w-4" />
+            </span>
+            <span className="hidden sm:block">Upload Files</span>
+          </button>
+        </RoleBasedRenderer>
       </div>
       <hr className="border border-gray-300" />
       <main className="flex flex-col space-y-6 divide-y-2">

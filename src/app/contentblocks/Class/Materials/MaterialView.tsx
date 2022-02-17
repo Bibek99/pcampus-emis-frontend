@@ -1,9 +1,9 @@
 import { SimpleModal } from '@app/layout';
+import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import { useFetchFolders } from '@app/services';
 import { FolderAddIcon, FolderIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { UploadFilesForm } from '.';
 import { CreateFolderForm } from './CreateFolderForm';
 
 export const FolderItem = ({ folder }: any) => {
@@ -26,16 +26,18 @@ export const MaterialView = () => {
     <div className="flex flex-col space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Class Materials</h2>
-        <button
-          onClick={() => setFolderCreateModalOpen(true)}
-          type="button"
-          className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
-        >
-          <span>
-            <FolderAddIcon className="h-4 w-4" />
-          </span>
-          <span className="hidden sm:block">Create Folder</span>
-        </button>
+        <RoleBasedRenderer allowRoles={['TEACHER']}>
+          <button
+            onClick={() => setFolderCreateModalOpen(true)}
+            type="button"
+            className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
+          >
+            <span>
+              <FolderAddIcon className="h-4 w-4" />
+            </span>
+            <span className="hidden sm:block">Create Folder</span>
+          </button>
+        </RoleBasedRenderer>
       </div>
       <hr className="border border-gray-300" />
       <section>

@@ -7,13 +7,9 @@ import {
 import classNames from 'classnames';
 import React from 'react';
 import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import {
-  AssignmentCreateView,
-  AssignmentView,
-  FeedView,
-  MaterialView,
-} from '.';
-import { FolderDetailView } from './FolderDetailView';
+import { AssignmentCreateView, AssignmentView } from './Assignment';
+import { FeedView } from './Feed';
+import { FolderDetailView, MaterialView } from './Materials';
 
 const ClassNav = () => {
   const { pathname } = useLocation();
@@ -100,7 +96,7 @@ export const ClassView = () => {
             element={
               <Routes>
                 <Route path="/" element={<AssignmentView />} />
-                {role === 'DEPT_ADMIN' && (
+                {role === 'TEACHER' && (
                   <Route path="create" element={<AssignmentCreateView />} />
                 )}
               </Routes>

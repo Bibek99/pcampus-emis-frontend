@@ -1,3 +1,5 @@
+import { useAuthContext } from '@app/auth/AuthContext';
+import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import { useFetchAssignments } from '@app/services';
 import { PlusIcon } from '@heroicons/react/outline';
 import moment from 'moment';
@@ -44,15 +46,17 @@ export const AssignmentView = () => {
     <div className="flex flex-col space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Assignments</h2>
-        <Link
-          to="create"
-          className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
-        >
-          <span>
-            <PlusIcon className="h-4 w-4" />
-          </span>
-          <span className="hidden sm:block">Create Assignment</span>
-        </Link>
+        <RoleBasedRenderer allowRoles={['TEACHER']}>
+          <Link
+            to="create"
+            className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"
+          >
+            <span>
+              <PlusIcon className="h-4 w-4" />
+            </span>
+            <span className="hidden sm:block">Create Assignment</span>
+          </Link>
+        </RoleBasedRenderer>
       </div>
       <hr className="border border-gray-300" />
       <div className="flex flex-col space-y-6 divide-y-2">

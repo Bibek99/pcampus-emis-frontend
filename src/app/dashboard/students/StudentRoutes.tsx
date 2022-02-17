@@ -1,6 +1,6 @@
 import { ClassList, ClassView } from '@app/contentblocks/Class';
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 export const StudentRoutes = () => {
   return (
@@ -16,7 +16,7 @@ export const StudentRoutes = () => {
             <Routes>
               <Route path="/" element={<ClassList />} />
               <Route
-                path=":class/*"
+                path=":class-:id/*"
                 element={
                   <Routes>
                     <Route path="/*" element={<ClassView />} />

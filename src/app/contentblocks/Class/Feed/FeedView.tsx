@@ -68,6 +68,7 @@ export const FeedCreate = () => {
   const queryClient = useQueryClient();
 
   const { id } = useParams();
+
   const { authenticatedUser } = useAuthContext();
 
   const userId = JSON.parse(authenticatedUser as any).id;

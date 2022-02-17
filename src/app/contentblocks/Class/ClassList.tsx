@@ -1,14 +1,15 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { SimpleCard } from '@app/components/Card';
-import { useFetchClass } from '@app/services/user.service';
+import { useFetchClass } from '@app/services';
 import { PlusIcon } from '@heroicons/react/outline';
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
-import { ClassCreateView, ClassView } from '.';
+import { Link } from 'react-router-dom';
 
 export const ClassList = () => {
-  const { data } = useFetchClass();
   const { role } = useAuthContext();
+  const { authenticatedUser } = useAuthContext();
+  const userId = JSON.parse(authenticatedUser as any).id;
+  const { data } = useFetchClass(role, userId);
 
   const showButton = () => {
     if (role === 'ADMIN' || role === 'DEPT_ADMIN') {

@@ -24,10 +24,16 @@ export const useCreateStudentAccount = (
   };
   return useMutation(
     (newStudent) =>
-      api.post('register/user/', {
-        ...newStudent,
-        ...booleans,
-      }),
+      api.post(
+        'register/user/',
+        {
+          ...newStudent,
+          ...booleans,
+        },
+        {
+          headers: authHeader(),
+        }
+      ),
     {
       ...config,
     }
@@ -117,15 +123,6 @@ export const useFetchDepartment = () => {
   const header = authHeader();
   return useQuery('fetch-department', () =>
     api.get('view/department/', {
-      headers: header,
-    })
-  );
-};
-
-export const useFetchClass = () => {
-  const header = authHeader();
-  return useQuery('fetch-classes', () =>
-    api.get('show/class/all/', {
       headers: header,
     })
   );
