@@ -40,7 +40,7 @@ export const AssignmentCreateForm = () => {
     initialValues: {
       title: '',
       description: '',
-      points: '',
+      total_points: '',
       due_date: '',
       files: '',
     },
@@ -51,7 +51,7 @@ export const AssignmentCreateForm = () => {
       formData.append('files', values.files[0]);
       formData.append('title', values.title);
       formData.append('description', values.description);
-      formData.append('points', values.points);
+      formData.append('total_points', values.total_points);
       formData.append('due_date', values.due_date);
 
       createAssignment(formData as any);
@@ -101,14 +101,14 @@ export const AssignmentCreateForm = () => {
             <CustomTextInput
               label="Points"
               required
-              name="points"
+              name="total_points"
               type="number"
               placeholder="Enter the assignment points"
               onChange={assignmentCreateForm.handleChange}
               onBlur={assignmentCreateForm.handleBlur}
-              error={assignmentCreateForm.errors?.points}
-              touched={assignmentCreateForm.touched.points}
-              value={assignmentCreateForm.values.points}
+              error={assignmentCreateForm.errors?.total_points}
+              touched={assignmentCreateForm.touched.total_points}
+              value={assignmentCreateForm.values.total_points}
             />
             <CustomDatePicker
               name="due_date"

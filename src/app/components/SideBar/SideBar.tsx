@@ -47,7 +47,7 @@ export const SideBar: React.FC<SideBarType> = ({
     <div className="lg:w-80">
       <div
         className={classNames(
-          'fixed inset-0 z-40 bg-gray-50 bg-opacity-50 transition-opacity duration-200 lg:z-auto lg:hidden',
+          'fixed inset-0 z-[70] bg-gray-50 bg-opacity-50 transition-opacity duration-200 lg:z-auto lg:hidden',
           isSidebarOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
         aria-hidden="true"
@@ -57,7 +57,7 @@ export const SideBar: React.FC<SideBarType> = ({
         id="sidebar"
         ref={sidebar}
         className={classNames(
-          'no-scrollbar absolute left-0 top-0 z-40 h-screen w-80 flex-shrink-0 transform overflow-y-scroll bg-gray-100 p-6 transition-transform duration-200 ease-in-out lg:static lg:left-auto lg:translate-x-0 lg:overflow-y-auto',
+          'no-scrollbar absolute left-0 top-0 z-[100] h-screen w-80 flex-shrink-0 transform overflow-y-scroll bg-gray-100 p-6 transition-transform duration-200 ease-in-out lg:static lg:left-auto lg:translate-x-0 lg:overflow-y-auto',
           isSidebarOpen ? 'translate-x-0' : '-translate-x-80'
         )}
       >

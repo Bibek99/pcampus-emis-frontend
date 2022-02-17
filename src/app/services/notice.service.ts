@@ -31,9 +31,16 @@ export const useFetchClassNotice = (
   config?: UseQueryOptions<any, any, any>,
   class_id?: string
 ) => {
-  return useQuery(['classNotice', class_id], () =>
+  const { data, ...rest } = useQuery(['classNotice', class_id], () =>
     api.get(`notice/show/${class_id || ''}/`, {
       headers: authHeader(),
     })
   );
+  const notice = data?.data.notice;
+  const assignmentNotice = data?.data.assignmentnotice;
+
+  const feeds = [...(notice || ''), ...(assignmentNotice || '')].sort(
+    (a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at))
+  );
+  return { feeds, ...rest };
 };

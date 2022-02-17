@@ -13,6 +13,7 @@ import {
   FeedView,
   MaterialView,
 } from '.';
+import { FolderDetailView } from './FolderDetailView';
 
 const ClassNav = () => {
   const { pathname } = useLocation();
@@ -105,7 +106,15 @@ export const ClassView = () => {
               </Routes>
             }
           />
-          <Route path="materials" element={<MaterialView />} />
+          <Route
+            path="materials/*"
+            element={
+              <Routes>
+                <Route path="/" element={<MaterialView />} />
+                <Route path=":folderId" element={<FolderDetailView />} />
+              </Routes>
+            }
+          />
         </Routes>
       </div>
     </>

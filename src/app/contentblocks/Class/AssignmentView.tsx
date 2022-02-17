@@ -26,7 +26,9 @@ export const AssignmentItem = ({ assignment }: { assignment: any }) => {
                 Due {moment(assignment.due_date).format('LLL')}
               </p>
             </div>
-            <span className="text-gray-600">{assignment.points} Points</span>
+            <span className="text-gray-600">
+              {assignment.total_points} Points
+            </span>
           </div>
         </Link>
       </div>

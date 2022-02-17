@@ -25,17 +25,25 @@ export const FeedItem = ({ feed }: { feed: any }) => {
         <h3>
           {feed.title === 'Notice' ? (
             <>
-              <span className="font-semibold">{feed.publish_by}</span>
+              <span className="font-semibold">
+                {feed.publish_by?.first_name} {feed.publish_by?.middle_name}{' '}
+                {feed.publish_by?.last_name}
+              </span>
               <span className="ml-2 rounded-full bg-green-100 py-1 px-2 text-sm capitalize text-green-700">
                 Notice
               </span>
             </>
           ) : (
             <>
-              <span className="font-semibold">{feed.publish_by}</span>
-              <span className="ml-2 rounded-full bg-red-100 py-1 px-2 text-sm capitalize text-red-700">
-                Assignment
+              <span className="font-semibold">
+                {feed.publish_by?.first_name} {feed.publish_by?.middle_name}{' '}
+                {feed.publish_by?.last_name}
               </span>
+              <Link to={`assignments/${feed.assignment.id}`}>
+                <span className="ml-2 rounded-full bg-red-100 py-1 px-2 text-sm capitalize text-red-700">
+                  Assignment
+                </span>
+              </Link>
             </>
           )}
         </h3>
@@ -133,7 +141,7 @@ export const FeedCreate = () => {
 export const FeedView = () => {
   const { id } = useParams();
 
-  const { data: feeds } = useFetchClassNotice(
+  const { feeds } = useFetchClassNotice(
     {
       onError: () => {
         toast.error('Notice fetch error');
@@ -150,7 +158,7 @@ export const FeedView = () => {
       <FeedCreate />
 
       <div className="flex flex-col space-y-6 divide-y-2">
-        {feeds?.data.map((feed: any, index: number) => (
+        {feeds?.map((feed: any, index: number) => (
           <FeedItem feed={feed} key={index} />
         ))}
       </div>

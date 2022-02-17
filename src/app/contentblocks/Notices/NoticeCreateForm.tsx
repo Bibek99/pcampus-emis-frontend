@@ -4,7 +4,10 @@ import * as Yup from 'yup';
 import { CustomFileUpload, CustomTextInput } from '@app/components/Forms';
 import { CustomTextArea } from '@app/components/Forms/TextArea';
 
-const noticeCreateSchema = Yup.object().shape({});
+const noticeCreateSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  description: Yup.string().required('Description is required'),
+});
 
 export const NoticeCreateForm: React.FC<{}> = () => {
   const noticeCreateForm = useFormik({
@@ -18,7 +21,7 @@ export const NoticeCreateForm: React.FC<{}> = () => {
     },
   });
   return (
-    <div className="mx-auto flex w-full flex-col space-y-4 py-6">
+    <div className="mx-auto flex w-full flex-col space-y-4 pb-6">
       <p className="text-sm italic text-gray-600">
         Fill the form below to create a Notice.
       </p>
@@ -50,10 +53,12 @@ export const NoticeCreateForm: React.FC<{}> = () => {
               label="Upload Files"
               maxFiles={1}
               accept={['.png', '.pdf']}
+              setFieldValue={noticeCreateForm.setFieldValue}
             />
           </section>
           <section className="flex flex-col space-y-6 py-6 xl:pl-4">
             <h3 className="text-lg font-semibold">Publish Domain</h3>
+            <p>All Department Members</p>
           </section>
         </div>
         <div className="mt-6 flex w-full justify-center">
