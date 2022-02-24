@@ -18,7 +18,7 @@ export const CreateFolderForm = ({
 }) => {
   const { id } = useParams();
   const { authenticatedUser } = useAuthContext();
-  const userId = JSON.parse(authenticatedUser as any).id;
+  const userId = String(authenticatedUser?.id);
 
   const queryClient = useQueryClient();
 

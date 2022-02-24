@@ -9,6 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from 'react-query';
 import * as Yup from 'yup';
+import { User } from '@app/types/users.types';
 
 export const FeedItem = ({ feed }: { feed: any }) => {
   return (
@@ -70,8 +71,7 @@ export const FeedCreate = () => {
   const { id } = useParams();
 
   const { authenticatedUser } = useAuthContext();
-
-  const userId = JSON.parse(authenticatedUser as any).id;
+  const userId = String(authenticatedUser?.id);
 
   const { mutate: createClassNotice } = usecreateClassNotice(
     {

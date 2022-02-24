@@ -19,9 +19,11 @@ export const useFetchClass = (role: string, userId?: string) => {
   } else if (role === 'STUDENT') {
     url = `show/class/by/student/${userId || ''}/`;
   }
-  return useQuery('fetch-classes', () =>
+  const { data, ...rest } = useQuery('fetch-classes', () =>
     api.get(url, {
       headers: authHeader(),
     })
   );
+  const classData = data?.data;
+  return { classData, ...rest };
 };

@@ -17,7 +17,7 @@ const assignmentCreateSchema = Yup.object().shape({});
 export const AssignmentCreateForm = () => {
   const { id } = useParams();
   const { authenticatedUser } = useAuthContext();
-  const userId = JSON.parse(authenticatedUser as any).id;
+  const userId = String(authenticatedUser?.id);
 
   const navigate = useNavigate();
 
@@ -57,6 +57,7 @@ export const AssignmentCreateForm = () => {
       createAssignment(formData as any);
     },
   });
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-4 pb-6">
       <p className="text-sm italic text-gray-600">

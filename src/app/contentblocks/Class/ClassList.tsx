@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 export const ClassList = () => {
   const { role } = useAuthContext();
   const { authenticatedUser } = useAuthContext();
-  const userId = JSON.parse(authenticatedUser as any).id;
-  const { data } = useFetchClass(role, userId);
+  const userId = String(authenticatedUser?.id);
+  const { classData, isLoading } = useFetchClass(role, userId);
 
   const showButton = () => {
     if (role === 'ADMIN' || role === 'DEPT_ADMIN') {
@@ -18,6 +18,9 @@ export const ClassList = () => {
     return false;
   };
 
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
   return (
     <div className="flex flex-col space-y-6 p-6">
       <div className="flex w-full items-center justify-between">
@@ -36,7 +39,7 @@ export const ClassList = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {data?.data.map((classobj: any, index: number) => (
+        {classData?.map((classobj: any, index: number) => (
           <Link key={index} to={`${classobj.alias}-${classobj.id}`}>
             <SimpleCard data={classobj} />
           </Link>

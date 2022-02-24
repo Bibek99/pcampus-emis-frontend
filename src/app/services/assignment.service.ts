@@ -38,15 +38,24 @@ export const useFetchAssignments = (class_id?: string) => {
   );
 };
 
-export const useFetchAssignmentDetails = (assignmentId?: string) => {
+export const useFetchAssignmentDetailsForAStudent = (
+  assignmentId?: string,
+  studentId?: string
+) => {
   const { data, ...rest } = useQuery(['fetch-assignments', assignmentId], () =>
-    api.get(`assignment/show/${assignmentId || ''}/`, {
-      headers: authHeader(),
-    })
+    api.get(
+      `assignment/show/assignment/student/${assignmentId || ''}/${
+        studentId || ''
+      }/`,
+      {
+        headers: authHeader(),
+      }
+    )
   );
 
-  const assignmentData = data?.data;
-  return { assignmentData, ...rest };
+  const assignmentData = data?.data?.assignment;
+  const submissionData = data?.data?.submission;
+  return { assignmentData, submissionData, ...rest };
 };
 
 export const useSubmitAssignment = (
@@ -70,4 +79,24 @@ export const useSubmitAssignment = (
       ...config,
     }
   );
+};
+
+export const useFetchSubmittedDataForAssignment = (
+  assignment_id?: string,
+  student_id?: string
+) => {
+  const { data, ...rest } = useQuery(
+    ['submitted-assignment-student', assignment_id],
+    () =>
+      api.get(
+        `assignment/show/assignment/submitted/${assignment_id || ''}/${
+          student_id || ''
+        }/`,
+        {
+          headers: authHeader(),
+        }
+      )
+  );
+  const submittedData = data?.data;
+  return { submittedData, ...rest };
 };

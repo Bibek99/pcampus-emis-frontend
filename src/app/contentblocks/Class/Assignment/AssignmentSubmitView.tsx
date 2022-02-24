@@ -1,4 +1,5 @@
-import { useFetchAssignmentDetails } from '@app/services';
+import { useAuthContext } from '@app/auth/AuthContext';
+import { useFetchAssignmentDetailsForAStudent } from '@app/services';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import moment from 'moment';
 import React from 'react';
@@ -6,9 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AssignmentSubmitForm } from '.';
 
 export const AssignmentSubmitView = () => {
-  const { assignmentId } = useParams();
   const navigate = useNavigate();
-  const { assignmentData } = useFetchAssignmentDetails(assignmentId);
+  const { assignmentId } = useParams();
+  const { authenticatedUser } = useAuthContext();
+  const userId = String(authenticatedUser?.id);
+  const { assignmentData, submissionData } =
+    useFetchAssignmentDetailsForAStudent(assignmentId, userId);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -52,7 +56,8 @@ export const AssignmentSubmitView = () => {
           <div className="space-y-4">
             <h3 className="font-semibold">Due Date</h3>
             <p className="text-gray-800">
-              {moment(assignmentData?.due_date).format('LLL')}
+              {assignmentData?.due_date &&
+                moment(assignmentData?.due_date).format('LLL')}
             </p>
           </div>
           <div className="space-y-4">
@@ -63,7 +68,7 @@ export const AssignmentSubmitView = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="min-w-max max-w-md pt-4">
-        <AssignmentSubmitForm />
+        <AssignmentSubmitForm submissionData={submissionData} />
       </div>
     </div>
   );

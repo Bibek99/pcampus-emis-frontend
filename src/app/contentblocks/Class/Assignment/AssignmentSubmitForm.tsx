@@ -1,14 +1,23 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomMinimalFileUpload } from '@app/components/Forms';
-import { useSubmitAssignment } from '@app/services';
+import {
+  useFetchSubmittedDataForAssignment,
+  useSubmitAssignment,
+} from '@app/services';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export const AssignmentSubmitForm = () => {
+interface AssignmentSubmitFormProps {
+  submissionData?: any;
+}
+
+export const AssignmentSubmitForm: React.FC<AssignmentSubmitFormProps> = ({
+  submissionData,
+}) => {
   const { authenticatedUser } = useAuthContext();
-  const userId = JSON.parse(authenticatedUser as any).id;
+  const userId = String(authenticatedUser?.id);
 
   const { assignmentId } = useParams();
   const navigate = useNavigate();
@@ -40,6 +49,25 @@ export const AssignmentSubmitForm = () => {
       }
     },
   });
+
+  if (submissionData) {
+    return (
+      <div className="flex flex-col space-y-4">
+        <p className="font-semibold">Your submission</p>
+        <p>
+          <a
+            href={`http://localhost:8000${submissionData?.student_files}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500"
+          >
+            {submissionData?.student_files?.split('/').reverse()[0]}
+          </a>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={assignmentSubmitForm.handleSubmit} className="">
       <p className="mb-4 w-full font-semibold">Submit Assignment</p>
