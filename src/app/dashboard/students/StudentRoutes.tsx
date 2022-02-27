@@ -1,5 +1,6 @@
-import { ClassList, ClassView } from '@app/contentblocks/Class';
 import React from 'react';
+import { CalenderView } from '@app/contentblocks/Calender';
+import { ClassList, ClassView } from '@app/contentblocks/Class';
 import { Route, Routes } from 'react-router-dom';
 
 export const StudentRoutes = () => {
@@ -27,6 +28,7 @@ export const StudentRoutes = () => {
           </div>
         }
       />
+      <Route path="calendar" element={<CalenderView />} />
     </Routes>
   );
 };

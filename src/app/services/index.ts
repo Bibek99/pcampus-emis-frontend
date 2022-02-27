@@ -5,3 +5,4 @@ export * from './notice.service';
 export * from './assignment.service';
 export * from './material.service';
 export * from './class.service';
+export * from './calendar.service';

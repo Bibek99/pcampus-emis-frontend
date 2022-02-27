@@ -32,11 +32,15 @@ export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
     },
   });
 
-  console.log(marksSubmitForm.errors);
+  const keyHandler = ({ keyCode }: any) => {
+    if (keyCode === 13) {
+      console.log('Enter pressed');
+    }
+  };
 
   return (
     <form onSubmit={marksSubmitForm.handleSubmit}>
-      <div className="flex flex-col space-y-6">
+      <div className="mb-6 flex flex-col space-y-6">
         <div className="flex flex-row items-center justify-between pt-4">
           <h4 className="font-medium">
             {submittedListItem?.student?.first_name}{' '}
@@ -51,10 +55,12 @@ export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
               )}
               onClick={() => setIsExpanded(!isExpanded)}
             />
-            <Options form={marksSubmitForm} />
+            {/* <Options form={marksSubmitForm} /> */}
           </div>
         </div>
-        {isExpanded && (
+      </div>
+      {isExpanded && (
+        <>
           <div className="flex flex-row items-center justify-between transition-all duration-300">
             <div className="flex flex-row items-center space-x-4">
               <CustomFileIcon fileName={submittedListItem?.student_files} />
@@ -81,14 +87,18 @@ export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
                 onChange={marksSubmitForm.handleChange}
                 onBlur={marksSubmitForm.handleBlur}
                 value={marksSubmitForm.values.obtained_marks}
+                onKeyDown={keyHandler}
               />
               <span className="pl-2 text-lg text-gray-600">
                 / {submittedListItem?.assignment?.total_points}
               </span>
             </div>
           </div>
-        )}
-      </div>
+          <span className="flex justify-end text-xs italic text-gray-500">
+            Press Enter to save
+          </span>
+        </>
+      )}
     </form>
   );
 };
@@ -99,7 +109,7 @@ export const SubmissionList: React.FC<SubmissionListProps> = ({
   return (
     <div className="flex flex-col space-y-6">
       <h3 className="text-lg font-semibold">Submissions</h3>
-      <div className="space-y-8 divide-y-2">
+      <div className="space-y-6 divide-y-2">
         {submittedListData ? (
           submittedListData.map((submittedListItem: any, index: number) => (
             <SubmissionListItem

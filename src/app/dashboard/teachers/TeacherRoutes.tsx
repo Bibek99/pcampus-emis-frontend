@@ -1,3 +1,4 @@
+import { CalenderView } from '@app/contentblocks/Calender';
 import { ClassList, ClassView } from '@app/contentblocks/Class';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -27,6 +28,7 @@ export const TeacherRoutes = () => {
           </div>
         }
       />
+      <Route path="calendar" element={<CalenderView />} />
     </Routes>
   );
 };
