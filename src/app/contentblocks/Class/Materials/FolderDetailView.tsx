@@ -1,3 +1,4 @@
+import { CustomFileIcon } from '@app/components/FileIcon';
 import { UploadIcon } from '@app/elements/icons';
 import { SimpleModal } from '@app/layout';
 import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
@@ -15,7 +16,10 @@ export const FileItem = ({ material }: any) => {
   const baseUrl = 'http://localhost:8000';
   return (
     <div className="flex justify-between pt-4">
-      <p>{fileName}</p>
+      <div className="flex flex-row items-center space-x-4">
+        <CustomFileIcon fileName={material?.file} />
+        <p>{fileName}</p>
+      </div>
       <a href={`${baseUrl}${material?.file}`} download target="_blank">
         <DownloadIcon className="h-6 w-6" />
       </a>

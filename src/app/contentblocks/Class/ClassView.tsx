@@ -1,14 +1,24 @@
 import { useAuthContext } from '@app/auth/AuthContext';
+import { useFetchClass } from '@app/services';
 import {
+  ArrowLeftIcon,
   ClipboardCheckIcon,
+  ClipboardListIcon,
   FolderIcon,
   InboxIcon,
 } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import React from 'react';
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import {
   AssignmentCreateView,
+  AssignmentSubmissionsListView,
   AssignmentSubmitView,
   AssignmentView,
 } from './Assignment';
@@ -20,6 +30,7 @@ const ClassNav = () => {
   let active;
   if (pathname.includes('assignments')) active = 'assignments';
   else if (pathname.includes('materials')) active = 'materials';
+  else if (pathname.includes('grades')) active = 'grades';
   else active = 'feed';
 
   return (
@@ -60,7 +71,7 @@ const ClassNav = () => {
               : ''
           )}
         >
-          <ClipboardCheckIcon className="h-5 w-5" />
+          <ClipboardListIcon className="h-5 w-5" />
           <span className="hidden sm:block">Assignments</span>
         </div>
       </NavLink>
@@ -83,14 +94,54 @@ const ClassNav = () => {
           <span className="hidden sm:block">Materials</span>
         </div>
       </NavLink>
+      <NavLink
+        to="grades"
+        className={classNames(
+          'relative',
+          active === 'grades' ? 'text-emerald-500' : 'hover:text-emerald-500'
+        )}
+      >
+        <div
+          className={classNames(
+            'flex space-x-2 text-center',
+            active === 'grades'
+              ? ' before:absolute before:-bottom-4 before:h-1  before:w-full before:rounded-t-md before:bg-emerald-500'
+              : ''
+          )}
+        >
+          <ClipboardCheckIcon className="h-5 w-5" />
+          <span className="hidden sm:block">Grades</span>
+        </div>
+      </NavLink>
     </section>
   );
 };
 
 export const ClassView = () => {
   const { role } = useAuthContext();
+  const navigate = useNavigate();
+  const { authenticatedUser } = useAuthContext();
+  const userId = String(authenticatedUser?.id);
+  const { classData } = useFetchClass(role, userId);
+
   return (
     <>
+      <div className="flex items-center justify-between border-b border-gray-300 px-6 py-4">
+        <button
+          type="button"
+          className="flex items-center justify-center space-x-2"
+          onClick={() => navigate('/classes')}
+        >
+          <span>
+            <ArrowLeftIcon className="h-4 w-4" />
+          </span>
+          <span className="hidden sm:block">Back</span>
+        </button>
+        <h2 className="text-xl font-semibold">
+          {classData && classData[0]?.name}
+        </h2>
+        <span className="w-4"></span>
+      </div>
       <ClassNav />
       <div className="p-6">
         <Routes>
@@ -109,6 +160,12 @@ export const ClassView = () => {
                     element={<AssignmentSubmitView />}
                   />
                 )}
+                {role === 'TEACHER' && (
+                  <Route
+                    path=":assignmentId/"
+                    element={<AssignmentSubmissionsListView />}
+                  />
+                )}
               </Routes>
             }
           />
@@ -121,6 +178,7 @@ export const ClassView = () => {
               </Routes>
             }
           />
+          <Route path="grades" element={<div>Grades</div>} />
         </Routes>
       </div>
     </>

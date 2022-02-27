@@ -5,7 +5,7 @@ import { LogoutIcon } from '@app/elements/icons';
 import { useAuthContext } from '@app/auth/AuthContext';
 import { BellIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
-import { QueryCache, useQueryClient } from 'react-query';
+import { QueryCache } from 'react-query';
 
 type MainNavProps = {
   isSidebarOpen?: boolean;

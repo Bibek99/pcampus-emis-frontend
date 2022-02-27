@@ -81,7 +81,7 @@ export const useSubmitAssignment = (
   );
 };
 
-export const useFetchSubmittedDataForAssignment = (
+export const useFetchSubmittedDataForAssignmentForAStudent = (
   assignment_id?: string,
   student_id?: string
 ) => {
@@ -99,4 +99,28 @@ export const useFetchSubmittedDataForAssignment = (
   );
   const submittedData = data?.data;
   return { submittedData, ...rest };
+};
+
+export const useFetchSubmittedDataForAnAssignment = (
+  assignment_id?: string
+) => {
+  const { data, ...rest } = useQuery(
+    ['submitted-assignment', assignment_id],
+    () =>
+      api.get(`assignment/show/submitted/${assignment_id || ''}/`, {
+        headers: authHeader(),
+      })
+  );
+  const submittedListData = data?.data;
+  return { submittedListData, ...rest };
+};
+
+export const useFetchAssignmentDetail = (assignment_id?: string) => {
+  const { data, ...rest } = useQuery(['assignment-detail', assignment_id], () =>
+    api.get(`assignment/show/${assignment_id || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const assignmentData = data?.data;
+  return { assignmentData, ...rest };
 };

@@ -1,9 +1,6 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomMinimalFileUpload } from '@app/components/Forms';
-import {
-  useFetchSubmittedDataForAssignment,
-  useSubmitAssignment,
-} from '@app/services';
+import { useSubmitAssignment } from '@app/services';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
