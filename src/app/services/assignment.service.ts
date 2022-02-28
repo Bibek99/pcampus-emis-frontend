@@ -124,3 +124,25 @@ export const useFetchAssignmentDetail = (assignment_id?: string) => {
   const assignmentData = data?.data;
   return { assignmentData, ...rest };
 };
+
+export const useMarkAssignmentSubmission = (
+  config?: UseMutationOptions<any, any, any>,
+  assignment_id?: string,
+  student_id?: string
+) => {
+  return useMutation(
+    (obtain_points) =>
+      api.post(
+        `assignment/submission/mark/${assignment_id || ''}/${
+          student_id || ''
+        }/`,
+        obtain_points,
+        {
+          headers: authHeader(),
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+};

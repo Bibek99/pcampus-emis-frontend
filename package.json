@@ -29,10 +29,10 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/react-file-icon": "^1.0.1",
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
     "@types/react-big-calendar": "^0.36.2",
+    "@types/react-file-icon": "^1.0.1",
     "@types/react-table": "^7.7.9",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.5",

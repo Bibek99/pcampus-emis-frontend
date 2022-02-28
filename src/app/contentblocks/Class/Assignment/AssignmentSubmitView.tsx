@@ -5,7 +5,6 @@ import { useFetchAssignmentDetailsForAStudent } from '@app/services';
 import { AssignmentDetailView, AssignmentSubmitForm } from '.';
 
 export const AssignmentSubmitView = () => {
-  const navigate = useNavigate();
   const { assignmentId } = useParams();
   const { authenticatedUser } = useAuthContext();
   const userId = String(authenticatedUser?.id);

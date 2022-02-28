@@ -11,7 +11,6 @@ export const AssignmentSubmissionsListView = () => {
 
   const { submittedListData } =
     useFetchSubmittedDataForAnAssignment(assignmentId);
-  console.log(submittedListData);
 
   const { assignmentData } = useFetchAssignmentDetail(assignmentId);
 

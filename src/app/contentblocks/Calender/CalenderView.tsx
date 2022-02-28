@@ -44,7 +44,7 @@ export const CalenderView = () => {
     <div className="rounded-md bg-gray-50 p-6">
       <div className="flex flex-col space-y-6">
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-2xl font-semibold">Notices</h1>
+          <h1 className="text-2xl font-semibold">Calendar</h1>
         </div>
         <hr className="border border-gray-300" />
 

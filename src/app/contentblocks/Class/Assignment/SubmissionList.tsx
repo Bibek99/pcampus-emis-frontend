@@ -5,6 +5,11 @@ import { CustomFileIcon } from '@app/components/FileIcon';
 import classNames from 'classnames';
 import * as Yup from 'yup';
 import { Menu, Transition } from '@headlessui/react';
+import { useMarkAssignmentSubmission } from '@app/services';
+import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import moment from 'moment';
 
 interface SubmissionListProps {
   submittedListData: any;
@@ -16,27 +21,56 @@ interface SubmissionListItemProps {
 }
 
 export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
-  num,
   submittedListItem,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { assignmentId } = useParams();
+
+  const { mutate: markAssignmentSubmission } = useMarkAssignmentSubmission(
+    {
+      onError: () => {
+        toast.error('Something went wrong');
+      },
+      onSuccess: () => {
+        toast.success('Submission marked');
+        queryClient.invalidateQueries(['submitted-assignment', assignmentId]);
+      },
+    },
+    assignmentId,
+    submittedListItem?.student?.id
+  );
+
   const marksSubmitForm = useFormik({
     initialValues: {
-      obtained_marks: '',
+      obtain_points: '',
     },
     validationSchema: Yup.object().shape({
-      obtained_marks: Yup.number(),
+      obtain_points: Yup.number(),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      markAssignmentSubmission(values);
     },
   });
 
-  const keyHandler = ({ keyCode }: any) => {
-    if (keyCode === 13) {
-      console.log('Enter pressed');
-    }
-  };
+  const dateDiff = moment(submittedListItem.created_at)
+    .to(moment(submittedListItem?.assignment.due_date))
+    .includes('ago')
+    ? {
+        text: `Submitted ${moment(submittedListItem.created_at).to(
+          moment(submittedListItem?.assignment.due_date),
+          true
+        )} late`,
+        late: true,
+      }
+    : {
+        text: `Submitted ${moment(submittedListItem.created_at).to(
+          moment(submittedListItem?.assignment.due_date),
+          true
+        )} before time`,
+        late: false,
+      };
 
   return (
     <form onSubmit={marksSubmitForm.handleSubmit}>
@@ -47,6 +81,14 @@ export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
             {submittedListItem?.student?.middle_name}{' '}
             {submittedListItem?.student?.last_name}
           </h4>
+          <p
+            className={classNames(
+              'text-sm italic',
+              dateDiff.late ? 'text-red-500' : 'text-emerald-600'
+            )}
+          >
+            {dateDiff.text}
+          </p>
           <div className="flex items-center space-x-4">
             <ChevronDownIcon
               className={classNames(
@@ -74,29 +116,39 @@ export const SubmissionListItem: React.FC<SubmissionListItemProps> = ({
               </a>
             </div>
             <div>
-              <input
-                type="text"
-                name="obtained_marks"
-                className={classNames(
-                  'w-16 appearance-none border-b border-gray-300 bg-transparent pr-2 text-right transition focus:border-b-2 focus:border-gray-500 focus:outline-none',
-                  marksSubmitForm.touched.obtained_marks &&
-                    marksSubmitForm.errors.obtained_marks
-                    ? 'border-b-2 border-red-500 focus:border-b-2 focus:border-red-500'
-                    : ''
-                )}
-                onChange={marksSubmitForm.handleChange}
-                onBlur={marksSubmitForm.handleBlur}
-                value={marksSubmitForm.values.obtained_marks}
-                onKeyDown={keyHandler}
-              />
+              {submittedListItem?.marked ? (
+                <span className="text-lg">
+                  {submittedListItem?.obtain_points}
+                </span>
+              ) : (
+                <input
+                  type="text"
+                  name="obtain_points"
+                  className={classNames(
+                    'w-16 appearance-none border-b border-gray-300 bg-transparent pr-2 text-right transition focus:border-b-2 focus:border-gray-500 focus:outline-none',
+                    marksSubmitForm.touched.obtain_points &&
+                      marksSubmitForm.errors.obtain_points
+                      ? 'border-b-2 border-red-500 focus:border-b-2 focus:border-red-500'
+                      : ''
+                  )}
+                  onChange={marksSubmitForm.handleChange}
+                  onBlur={marksSubmitForm.handleBlur}
+                  value={marksSubmitForm.values.obtain_points}
+                />
+              )}
+
               <span className="pl-2 text-lg text-gray-600">
                 / {submittedListItem?.assignment?.total_points}
               </span>
             </div>
           </div>
-          <span className="flex justify-end text-xs italic text-gray-500">
-            Press Enter to save
-          </span>
+          {submittedListItem?.marked ? (
+            ' '
+          ) : (
+            <span className="flex justify-end text-xs italic text-gray-500">
+              Press Enter to save
+            </span>
+          )}
         </>
       )}
     </form>
