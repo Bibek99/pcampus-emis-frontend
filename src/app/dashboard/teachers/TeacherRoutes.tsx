@@ -10,6 +10,7 @@ export const TeacherRoutes = () => {
         path="dashboard"
         element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
       />
+
       <Route
         path="classes/*"
         element={

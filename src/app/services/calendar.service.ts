@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';

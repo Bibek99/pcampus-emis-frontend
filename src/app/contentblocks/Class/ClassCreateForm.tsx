@@ -1,17 +1,16 @@
 import { CustomSelectInput, CustomTextInput } from '@app/components/Forms';
-import { CustomTextArea } from '@app/components/Forms/TextArea';
 import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { CustomMultiSelectInput } from '@app/components/Forms/MultiSelect';
 import {
-  useCreateClass,
   useFetchBatch,
   useFetchSection,
   useFilterTeacher,
 } from '@app/services/user.service';
 import { useAuthContext } from '@app/auth/AuthContext';
 import { toast } from 'react-toastify';
+import { useCreateClass } from '@app/services';
 
 const classCreateSchema = Yup.object().shape({
   teachers: Yup.array().required('Please select at least a teacher'),

@@ -23,6 +23,7 @@ import {
   AssignmentView,
 } from './Assignment';
 import { FeedView } from './Feed';
+import { GradesListView } from './Grades';
 import { FolderDetailView, MaterialView } from './Materials';
 
 const ClassNav = () => {
@@ -178,7 +179,7 @@ export const ClassView = () => {
               </Routes>
             }
           />
-          <Route path="grades" element={<div>Grades</div>} />
+          <Route path="grades" element={<GradesListView />} />
         </Routes>
       </div>
     </>

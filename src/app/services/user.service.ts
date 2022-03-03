@@ -59,7 +59,24 @@ export const useCreateStudentsInBulk = (
   );
 };
 
-export const useGetStudents = (config?: UseQueryOptions) => {
+export const useCreateTeachersInBulk = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (files) =>
+      api.post('import/user/', files, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'multipart/form-data; boundary=999999999999',
+        },
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useGetStudents = () => {
   const header = authHeader();
   return useQuery('get-students', () =>
     api.get('show/all_students/', {
@@ -109,7 +126,14 @@ export const useCreateDepartment = (
   config: UseMutationOptions<any, any, any>
 ) => {
   return useMutation(
-    (newDepartment) => api.post('register/department/', { ...newDepartment }),
+    (newDepartment) =>
+      api.post(
+        'register/department/',
+        { ...newDepartment },
+        {
+          headers: authHeader(),
+        }
+      ),
     {
       ...config,
     }
@@ -157,21 +181,5 @@ export const useFilterTeacher = (
     api.get(`filter/teacher/?department=${department || ''}`, {
       headers: header,
     })
-  );
-};
-
-export const useCreateClass = (config?: UseMutationOptions<any, any, any>) => {
-  return useMutation(
-    (newClass) =>
-      api.post(
-        'create/class/',
-        { ...newClass },
-        {
-          headers: authHeader(),
-        }
-      ),
-    {
-      ...config,
-    }
   );
 };

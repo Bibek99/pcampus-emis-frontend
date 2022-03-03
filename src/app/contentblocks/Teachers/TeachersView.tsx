@@ -50,6 +50,7 @@ const columns = [
 ];
 
 export const TeachersView: React.FC = () => {
+  const { role } = useAuthContext();
   const { data } = useGetTeachers();
   const [teachers, setTeachers] = useState<any[]>([]);
 
@@ -67,7 +68,7 @@ export const TeachersView: React.FC = () => {
   useEffect(() => {
     normalizeTeacherData();
   }, [data]);
-  const { role } = useAuthContext();
+
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">

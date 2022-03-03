@@ -1,9 +1,12 @@
-import { TableView } from '@app/layout';
+import { useFetchAllGlobalNotice } from '@app/services';
 import { PencilAltIcon } from '@heroicons/react/outline';
+import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const NoticeView = () => {
+  const { globalNotices } = useFetchAllGlobalNotice();
+
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">
@@ -19,7 +22,24 @@ export const NoticeView = () => {
         </Link>
       </div>
       <hr className="border border-gray-300" />
-      <div className="flex flex-col space-y-4">{/* <TableView /> */}</div>
+      <div className="flex flex-col space-y-6 divide-y-2">
+        {globalNotices?.map((notice: any) => (
+          <div
+            className="flex items-start justify-between pt-4"
+            key={notice.id}
+          >
+            <div>
+              <h3 className="pb-2 text-lg font-semibold">{notice?.title}</h3>
+              <span className="text-sm italic text-gray-500">
+                {moment(notice?.created_at).format('ll')}
+              </span>
+            </div>
+            <Link to={`${notice.id}`} className="cursor-pointer text-blue-500">
+              View Details
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -58,6 +58,7 @@ const columns = [
 ];
 
 export const StudentsView: React.FC = () => {
+  const { role } = useAuthContext();
   const { data, isLoading } = useGetStudents();
   const [students, setStudents] = useState<any[]>([]);
 
@@ -72,7 +73,6 @@ export const StudentsView: React.FC = () => {
       };
     });
     setStudents(normalizedStudentData);
-    console.log(normalizedStudentData);
   };
 
   useEffect(() => {
@@ -82,7 +82,6 @@ export const StudentsView: React.FC = () => {
   if (isLoading) {
     return <h1>Loading</h1>;
   }
-  const { role } = useAuthContext();
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">

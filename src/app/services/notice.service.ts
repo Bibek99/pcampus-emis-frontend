@@ -1,3 +1,4 @@
+import { config } from 'process';
 import {
   useMutation,
   UseMutationOptions,
@@ -43,4 +44,41 @@ export const useFetchClassNotice = (
     (a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at))
   );
   return { feeds, ...rest };
+};
+
+export const useCreateGlobalNotice = (
+  config: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (globalNotice) =>
+      api.post('notice/global/create/', globalNotice, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'multipart/form-data; boundary=999999999999',
+        },
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useFetchAllGlobalNotice = () => {
+  const { data, ...rest } = useQuery(['globalNotice'], () =>
+    api.get('notice/show/global/all/', {
+      headers: authHeader(),
+    })
+  );
+  const globalNotices = data?.data;
+  return { globalNotices, ...rest };
+};
+
+export const useFetchGlobalNoticeDetail = (noticeId?: string) => {
+  const { data, ...rest } = useQuery(['globalNotice-detail', noticeId], () =>
+    api.get(`notice/show/global/detail/${noticeId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const globalNotice = data?.data;
+  return { globalNotice, ...rest };
 };

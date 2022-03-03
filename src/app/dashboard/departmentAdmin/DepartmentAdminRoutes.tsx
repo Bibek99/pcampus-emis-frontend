@@ -1,5 +1,6 @@
 import {
   NoticeCreate,
+  NoticeDetailView,
   NoticeView,
   StudentsAddView,
   StudentsView,
@@ -27,6 +28,7 @@ export const DepartmentAdminRoutes = () => {
             <Routes>
               <Route path="/" element={<NoticeView />} />
               <Route path="/create" element={<NoticeCreate />} />
+              <Route path=":noticeId" element={<NoticeDetailView />} />
             </Routes>
           </div>
         }

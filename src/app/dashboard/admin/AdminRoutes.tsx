@@ -3,17 +3,13 @@ import {
   DepartmentDetail,
   DepartmentView,
   NoticeCreate,
+  NoticeDetailView,
   NoticeView,
   StudentsAddView,
   StudentsView,
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
-import {
-  ClassCreateView,
-  ClassList,
-  ClassView,
-} from '@app/contentblocks/Class';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -31,6 +27,7 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<NoticeView />} />
               <Route path="/create" element={<NoticeCreate />} />
+              <Route path=":noticeId" element={<NoticeDetailView />} />
             </Routes>
           </div>
         }

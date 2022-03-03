@@ -56,6 +56,11 @@ export const studentRoutes = [
     path: '/dashboard',
   },
   {
+    title: 'Notices',
+    icon: <InformationCircleIcon className="h-6 w-6" />,
+    path: '/notices',
+  },
+  {
     title: 'Classes',
     icon: <PresentationChartBarIcon className="h-6 w-6" />,
     path: '/classes',
@@ -87,6 +92,11 @@ export const teacherRoutes = [
     title: 'Dashboard',
     icon: <TemplateIcon className="h-6 w-6" />,
     path: '/dashboard',
+  },
+  {
+    title: 'Notices',
+    icon: <InformationCircleIcon className="h-6 w-6" />,
+    path: '/notices',
   },
   {
     title: 'Classes',

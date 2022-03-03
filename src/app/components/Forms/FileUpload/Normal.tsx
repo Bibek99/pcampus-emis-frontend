@@ -17,6 +17,7 @@ export interface FileUploadProps {
   maxSize?: number;
   accept?: FileTypes[];
   setFieldValue: any;
+  placeholder?: string;
 }
 
 export const CustomFileUpload: React.FC<FileUploadProps> = (options) => {
@@ -66,6 +67,7 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (options) => {
           </p>
         </div>
         <input {...getInputProps()} className="absolute h-full w-full" />
+
         {isDragActive ? (
           <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center bg-gray-50 opacity-90">
             <span className="text-2xl font-semibold text-gray-500">
@@ -76,7 +78,9 @@ export const CustomFileUpload: React.FC<FileUploadProps> = (options) => {
           ''
         )}
       </div>
-
+      <span className="text-xs italic text-gray-500">
+        {options?.placeholder}
+      </span>
       {files.length > 0 && (
         <div className="mt-4 grid grid-cols-1 gap-4">
           {files.map(({ file, errors }, index) => (

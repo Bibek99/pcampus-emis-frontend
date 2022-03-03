@@ -1,6 +1,22 @@
-import { useQuery } from 'react-query';
+import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
+
+export const useCreateClass = (config?: UseMutationOptions<any, any, any>) => {
+  return useMutation(
+    (newClass) =>
+      api.post(
+        'create/class/',
+        { ...newClass },
+        {
+          headers: authHeader(),
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+};
 
 export const useFetchStudentClass = (student_id?: string) => {
   return useQuery(['fetch-student-class'], () =>
@@ -26,4 +42,28 @@ export const useFetchClass = (role: string, userId?: string) => {
   );
   const classData = data?.data;
   return { classData, ...rest };
+};
+
+export const useFetchClassDetail = (class_id?: string) => {
+  const { data, ...rest } = useQuery(['fetch-class-detail', class_id], () =>
+    api.get(`show/class/${class_id || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const classData = data?.data;
+  const students = data?.data.student;
+  const teachers = data?.data.teacher;
+  return { classData, students, teachers, ...rest };
+};
+
+export const useFetchStudentsInAClass = (class_id?: string) => {
+  const { data, ...rest } = useQuery(
+    ['fetch-students-in-a-class', class_id],
+    () =>
+      api.get(`show/students/in/class/${class_id || ''}/`, {
+        headers: authHeader(),
+      })
+  );
+  const students = data?.data;
+  return { students, ...rest };
 };
