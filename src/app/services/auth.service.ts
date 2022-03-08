@@ -1,5 +1,5 @@
 import { useAuthContext } from '@app/auth/AuthContext';
-import API from './api';
+import api from './api';
 import { useMutation, UseMutationOptions } from 'react-query';
 
 export const useLogin = (
@@ -12,7 +12,7 @@ export const useLogin = (
   const { updateToken, updateUser } = useAuthContext();
 
   return useMutation(
-    ({ email, password }) => API.post('users/login/', { email, password }),
+    ({ email, password }) => api.post('users/login/', { email, password }),
     {
       ...config,
       onSuccess: ({ data }) => {
@@ -21,4 +21,12 @@ export const useLogin = (
       },
     }
   );
+};
+
+export const useManualPasswordReset = (
+  config: UseMutationOptions<any, any, { email: string }> = {}
+) => {
+  return useMutation(({ email }) => api.post('/password_reset/', { email }), {
+    ...config,
+  });
 };

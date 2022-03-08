@@ -1,5 +1,4 @@
 import { useAuthContext } from '@app/auth/AuthContext';
-import { ReactNode } from 'react';
 
 export const RoleBasedRenderer = ({
   allowRoles,

@@ -38,6 +38,11 @@ export const adminRoutes = [
     path: '/teachers',
   },
   {
+    title: 'Department Users',
+    icon: <AcademicCapIcon className="h-6 w-6" />,
+    path: '/department-users',
+  },
+  {
     title: 'Calendar',
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',

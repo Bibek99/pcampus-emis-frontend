@@ -10,6 +10,10 @@ import {
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
+import {
+  DepartmentUserAddView,
+  DepartmentUsersView,
+} from '@app/contentblocks/DepartmentUsers';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -62,6 +66,17 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<TeachersView />} />
               <Route path="/add" element={<TeachersAddView />} />
+            </Routes>
+          </div>
+        }
+      />
+      <Route
+        path="department-users/*"
+        element={
+          <div className="rounded-md bg-gray-50 p-6">
+            <Routes>
+              <Route path="/" element={<DepartmentUsersView />} />
+              <Route path="/add" element={<DepartmentUserAddView />} />
             </Routes>
           </div>
         }

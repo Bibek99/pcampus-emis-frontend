@@ -9,7 +9,6 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from 'react-query';
 import * as Yup from 'yup';
-import { User } from '@app/types/users.types';
 
 export const FeedItem = ({ feed }: { feed: any }) => {
   return (

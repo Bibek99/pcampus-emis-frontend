@@ -58,7 +58,7 @@ export const TeachersView: React.FC = () => {
     let normalizedTeacherData: any[] = [];
     data?.data.map((teacher: any, index: number) => {
       normalizedTeacherData[index] = {
-        department_t: teacher?.department.name,
+        department_t: teacher?.department.alias,
         ...teacher?.teacher,
       };
     });

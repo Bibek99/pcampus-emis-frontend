@@ -41,7 +41,7 @@ export const SearchFilter: React.FC<SearchFilter> = ({
         </button>
         <SearchIcon className="absolute top-3 left-3 h-5 w-5 text-emerald-500" />
       </div>
-      <div className="flex flex-auto space-x-4">
+      {/* <div className="flex flex-auto space-x-4">
         <button
           type="button"
           className="w-full rounded-md border border-emerald-500 bg-gray-50 px-6 py-2 text-emerald-500"
@@ -56,7 +56,7 @@ export const SearchFilter: React.FC<SearchFilter> = ({
             Export
           </button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

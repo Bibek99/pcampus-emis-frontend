@@ -21,7 +21,11 @@ const NextButton = ({ page, pages, handleNextClick }: any) => {
         'h-6 w-6 cursor-pointer',
         page === pages ? 'cursor-not-allowed opacity-50' : ''
       )}
-      onClick={handleNextClick}
+      onClick={() => {
+        if (page < pages) {
+          handleNextClick();
+        }
+      }}
     />
   );
 };

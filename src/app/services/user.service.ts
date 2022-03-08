@@ -122,6 +122,44 @@ export const useCreateTeacherAccount = (
   );
 };
 
+export const useCreateDepartmentAdminAccount = (
+  config: UseMutationOptions<User, any, any>
+) => {
+  const booleans = {
+    admin: 'False',
+    student: 'False',
+    staff: 'False',
+    department: 'True',
+    password_changed: 'False',
+  };
+  return useMutation(
+    (newDepartmentAdmin) =>
+      api.post(
+        '/register/user/',
+        {
+          ...newDepartmentAdmin,
+          ...booleans,
+        },
+        {
+          headers: authHeader(),
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useGetDepartmentAdmins = () => {
+  const { data, ...rest } = useQuery('get-department-admins', () =>
+    api.get('view/all_department_admins/', {
+      headers: authHeader(),
+    })
+  );
+  const departmentAdmins = data?.data;
+  return { departmentAdmins, ...rest };
+};
+
 export const useCreateDepartment = (
   config: UseMutationOptions<any, any, any>
 ) => {
@@ -172,13 +210,13 @@ export const useFetchSection = () => {
 //   return useQuery('filter-student', () => api.get('filter/student/'));
 // };
 
-export const useFilterTeacher = (
+export const useFilterTeacherByDepartment = (
   department?: string,
   config?: UseQueryOptions
 ) => {
   const header = authHeader();
   return useQuery('filter-teacher', () =>
-    api.get(`filter/teacher/?department=${department || ''}`, {
+    api.get(`show/teacher/by/dept/${department || ''}`, {
       headers: header,
     })
   );

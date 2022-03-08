@@ -69,7 +69,7 @@ export const StudentsView: React.FC = () => {
         batch: student?.batch.name,
         section: student?.section.name,
         ...student?.student,
-        department_s: student?.department.name,
+        department_s: student?.department.alias,
       };
     });
     setStudents(normalizedStudentData);
