@@ -1,3 +1,4 @@
+import { NoticeDetailView, NoticeView } from '@app/contentblocks';
 import { CalenderView } from '@app/contentblocks/Calender';
 import { ClassList, ClassView } from '@app/contentblocks/Class';
 import React from 'react';
@@ -10,7 +11,17 @@ export const TeacherRoutes = () => {
         path="dashboard"
         element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
       />
-
+      <Route
+        path="notices/*"
+        element={
+          <div className="rounded-md bg-gray-50 p-6">
+            <Routes>
+              <Route path="/" element={<NoticeView />} />
+              <Route path=":noticeId" element={<NoticeDetailView />} />
+            </Routes>
+          </div>
+        }
+      />
       <Route
         path="classes/*"
         element={

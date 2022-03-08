@@ -38,9 +38,9 @@ export const adminRoutes = [
     path: '/teachers',
   },
   {
-    title: 'Department Users',
+    title: 'Department Admins',
     icon: <AcademicCapIcon className="h-6 w-6" />,
-    path: '/department-users',
+    path: '/department-admins',
   },
   {
     title: 'Calendar',

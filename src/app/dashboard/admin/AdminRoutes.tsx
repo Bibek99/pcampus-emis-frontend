@@ -10,6 +10,7 @@ import {
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
+import { AdminDashboard } from '@app/contentblocks/Dashboard';
 import {
   DepartmentUserAddView,
   DepartmentUsersView,
@@ -22,7 +23,11 @@ export const AdminRoutes = () => {
     <Routes>
       <Route
         path="dashboard"
-        element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
+        element={
+          <div className="p-3">
+            <AdminDashboard />
+          </div>
+        }
       />
       <Route
         path="notices/*"
