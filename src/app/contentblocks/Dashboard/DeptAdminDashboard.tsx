@@ -6,7 +6,6 @@ import React from 'react';
 
 export const DeptAdminDashboard = () => {
   const { adminDashboardData } = useAdminDashboardService();
-  console.log(adminDashboardData);
 
   return (
     <div className="flex flex-col space-y-6">

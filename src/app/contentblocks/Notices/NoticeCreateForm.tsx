@@ -4,7 +4,10 @@ import * as Yup from 'yup';
 import { CustomFileUpload, CustomTextInput } from '@app/components/Forms';
 import { CustomTextArea } from '@app/components/Forms/TextArea';
 import { useAuthContext } from '@app/auth/AuthContext';
-import { useCreateGlobalNotice } from '@app/services';
+import {
+  useCreateDepartmentNotice,
+  useCreateGlobalNotice,
+} from '@app/services';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +17,7 @@ const noticeCreateSchema = Yup.object().shape({
 });
 
 export const NoticeCreateForm: React.FC<{}> = () => {
-  const { authenticatedUser } = useAuthContext();
+  const { authenticatedUser, role, department } = useAuthContext();
   const userId = String(authenticatedUser?.id);
 
   const navigate = useNavigate();
@@ -25,6 +28,16 @@ export const NoticeCreateForm: React.FC<{}> = () => {
     },
     onSuccess: () => {
       toast.success('Global Notice created successfully!');
+      navigate('..');
+    },
+  });
+
+  const { mutate: createDeptNotice } = useCreateDepartmentNotice({
+    onError: () => {
+      toast.error('Department Notice Create Error!');
+    },
+    onSuccess: () => {
+      toast.success('Department Notice created successfully!');
       navigate('..');
     },
   });
@@ -44,7 +57,12 @@ export const NoticeCreateForm: React.FC<{}> = () => {
       globalNotice.append('publish_by', userId);
       globalNotice.append('files', values.files[0]);
 
-      createGlobalNotice(globalNotice as any);
+      if (role === 'DEPT_ADMIN') {
+        globalNotice.append('publish_to', department);
+        createDeptNotice(globalNotice as any);
+      } else {
+        createGlobalNotice(globalNotice as any);
+      }
     },
   });
   return (
@@ -87,7 +105,11 @@ export const NoticeCreateForm: React.FC<{}> = () => {
           </section>
           <section className="flex flex-col space-y-6 py-6 xl:pl-4">
             <h3 className="text-lg font-semibold">Publish Domain</h3>
-            <p>All users for this EMIS system.</p>
+            {role === 'DEPT_ADMIN' ? (
+              <p>For members of department</p>
+            ) : (
+              <p>All users for this EMIS system.</p>
+            )}
           </section>
         </div>
         <div className="mt-6 flex w-full justify-center">

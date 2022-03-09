@@ -82,3 +82,40 @@ export const useFetchGlobalNoticeDetail = (noticeId?: string) => {
   const globalNotice = data?.data;
   return { globalNotice, ...rest };
 };
+
+export const useCreateDepartmentNotice = (
+  config: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (deptNotice) =>
+      api.post('notice/dept/create/', deptNotice, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'multipart/form-data; boundary=999999999999',
+        },
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useFetchAllDeptNotice = (userId?: number) => {
+  const { data, ...rest } = useQuery(['dept-notices'], () =>
+    api.get(`notice/dept/show/all/${userId || ''}`, {
+      headers: authHeader(),
+    })
+  );
+  const deptNotices = data?.data;
+  return { deptNotices, ...rest };
+};
+
+export const useFetchDeptNoticeDetail = (noticeId?: string) => {
+  const { data, ...rest } = useQuery(['dept-notice-detail', noticeId], () =>
+    api.get(`notice/dept/show/${noticeId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const deptNotice = data?.data;
+  return { deptNotice, ...rest };
+};

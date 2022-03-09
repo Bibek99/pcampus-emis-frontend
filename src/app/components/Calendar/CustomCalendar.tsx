@@ -50,8 +50,8 @@ export const CustomCalendar = () => {
               <table className="w-full">
                 <thead>
                   <tr>
-                    {weekdayshort.map((day) => (
-                      <th>
+                    {weekdayshort.map((day, index) => (
+                      <th key={index}>
                         <div className="flex w-full justify-center">
                           <p className="text-center font-medium text-gray-800 dark:text-gray-100">
                             {day}

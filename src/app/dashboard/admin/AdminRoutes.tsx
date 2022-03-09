@@ -76,7 +76,7 @@ export const AdminRoutes = () => {
         }
       />
       <Route
-        path="department-users/*"
+        path="department-admins/*"
         element={
           <div className="rounded-md bg-gray-50 p-6">
             <Routes>

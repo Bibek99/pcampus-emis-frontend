@@ -12,7 +12,7 @@ export const NoticeView = () => {
     <div className="flex flex-col space-y-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-semibold">Notices</h1>
-        <RoleBasedRenderer allowRoles={['ADMIN', 'DEPT_ADMIN']}>
+        <RoleBasedRenderer allowRoles={['ADMIN']}>
           <Link
             to="create"
             className="flex items-center justify-center space-x-2 rounded-md bg-emerald-500 px-4 py-2 text-white"

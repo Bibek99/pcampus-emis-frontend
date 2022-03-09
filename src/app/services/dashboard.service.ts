@@ -11,3 +11,23 @@ export const useAdminDashboardService = () => {
   const adminDashboardData = data?.data;
   return { adminDashboardData, ...rest };
 };
+
+export const useStudentDashboardService = (userId?: number) => {
+  const { data, ...rest } = useQuery(['student-dashboard'], () =>
+    api.get(`show/student/dashboard/${userId || ''}`, {
+      headers: authHeader(),
+    })
+  );
+  const studentDashboardData = data?.data;
+  return { studentDashboardData, ...rest };
+};
+
+export const useTeacherDashboardService = (userId?: number) => {
+  const { data, ...rest } = useQuery(['teacher-dashboard'], () =>
+    api.get(`show/teacher/dashboard/${userId || ''}`, {
+      headers: authHeader(),
+    })
+  );
+  const teacherDashboardData = data?.data;
+  return { teacherDashboardData, ...rest };
+};

@@ -47,6 +47,6 @@ export const useUserDept = (role?: string, config: UseQueryOptions = {}) => {
         }
       )
   );
-  const department = data?.data?.department.alias || '';
+  const department = data?.data.alias;
   return { department, ...rest };
 };

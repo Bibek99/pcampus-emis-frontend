@@ -1,6 +1,8 @@
 import {
+  DeptNoticeDetailView,
   NoticeCreate,
   NoticeDetailView,
+  NoticesWrapper,
   NoticeView,
   StudentsAddView,
   StudentsView,
@@ -31,9 +33,10 @@ export const DepartmentAdminRoutes = () => {
         element={
           <div className="rounded-md bg-gray-50 p-6">
             <Routes>
-              <Route path="/" element={<NoticeView />} />
+              <Route path="/" element={<NoticesWrapper />} />
               <Route path="/create" element={<NoticeCreate />} />
               <Route path=":noticeId" element={<NoticeDetailView />} />
+              <Route path="dept/:noticeId" element={<DeptNoticeDetailView />} />
             </Routes>
           </div>
         }

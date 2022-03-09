@@ -1,6 +1,12 @@
-import { NoticeDetailView, NoticeView } from '@app/contentblocks';
+import {
+  DeptNoticeDetailView,
+  NoticeDetailView,
+  NoticesWrapper,
+  NoticeView,
+} from '@app/contentblocks';
 import { CalenderView } from '@app/contentblocks/Calender';
 import { ClassList, ClassView } from '@app/contentblocks/Class';
+import { TeacherDashboard } from '@app/contentblocks/Dashboard/TeacherDashboard';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -9,15 +15,20 @@ export const TeacherRoutes = () => {
     <Routes>
       <Route
         path="dashboard"
-        element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
+        element={
+          <div className="p-3">
+            <TeacherDashboard />
+          </div>
+        }
       />
       <Route
         path="notices/*"
         element={
           <div className="rounded-md bg-gray-50 p-6">
             <Routes>
-              <Route path="/" element={<NoticeView />} />
+              <Route path="/" element={<NoticesWrapper />} />
               <Route path=":noticeId" element={<NoticeDetailView />} />
+              <Route path="dept/:noticeId" element={<DeptNoticeDetailView />} />
             </Routes>
           </div>
         }
