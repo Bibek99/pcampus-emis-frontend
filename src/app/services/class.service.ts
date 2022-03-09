@@ -81,3 +81,15 @@ export const useDeleteClassFeed = (
     }
   );
 };
+
+export const useDeleteClass = (config?: UseMutationOptions<any, any, any>) => {
+  return useMutation(
+    (classId) =>
+      api.delete(`delete/class/${classId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};
