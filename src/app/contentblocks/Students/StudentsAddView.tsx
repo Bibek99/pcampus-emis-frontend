@@ -74,7 +74,7 @@ export const StudentsAddView = () => {
               For reference use the file below.
             </span>
             <a
-              href="/static/files/export.csv"
+              href="/static/files/student.csv"
               target="_blank"
               download
               className="mb-6 text-sm text-blue-500 underline"
