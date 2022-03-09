@@ -67,3 +67,17 @@ export const useFetchStudentsInAClass = (class_id?: string) => {
   const students = data?.data;
   return { students, ...rest };
 };
+
+export const useDeleteClassFeed = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (feedId) =>
+      api.delete(`notice/delete/${feedId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};

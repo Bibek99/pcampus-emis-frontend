@@ -1,6 +1,10 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomTextArea } from '@app/components/Forms/TextArea';
-import { usecreateClassNotice, useFetchClassNotice } from '@app/services';
+import {
+  usecreateClassNotice,
+  useDeleteClassFeed,
+  useFetchClassNotice,
+} from '@app/services';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import Image from 'next/image';
@@ -9,10 +13,23 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from 'react-query';
 import * as Yup from 'yup';
+import { TrashIcon } from '@heroicons/react/outline';
 
 export const FeedItem = ({ feed }: { feed: any }) => {
+  const { authenticatedUser } = useAuthContext();
+  const queryClient = useQueryClient();
+  const { mutate: deleteFeedItem } = useDeleteClassFeed({
+    onError: () => {
+      toast.error('Error deleting feed item');
+    },
+    onSuccess: () => {
+      toast.success('Feed item deleted');
+      queryClient.invalidateQueries('classNotice');
+    },
+  });
+
   return (
-    <div className="flex w-full space-x-4 pt-4">
+    <div className="flex w-full justify-between space-x-4 pt-4">
       <div>
         <Image
           src="https://joeschmoe.io/api/v1/random"
@@ -21,7 +38,7 @@ export const FeedItem = ({ feed }: { feed: any }) => {
           priority
         />
       </div>
-      <div className="space-y-2">
+      <div className="flex-auto space-y-2">
         <h3>
           {feed.title === 'Notice' ? (
             <>
@@ -56,6 +73,14 @@ export const FeedItem = ({ feed }: { feed: any }) => {
           {moment(feed?.created_at).fromNow()}
         </span>
       </div>
+      {authenticatedUser?.id === feed?.publish_by?.id && (
+        <button
+          onClick={() => deleteFeedItem(feed?.id)}
+          className="flex justify-end text-gray-500 hover:text-red-500"
+        >
+          <TrashIcon className="h-6 w-6" />
+        </button>
+      )}
     </div>
   );
 };
@@ -156,7 +181,6 @@ export const FeedView = () => {
   return (
     <>
       <FeedCreate />
-
       <div className="flex flex-col space-y-6 divide-y-2">
         {feeds?.map((feed: any, index: number) => (
           <FeedItem feed={feed} key={index} />
