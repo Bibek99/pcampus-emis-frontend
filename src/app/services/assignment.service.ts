@@ -146,3 +146,18 @@ export const useMarkAssignmentSubmission = (
     }
   );
 };
+
+export const useAssignmentDelete = (
+  config?: UseMutationOptions<any, any, any>,
+  assignment_id?: string
+) => {
+  return useMutation(
+    (assignment_id) =>
+      api.delete(`assignment/delete/${assignment_id || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};

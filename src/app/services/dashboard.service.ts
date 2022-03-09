@@ -14,7 +14,7 @@ export const useAdminDashboardService = () => {
 
 export const useStudentDashboardService = (userId?: number) => {
   const { data, ...rest } = useQuery(['student-dashboard'], () =>
-    api.get(`show/student/dashboard/${userId || ''}`, {
+    api.get(`show/student/dashboard/${userId || ''}/`, {
       headers: authHeader(),
     })
   );
@@ -24,7 +24,7 @@ export const useStudentDashboardService = (userId?: number) => {
 
 export const useTeacherDashboardService = (userId?: number) => {
   const { data, ...rest } = useQuery(['teacher-dashboard'], () =>
-    api.get(`show/teacher/dashboard/${userId || ''}`, {
+    api.get(`show/teacher/dashboard/${userId || ''}/`, {
       headers: authHeader(),
     })
   );
