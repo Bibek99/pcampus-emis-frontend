@@ -1,12 +1,28 @@
+import { useAuthContext } from '@app/auth/AuthContext';
 import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
-import { useFetchAllGlobalNotice } from '@app/services';
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { useFetchAllGlobalNotice, useGlobalNoticeDelete } from '@app/services';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
 import moment from 'moment';
 import React from 'react';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const NoticeView = () => {
+  const { authenticatedUser } = useAuthContext();
   const { globalNotices } = useFetchAllGlobalNotice();
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteGlobalNotice } = useGlobalNoticeDelete({
+    onError: () => {
+      toast.error('Error deleting notice');
+    },
+    onSuccess: () => {
+      toast.success('Notice deleted successfully');
+      queryClient.invalidateQueries(['globalNotice']);
+    },
+  });
 
   return (
     <div className="flex flex-col space-y-6">
@@ -44,9 +60,22 @@ export const NoticeView = () => {
                 )}
               </p>
             </div>
-            <Link to={`${notice.id}`} className="cursor-pointer text-blue-500">
-              View Details
-            </Link>
+            <div className="flex flex-col justify-between">
+              <Link
+                to={`${notice.id}`}
+                className="cursor-pointer text-blue-500"
+              >
+                View Details
+              </Link>
+              {notice?.publish_by?.id === authenticatedUser?.id && (
+                <button
+                  onClick={() => deleteGlobalNotice(notice?.id)}
+                  className="flex justify-end pt-4 text-gray-500 hover:text-red-500"
+                >
+                  <TrashIcon className="h-6 w-6" />
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>

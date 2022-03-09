@@ -119,3 +119,31 @@ export const useFetchDeptNoticeDetail = (noticeId?: string) => {
   const deptNotice = data?.data;
   return { deptNotice, ...rest };
 };
+
+export const useGlobalNoticeDelete = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (noticeId) =>
+      api.delete(`notice/global/delete/${noticeId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useDepartmentNoticeDelete = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (noticeId) =>
+      api.delete(`notice/dept/delete/${noticeId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};
