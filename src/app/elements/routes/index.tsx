@@ -38,15 +38,20 @@ export const adminRoutes = [
     path: '/teachers',
   },
   {
-    title: 'Calendar',
-    icon: <CalendarIcon className="h-6 w-6" />,
-    path: '/calendar',
+    title: 'Department Admins',
+    icon: <AcademicCapIcon className="h-6 w-6" />,
+    path: '/department-admins',
   },
-  {
-    title: 'Results',
-    icon: <ClipboardListIcon className="h-6 w-6" />,
-    path: '/results',
-  },
+  // {
+  //   title: 'Calendar',
+  //   icon: <CalendarIcon className="h-6 w-6" />,
+  //   path: '/calendar',
+  // },
+  // {
+  //   title: 'Results',
+  //   icon: <ClipboardListIcon className="h-6 w-6" />,
+  //   path: '/results',
+  // },
 ];
 
 export const studentRoutes = [
@@ -54,6 +59,11 @@ export const studentRoutes = [
     title: 'Dashboard',
     icon: <TemplateIcon className="h-6 w-6" />,
     path: '/dashboard',
+  },
+  {
+    title: 'Notices',
+    icon: <InformationCircleIcon className="h-6 w-6" />,
+    path: '/notices',
   },
   {
     title: 'Classes',
@@ -65,21 +75,21 @@ export const studentRoutes = [
     icon: <ClipboardCheckIcon className="h-6 w-6" />,
     path: '/assignments',
   },
-  {
-    title: 'Calendar',
-    icon: <CalendarIcon className="h-6 w-6" />,
-    path: '/calendar',
-  },
-  {
-    title: 'Results',
-    icon: <ClipboardListIcon className="h-6 w-6" />,
-    path: '/results',
-  },
-  {
-    title: 'Archived Classes',
-    icon: <ArchiveIcon className="h-6 w-6" />,
-    path: '/archived-classes',
-  },
+  // {
+  //   title: 'Calendar',
+  //   icon: <CalendarIcon className="h-6 w-6" />,
+  //   path: '/calendar',
+  // },
+  // {
+  //   title: 'Results',
+  //   icon: <ClipboardListIcon className="h-6 w-6" />,
+  //   path: '/results',
+  // },
+  // {
+  //   title: 'Archived Classes',
+  //   icon: <ArchiveIcon className="h-6 w-6" />,
+  //   path: '/archived-classes',
+  // },
 ];
 
 export const teacherRoutes = [
@@ -87,6 +97,11 @@ export const teacherRoutes = [
     title: 'Dashboard',
     icon: <TemplateIcon className="h-6 w-6" />,
     path: '/dashboard',
+  },
+  {
+    title: 'Notices',
+    icon: <InformationCircleIcon className="h-6 w-6" />,
+    path: '/notices',
   },
   {
     title: 'Classes',
@@ -98,16 +113,16 @@ export const teacherRoutes = [
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',
   },
-  {
-    title: 'Results',
-    icon: <ClipboardListIcon className="h-6 w-6" />,
-    path: '/results',
-  },
-  {
-    title: 'Archived Classes',
-    icon: <ArchiveIcon className="h-6 w-6" />,
-    path: '/archived-classes',
-  },
+  // {
+  //   title: 'Results',
+  //   icon: <ClipboardListIcon className="h-6 w-6" />,
+  //   path: '/results',
+  // },
+  // {
+  //   title: 'Archived Classes',
+  //   icon: <ArchiveIcon className="h-6 w-6" />,
+  //   path: '/archived-classes',
+  // },
 ];
 
 export const departmentAdminRoutes = [
@@ -141,15 +156,15 @@ export const departmentAdminRoutes = [
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',
   },
-  {
-    title: 'Results',
-    icon: <ClipboardListIcon className="h-6 w-6" />,
-    path: '/results',
-  },
+  // {
+  //   title: 'Results',
+  //   icon: <ClipboardListIcon className="h-6 w-6" />,
+  //   path: '/results',
+  // },
 
-  {
-    title: 'Archived Classes',
-    icon: <ArchiveIcon className="h-6 w-6" />,
-    path: '/archived-classes',
-  },
+  // {
+  //   title: 'Archived Classes',
+  //   icon: <ArchiveIcon className="h-6 w-6" />,
+  //   path: '/archived-classes',
+  // },
 ];

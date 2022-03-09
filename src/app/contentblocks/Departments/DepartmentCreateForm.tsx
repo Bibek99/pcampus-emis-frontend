@@ -4,6 +4,7 @@ import { CustomTextArea } from '@app/components/Forms/TextArea';
 import { useCreateDepartment } from '@app/services/user.service';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -14,6 +15,7 @@ const departmentCreateSchema = Yup.object().shape({
 });
 
 export const DepartmentCreateForm = () => {
+  const navigate = useNavigate();
   const { mutate: createDepartment, isLoading } = useCreateDepartment({
     onError: () => {
       toast.error('Department Create Failed. Please Try again.');
@@ -21,7 +23,7 @@ export const DepartmentCreateForm = () => {
     onSuccess: () => {
       toast.success('Department added');
       departmentCreateForm.resetForm();
-      window.scrollTo(0, 0);
+      navigate('..');
     },
   });
 

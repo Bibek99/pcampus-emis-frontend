@@ -3,7 +3,7 @@ import { ChangeEventHandler } from 'react';
 interface CustomTextInput {
   name: string;
   placeholder?: string;
-  label: string;
+  label?: string;
   error?: string | object;
   touched?: boolean;
   required?: boolean;

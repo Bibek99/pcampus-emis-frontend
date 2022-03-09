@@ -1,43 +1,50 @@
 import { CustomSelectInput, CustomTextInput } from '@app/components/Forms';
-import { CustomTextArea } from '@app/components/Forms/TextArea';
 import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { CustomMultiSelectInput } from '@app/components/Forms/MultiSelect';
 import {
-  useCreateClass,
   useFetchBatch,
   useFetchSection,
-  useFilterTeacher,
+  useFilterTeacherByDepartment,
 } from '@app/services/user.service';
 import { useAuthContext } from '@app/auth/AuthContext';
 import { toast } from 'react-toastify';
+import { useCreateClass, useUserDept } from '@app/services';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 const classCreateSchema = Yup.object().shape({
   teachers: Yup.array().required('Please select at least a teacher'),
 });
 
 export const ClassCreateForm = () => {
-  const { data } = useFilterTeacher();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { data: batches } = useFetchBatch();
   const { data: sections } = useFetchSection();
   const { department: deptContext } = useAuthContext();
+  const { department: deptAlias } = useUserDept();
+  const { data } = useFilterTeacherByDepartment(deptAlias);
   const { mutate: createClass } = useCreateClass({
     onError: () => {
       toast.error('error');
     },
     onSuccess: () => {
       toast.success('success');
+      queryClient.invalidateQueries('fetch-classes');
+      navigate('..');
     },
   });
 
   let optionsList: any[] = [];
   const getOptions = () => {
     if (data?.data) {
-      return data.data.map((item: any, index: number) => {
+      return data?.data?.map((item: any, index: number) => {
         optionsList[index] = {
-          label: `${item.teacher.first_name} ${item.teacher.middle_name} ${item.teacher.last_name}`,
-          value: item.teacher.id,
+          label: `${item?.teacher.first_name} ${item?.teacher.middle_name} ${item?.teacher.last_name}`,
+          value: item?.teacher.id,
         };
       });
     }
@@ -95,16 +102,6 @@ export const ClassCreateForm = () => {
               error={classCreateForm.errors?.alias}
               touched={classCreateForm.touched.alias}
             />
-            {/* <CustomTextArea
-              label="Description"
-              required
-              name="description"
-              placeholder="Enter the class description"
-              onChange={classCreateForm.handleChange}
-              onBlur={classCreateForm.handleBlur}
-              error={classCreateForm.errors?.description}
-              touched={classCreateForm.touched.description}
-            /> */}
           </section>
           <section className="flex flex-col space-y-6 py-6 xl:pl-4">
             <div className="space-y-6">

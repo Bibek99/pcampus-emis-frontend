@@ -1,3 +1,4 @@
+import { User } from '@app/types/users.types';
 import { AUTH_TOKEN_KEY, AUTH_USER_KEY } from '@constants/auth';
 import { isBrowser } from '@utils/windowType';
 import React, {
@@ -11,7 +12,7 @@ import React, {
 interface AuthContextValue {
   isAuthenticated: boolean;
   setIsAuthenticated(arg: boolean): void;
-  authenticatedUser: object | undefined;
+  authenticatedUser: User | null;
   updateUser(newUser: object): void;
   updateToken(token: string): void;
   role: string;
@@ -48,7 +49,7 @@ const updateUser = (newUser: any) => {
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
   setIsAuthenticated: () => undefined,
-  authenticatedUser: undefined,
+  authenticatedUser: null,
   updateUser: updateUser,
   updateToken: updateToken,
   role: '',
@@ -65,8 +66,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isBrowser && localStorage.getItem(AUTH_TOKEN_KEY)
   );
 
-  const [authenticatedUser, setAuthenticatedUser] = useState<any>(
-    isBrowser && localStorage.getItem(AUTH_USER_KEY)
+  const [authenticatedUser, setAuthenticatedUser] = useState<User>(
+    isBrowser && JSON.parse(localStorage.getItem(AUTH_USER_KEY) as any)
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState('');
@@ -85,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const handleUpdateUser = useCallback(
-    (newUser: any) => {
+    (newUser: User) => {
       setAuthenticatedUser(newUser);
       updateUser(newUser);
     },
@@ -94,7 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const handleLogOut = useCallback(() => {
     setToken('');
-    setAuthenticatedUser('');
+    setAuthenticatedUser({});
     updateUser('');
     updateToken('');
     setRole('');

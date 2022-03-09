@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
-import NextLink from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLogin } from '@app/services/auth.service';
 import { Spinner } from '@app/components';
 import { toast } from 'react-toastify';
 import { EyeCloseIcon, EyeOpenIcon } from '@app/elements/icons';
+import { Link } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -134,9 +134,9 @@ const LoginForm = ({ onLogin }: { onLogin?: () => void }) => {
                 Remember Me
               </label>
             </div>
-            <NextLink href="/forgot">
-              <a className="text-emerald-500">Forgot Password ?</a>
-            </NextLink>
+            <Link to="/forgot-password" className="text-emerald-500">
+              Forgot Password ?
+            </Link>
           </div>
           <button
             type="submit"

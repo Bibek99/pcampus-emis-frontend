@@ -21,7 +21,7 @@ const studentAddSchema = Yup.object().shape({
 });
 
 export const StudentAddForm: React.FC<{}> = () => {
-  const { mutate: createStudent } = useCreateStudentAccount({
+  const { mutate: createStudent, isLoading } = useCreateStudentAccount({
     onError: (error) => {
       toast.error(error);
     },
@@ -232,7 +232,7 @@ export const StudentAddForm: React.FC<{}> = () => {
             type="submit"
             className="w-full rounded-md bg-emerald-500 py-2 px-6 text-gray-50 sm:w-32"
           >
-            Submit
+            {isLoading ? 'Creating' : 'Create'}
           </button>
         </div>
       </form>

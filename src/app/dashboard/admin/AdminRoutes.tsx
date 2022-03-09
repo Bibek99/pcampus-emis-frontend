@@ -3,17 +3,18 @@ import {
   DepartmentDetail,
   DepartmentView,
   NoticeCreate,
+  NoticeDetailView,
   NoticeView,
   StudentsAddView,
   StudentsView,
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
+import { AdminDashboard } from '@app/contentblocks/Dashboard';
 import {
-  ClassCreateView,
-  ClassList,
-  ClassView,
-} from '@app/contentblocks/Class';
+  DepartmentUserAddView,
+  DepartmentUsersView,
+} from '@app/contentblocks/DepartmentUsers';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -22,7 +23,11 @@ export const AdminRoutes = () => {
     <Routes>
       <Route
         path="dashboard"
-        element={<div className="rounded-md bg-gray-50 p-12">Dashboard</div>}
+        element={
+          <div className="p-3">
+            <AdminDashboard />
+          </div>
+        }
       />
       <Route
         path="notices/*"
@@ -31,6 +36,7 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<NoticeView />} />
               <Route path="/create" element={<NoticeCreate />} />
+              <Route path=":noticeId" element={<NoticeDetailView />} />
             </Routes>
           </div>
         }
@@ -65,6 +71,17 @@ export const AdminRoutes = () => {
             <Routes>
               <Route path="/" element={<TeachersView />} />
               <Route path="/add" element={<TeachersAddView />} />
+            </Routes>
+          </div>
+        }
+      />
+      <Route
+        path="department-admins/*"
+        element={
+          <div className="rounded-md bg-gray-50 p-6">
+            <Routes>
+              <Route path="/" element={<DepartmentUsersView />} />
+              <Route path="/add" element={<DepartmentUserAddView />} />
             </Routes>
           </div>
         }

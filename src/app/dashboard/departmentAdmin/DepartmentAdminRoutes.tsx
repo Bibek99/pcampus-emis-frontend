@@ -1,5 +1,8 @@
 import {
+  DeptNoticeDetailView,
   NoticeCreate,
+  NoticeDetailView,
+  NoticesWrapper,
   NoticeView,
   StudentsAddView,
   StudentsView,
@@ -11,6 +14,7 @@ import {
   ClassList,
   ClassView,
 } from '@app/contentblocks/Class';
+import { DeptAdminDashboard } from '@app/contentblocks/Dashboard/DeptAdminDashboard';
 import { Route, Routes } from 'react-router-dom';
 
 export const DepartmentAdminRoutes = () => {
@@ -18,15 +22,21 @@ export const DepartmentAdminRoutes = () => {
     <Routes>
       <Route
         path="dashboard"
-        element={<div className="rounded-md bg-gray-50 p-6">Dashboard</div>}
+        element={
+          <div className="p-3">
+            <DeptAdminDashboard />
+          </div>
+        }
       />
       <Route
         path="notices/*"
         element={
           <div className="rounded-md bg-gray-50 p-6">
             <Routes>
-              <Route path="/" element={<NoticeView />} />
+              <Route path="/" element={<NoticesWrapper />} />
               <Route path="/create" element={<NoticeCreate />} />
+              <Route path=":noticeId" element={<NoticeDetailView />} />
+              <Route path="dept/:noticeId" element={<DeptNoticeDetailView />} />
             </Routes>
           </div>
         }

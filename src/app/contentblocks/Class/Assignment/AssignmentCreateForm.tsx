@@ -17,7 +17,7 @@ const assignmentCreateSchema = Yup.object().shape({});
 export const AssignmentCreateForm = () => {
   const { id } = useParams();
   const { authenticatedUser } = useAuthContext();
-  const userId = JSON.parse(authenticatedUser as any).id;
+  const userId = String(authenticatedUser?.id);
 
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export const AssignmentCreateForm = () => {
     onSubmit: (values) => {
       console.log(values);
       const formData = new FormData();
-      formData.append('files', values.files[0]);
+      formData.append('teacher_files', values.files[0]);
       formData.append('title', values.title);
       formData.append('description', values.description);
       formData.append('total_points', values.total_points);
@@ -57,6 +57,7 @@ export const AssignmentCreateForm = () => {
       createAssignment(formData as any);
     },
   });
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-4 pb-6">
       <p className="text-sm italic text-gray-600">
@@ -91,7 +92,7 @@ export const AssignmentCreateForm = () => {
             <CustomFileUpload
               label="Upload Files"
               name="files"
-              maxFiles={3}
+              maxFiles={1}
               accept={['.png', '.pdf']}
               setFieldValue={assignmentCreateForm.setFieldValue}
             />

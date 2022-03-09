@@ -33,8 +33,8 @@ export const useUserRole = (config: UseQueryOptions = {}) => {
   return { role, ...rest };
 };
 
-export const useUserDept = (config: UseQueryOptions = {}) => {
-  const { data: department, ...rest } = useQuery(
+export const useUserDept = (role?: string, config: UseQueryOptions = {}) => {
+  const { data, ...rest } = useQuery(
     ['department'],
     (): Promise<any> =>
       api.post(
@@ -47,6 +47,6 @@ export const useUserDept = (config: UseQueryOptions = {}) => {
         }
       )
   );
-
+  const department = data?.data.alias;
   return { department, ...rest };
 };

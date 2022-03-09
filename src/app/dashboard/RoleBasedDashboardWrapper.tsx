@@ -21,8 +21,8 @@ export const RoleBasedDashboardWrapper = () => {
 
   useEffect(() => {
     setRole(role?.data);
-    setDepartment(department?.data);
-  }, [role?.data, department?.data]);
+    setDepartment(department);
+  }, [role?.data, department]);
 
   if (isLoading) {
     return <h1>Loading</h1>;

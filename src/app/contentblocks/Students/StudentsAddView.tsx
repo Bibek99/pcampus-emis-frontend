@@ -15,11 +15,7 @@ const uploadStudentSchema = Yup.object().shape({
 export const StudentsAddView = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const {
-    mutate: createBulkStudent,
-    data,
-    isLoading,
-  } = useCreateStudentsInBulk({
+  const { mutate: createBulkStudent, isLoading } = useCreateStudentsInBulk({
     onError: () => {
       toast.error('error');
     },
