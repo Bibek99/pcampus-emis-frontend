@@ -5,24 +5,55 @@ import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import {
   useFetchAllMaterialsInFolder,
   useFetchFolderDetail,
+  useMaterialDelete,
 } from '@app/services';
-import { ArrowLeftIcon, DownloadIcon } from '@heroicons/react/outline';
+import {
+  ArrowLeftIcon,
+  DownloadIcon,
+  TrashIcon,
+} from '@heroicons/react/outline';
 import React, { useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { UploadFilesForm } from '.';
 
 export const FileItem = ({ material }: any) => {
   const fileName = material?.file.split('/').reverse()[0];
   const baseUrl = 'http://localhost:8000';
+
+  const queryClient = useQueryClient();
+  const { folderId } = useParams();
+
+  const { mutate: deleteMaterial } = useMaterialDelete({
+    onError: () => {
+      toast.error('Material Delete Failed');
+    },
+    onSuccess: () => {
+      toast.success('Material Deleted Successfully');
+      queryClient.invalidateQueries(['fetch-materials', folderId]);
+    },
+  });
+
   return (
     <div className="flex justify-between pt-4">
       <div className="flex flex-row items-center space-x-4">
         <CustomFileIcon fileName={material?.file} />
         <p>{fileName}</p>
       </div>
-      <a href={`${baseUrl}${material?.file}`} download target="_blank">
-        <DownloadIcon className="h-6 w-6" />
-      </a>
+      <div className="flex space-x-4">
+        <a href={`${baseUrl}${material?.file}`} download target="_blank">
+          <DownloadIcon className="h-6 w-6" />
+        </a>
+        <RoleBasedRenderer allowRoles={['TEACHER']}>
+          <button
+            onClick={() => deleteMaterial(material?.id)}
+            className="flex justify-end text-gray-500 hover:text-red-500"
+          >
+            <TrashIcon className="h-6 w-6" />
+          </button>
+        </RoleBasedRenderer>
+      </div>
     </div>
   );
 };

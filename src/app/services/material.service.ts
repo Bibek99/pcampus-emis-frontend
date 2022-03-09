@@ -68,3 +68,29 @@ export const useUploadMaterials = (
     }
   );
 };
+
+export const useMaterialDelete = (
+  config?: UseMutationOptions<any, any, any>
+) => {
+  return useMutation(
+    (materialId) =>
+      api.delete(`delete/materials/${materialId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useFolderDelete = (config?: UseMutationOptions<any, any, any>) => {
+  return useMutation(
+    (folderId) =>
+      api.delete(`delete/folder/${folderId || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+};
