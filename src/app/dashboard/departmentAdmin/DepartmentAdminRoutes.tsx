@@ -9,6 +9,7 @@ import {
   TeachersAddView,
   TeachersView,
 } from '@app/contentblocks';
+import { CalenderView } from '@app/contentblocks/Calender';
 import {
   ClassCreateView,
   ClassList,
@@ -82,6 +83,7 @@ export const DepartmentAdminRoutes = () => {
           </div>
         }
       />
+      <Route path="calendar" element={<CalenderView />} />
     </Routes>
   );
 };
