@@ -1,3 +1,4 @@
+import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomCalendar } from '@app/components/Calendar';
 import { DataCard, PieChartCard } from '@app/components/Card';
 import { useAdminDashboardService } from '@app/services/dashboard.service';
@@ -6,10 +7,12 @@ import React from 'react';
 
 export const DeptAdminDashboard = () => {
   const { adminDashboardData } = useAdminDashboardService();
-
+  const { authenticatedUser } = useAuthContext();
   return (
     <div className="flex flex-col space-y-6">
-      <h1 className="text-2xl font-semibold">Welcome Back Admin !</h1>
+      <h1 className="text-2xl font-semibold">
+        Welcome Back {authenticatedUser?.first_name} !
+      </h1>
       <hr className="border border-gray-300" />
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <div className="xl:col-span-9">

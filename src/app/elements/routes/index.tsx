@@ -75,11 +75,11 @@ export const studentRoutes = [
     icon: <ClipboardCheckIcon className="h-6 w-6" />,
     path: '/assignments',
   },
-  // {
-  //   title: 'Calendar',
-  //   icon: <CalendarIcon className="h-6 w-6" />,
-  //   path: '/calendar',
-  // },
+  {
+    title: 'Calendar',
+    icon: <CalendarIcon className="h-6 w-6" />,
+    path: '/calendar',
+  },
   // {
   //   title: 'Results',
   //   icon: <ClipboardListIcon className="h-6 w-6" />,

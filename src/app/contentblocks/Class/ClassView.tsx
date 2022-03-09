@@ -95,7 +95,7 @@ const ClassNav = () => {
           <span className="hidden sm:block">Materials</span>
         </div>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="grades"
         className={classNames(
           'relative',
@@ -113,7 +113,7 @@ const ClassNav = () => {
           <ClipboardCheckIcon className="h-5 w-5" />
           <span className="hidden sm:block">Grades</span>
         </div>
-      </NavLink>
+      </NavLink> */}
     </section>
   );
 };
@@ -179,7 +179,7 @@ export const ClassView = () => {
               </Routes>
             }
           />
-          <Route path="grades" element={<GradesListView />} />
+          {/* <Route path="grades" element={<GradesListView />} /> */}
         </Routes>
       </div>
     </>

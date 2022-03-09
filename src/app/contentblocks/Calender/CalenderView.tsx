@@ -35,7 +35,13 @@ export const CalenderView = () => {
   const { authenticatedUser } = useAuthContext();
   const userId = String(authenticatedUser?.id);
 
-  const { calendarData } = useGlobalStudentCalendar(userId, 2, 2022);
+  const monthId = moment().format('M');
+
+  const { calendarData } = useGlobalStudentCalendar(
+    userId,
+    Number(monthId),
+    2022
+  );
   const events = eventListFormatter(calendarData);
 
   const navigate = useNavigate();

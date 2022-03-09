@@ -27,12 +27,14 @@ export const FolderItem = ({ folder }: any) => {
         <Link to={`${folder.id}`}>
           <FolderIcon className="h-16 w-16 text-emerald-500" />
         </Link>
-        <button
-          onClick={() => deleteFolderItem(folder.id)}
-          className="absolute -top-4 -right-4 z-[20] hidden rounded-full bg-gray-50 p-4 shadow-sm hover:text-red-500 group-hover:block"
-        >
-          <TrashIcon className="h-6 w-6" />
-        </button>
+        <RoleBasedRenderer allowRoles={['TEACHER']}>
+          <button
+            onClick={() => deleteFolderItem(folder.id)}
+            className="absolute -top-4 -right-4 z-[20] hidden rounded-full bg-gray-50 p-4 shadow-sm hover:text-red-500 group-hover:block"
+          >
+            <TrashIcon className="h-6 w-6" />
+          </button>
+        </RoleBasedRenderer>
       </span>
       <p>{folder.folder_name}</p>
     </div>
