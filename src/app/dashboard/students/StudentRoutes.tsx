@@ -6,9 +6,9 @@ import {
   DeptNoticeDetailView,
   NoticeDetailView,
   NoticesWrapper,
-  NoticeView,
 } from '@app/contentblocks';
 import { StudentDashboard } from '@app/contentblocks/Dashboard/StudentDashboard';
+import { StudentsAllAssignments } from '@app/contentblocks/Assignments';
 
 export const StudentRoutes = () => {
   return (
@@ -24,7 +24,7 @@ export const StudentRoutes = () => {
       <Route
         path="notices/*"
         element={
-          <div className="rounded-md bg-gray-50 p-6">
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<NoticesWrapper />} />
               <Route path=":noticeId" element={<NoticeDetailView />} />
@@ -36,7 +36,7 @@ export const StudentRoutes = () => {
       <Route
         path="classes/*"
         element={
-          <div className="rounded-md bg-gray-50">
+          <div className="min-h-full rounded-md bg-gray-50">
             <Routes>
               <Route path="/" element={<ClassList />} />
               <Route
@@ -51,6 +51,7 @@ export const StudentRoutes = () => {
           </div>
         }
       />
+      <Route path="assignments/*" element={<StudentsAllAssignments />} />
       <Route path="calendar" element={<CalenderView />} />
     </Routes>
   );

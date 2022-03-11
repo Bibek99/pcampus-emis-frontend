@@ -1,9 +1,4 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  useQuery,
-  UseQueryOptions,
-} from 'react-query';
+import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -148,8 +143,7 @@ export const useMarkAssignmentSubmission = (
 };
 
 export const useAssignmentDelete = (
-  config?: UseMutationOptions<any, any, any>,
-  assignment_id?: string
+  config?: UseMutationOptions<any, any, any>
 ) => {
   return useMutation(
     (assignment_id) =>
@@ -160,4 +154,14 @@ export const useAssignmentDelete = (
       ...config,
     }
   );
+};
+
+export const useFetchAllAssignmentsForAStudent = (studentId?: number) => {
+  const { data, ...rest } = useQuery(['fetch-all-assignments', studentId], () =>
+    api.get(`assignment/show/all/class/specific/student/${studentId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const assignmentsData = data?.data;
+  return { assignmentsData, ...rest };
 };

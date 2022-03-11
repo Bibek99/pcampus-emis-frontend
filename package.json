@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/avatars-initials-sprites": "^4.10.2",
     "@fontsource/inter": "^4.5.2",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",

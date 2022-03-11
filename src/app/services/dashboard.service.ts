@@ -12,6 +12,16 @@ export const useAdminDashboardService = () => {
   return { adminDashboardData, ...rest };
 };
 
+export const useDepartmentAdminDashboardService = (alias?: string) => {
+  const { data, ...rest } = useQuery(['dept-admin-dashboard'], () =>
+    api.get(`show/department/dashboard/${alias || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const deptDashboardData = data?.data;
+  return { deptDashboardData, ...rest };
+};
+
 export const useStudentDashboardService = (userId?: number) => {
   const { data, ...rest } = useQuery(['student-dashboard'], () =>
     api.get(`show/student/dashboard/${userId || ''}/`, {

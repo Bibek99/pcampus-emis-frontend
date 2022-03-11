@@ -1,12 +1,17 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomCalendar } from '@app/components/Calendar';
 import { DataCard, PieChartCard } from '@app/components/Card';
-import { useAdminDashboardService } from '@app/services/dashboard.service';
+import {
+  useAdminDashboardService,
+  useDepartmentAdminDashboardService,
+} from '@app/services/dashboard.service';
 import Image from 'next/image';
 import React from 'react';
 
 export const DeptAdminDashboard = () => {
-  const { adminDashboardData } = useAdminDashboardService();
+  const { department } = useAuthContext();
+  const { deptDashboardData } = useDepartmentAdminDashboardService(department);
+  console.log(deptDashboardData);
   const { authenticatedUser } = useAuthContext();
   return (
     <div className="flex flex-col space-y-6">
@@ -26,7 +31,7 @@ export const DeptAdminDashboard = () => {
                   width={64}
                 />
               }
-              value={adminDashboardData?.students}
+              value={deptDashboardData?.students?.total}
             />
             <DataCard
               title="Teachers"
@@ -37,18 +42,18 @@ export const DeptAdminDashboard = () => {
                   width={64}
                 />
               }
-              value={adminDashboardData?.teachers}
+              value={deptDashboardData?.teachers?.total}
             />
             <DataCard
-              title="Department Admins"
+              title="Classes"
               icon={
                 <Image
-                  src={'/static/images/dept-admin.png'}
+                  src={'/static/images/classes.png'}
                   height={64}
                   width={64}
                 />
               }
-              value={adminDashboardData?.department_admins}
+              value={deptDashboardData?.classes}
             />
           </section>
           <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -59,7 +64,10 @@ export const DeptAdminDashboard = () => {
                 datasets: [
                   {
                     label: 'label',
-                    data: [43, 57],
+                    data: [
+                      deptDashboardData?.students?.male,
+                      deptDashboardData?.students?.female,
+                    ],
                     backgroundColor: ['#facc15', '#3b82f6'],
                     borderColor: ['#facc15', '#3b82f6'],
                     borderWidth: 1,
@@ -74,7 +82,10 @@ export const DeptAdminDashboard = () => {
                 datasets: [
                   {
                     label: 'label',
-                    data: [43, 57],
+                    data: [
+                      deptDashboardData?.students?.male,
+                      deptDashboardData?.students?.female,
+                    ],
                     backgroundColor: ['#facc15', '#3b82f6'],
                     borderColor: ['#facc15', '#3b82f6'],
                     borderWidth: 1,

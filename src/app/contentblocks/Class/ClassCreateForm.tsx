@@ -16,6 +16,10 @@ import { useQueryClient } from 'react-query';
 
 const classCreateSchema = Yup.object().shape({
   teachers: Yup.array().required('Please select at least a teacher'),
+  class_name: Yup.string().required('Please enter class name'),
+  alias: Yup.string().required('Please enter class alias'),
+  batch: Yup.string().required('Please select batch'),
+  section: Yup.string().required('Please select section'),
 });
 
 export const ClassCreateForm = () => {
@@ -27,6 +31,7 @@ export const ClassCreateForm = () => {
   const { department: deptContext } = useAuthContext();
   const { department: deptAlias } = useUserDept();
   const { data } = useFilterTeacherByDepartment(deptAlias);
+
   const { mutate: createClass } = useCreateClass({
     onError: () => {
       toast.error('error');
@@ -73,6 +78,7 @@ export const ClassCreateForm = () => {
   });
 
   getOptions();
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-4 pb-6">
       <p className="text-sm italic text-gray-600">

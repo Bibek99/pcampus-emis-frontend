@@ -36,7 +36,7 @@ export const TeacherRoutes = () => {
       <Route
         path="classes/*"
         element={
-          <div className="rounded-md bg-gray-50">
+          <div className="min-h-full rounded-md bg-gray-50">
             <Routes>
               <Route path="/" element={<ClassList />} />
               <Route

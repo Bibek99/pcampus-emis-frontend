@@ -36,20 +36,22 @@ export const AssignmentDetailView: React.FC<AssignmentDetailViewProps> = ({
             <h3 className="font-semibold">Assignment Details</h3>
             <p className="text-gray-800">{assignmentData?.description}</p>
           </div>
-          <div className="space-y-4">
-            <h3 className="font-semibold">Provided File:</h3>
-            <div className="flex flex-row items-center space-x-4">
-              <CustomFileIcon fileName={assignmentData?.teacher_files} />
-              <a
-                href={`http://localhost:8000${assignmentData?.teacher_files}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500"
-              >
-                {assignmentData?.teacher_files?.split('/').reverse()[0]}
-              </a>
+          {assignmentData?.teacher_files && (
+            <div className="space-y-4">
+              <h3 className="font-semibold">Provided File:</h3>
+              <div className="flex flex-row items-center space-x-4">
+                <CustomFileIcon fileName={assignmentData?.teacher_files} />
+                <a
+                  href={`http://localhost:8000${assignmentData?.teacher_files}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500"
+                >
+                  {assignmentData?.teacher_files?.split('/').reverse()[0]}
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </section>
         <section className="flex flex-col space-y-8 xl:py-6 xl:pl-4">
           <div className="space-y-4">
