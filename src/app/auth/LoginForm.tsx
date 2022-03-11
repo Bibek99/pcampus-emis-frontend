@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLogin } from '@app/services/auth.service';
@@ -43,7 +43,7 @@ const LoginForm = ({ onLogin }: { onLogin?: () => void }) => {
     },
   });
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex flex-auto flex-col justify-center">

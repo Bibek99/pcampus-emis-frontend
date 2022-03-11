@@ -14,6 +14,8 @@ export const ClassList = () => {
   const userId = String(authenticatedUser?.id);
   const { classData, isLoading } = useFetchClass(role, userId);
 
+  console.log(classData);
+
   const queryClient = useQueryClient();
 
   const { mutate: deleteClass } = useDeleteClass({
@@ -55,8 +57,8 @@ export const ClassList = () => {
       <hr className="border border-gray-300" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {classData?.map((classobj: any, index: number) => (
-          <div className="group relative">
-            <Link key={index} to={`${classobj.alias}-${classobj.id}`}>
+          <div key={index} className="group relative">
+            <Link to={`${classobj.alias}-${classobj.id}`}>
               <SimpleCard data={classobj} />
             </Link>
             <RoleBasedRenderer allowRoles={['DEPT_ADMIN']}>
