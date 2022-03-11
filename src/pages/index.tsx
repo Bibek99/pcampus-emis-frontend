@@ -1,3 +1,4 @@
+import { GreenSpinner } from '@app/components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,8 +14,8 @@ export default function Home() {
       <Head>
         <title>Pulchowk EMIS</title>
       </Head>
-      <div className="justtify-center flex flex-col items-center">
-        <span>Loading App</span>
+      <div className="flex min-h-screen flex-col items-center justify-center">
+        <GreenSpinner className="h-10 w-10 animate-spin text-emerald-500" />
       </div>
     </>
   );
