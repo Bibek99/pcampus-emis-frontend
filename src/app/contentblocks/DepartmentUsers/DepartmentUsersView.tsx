@@ -71,6 +71,7 @@ export const DepartmentUsersView = () => {
     departmentAdmins?.map((deptAdmin: any, index: number) => {
       normalizedDeptAdminData[index] = {
         ...deptAdmin?.dept_admin,
+        id: index + 1,
         department_alias: deptAdmin?.department?.alias,
       };
     });

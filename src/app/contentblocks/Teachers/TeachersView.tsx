@@ -73,6 +73,7 @@ export const TeachersView: React.FC = () => {
       normalizedTeacherData[index] = {
         department_t: teacher?.department.alias,
         ...teacher?.teacher,
+        id: index + 1,
       };
     });
     setTeachers(normalizedTeacherData);

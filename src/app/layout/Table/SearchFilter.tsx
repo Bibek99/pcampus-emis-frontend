@@ -127,11 +127,12 @@ export const SearchFilter: React.FC<SearchFilter> = ({
             {(filterTag.map((value: any, index: any) => {
               return (
                 <div
-                  className='relative mr-2  border border-gray-100 hover:border-gray-300 hover:cursor-default rounded-full bg-emerald-100 px-2 pr-6'>
-                  {value}
+                  // key={index}
+                  className='flex flex-row space-x-2 items-center relative  border border-gray-100 hover:border-gray-300 hover:cursor-default rounded-lg bg-emerald-100 px-2 py-1'>
+                  <span>{value}</span>
                   <XIcon
                     id={index}
-                    className="text-black absolute right-2 top-1 h-3 w-3"
+                    className="text-black h-3 w-3"
                     onClick={(e) => {
                       const id = Number((e.target as HTMLTextAreaElement).id);
                       const header = ((filterTag[id].substring(0, filterTag[id].indexOf(':')))).slice(0, -1);
