@@ -5,8 +5,14 @@ import { useGetTeachers } from '@app/services/user.service';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ColumnFilter } from '@app/layout';
 
 const columns = [
+  {
+    Header: 'ID',
+    accessor: 'id',
+    disableFilters: true
+  },
   {
     Header: 'Image',
     accessor: 'images',
@@ -22,30 +28,37 @@ const columns = [
         <span></span>
       );
     },
+    disableFilters: true
   },
   {
     Header: 'First Name',
     accessor: 'first_name',
+
   },
   {
     Header: 'Middle Name',
     accessor: 'middle_name',
+
   },
   {
     Header: 'Last Name',
     accessor: 'last_name',
+
   },
   {
     Header: 'Email',
     accessor: 'email',
+
   },
   {
     Header: 'Phone',
     accessor: 'phone',
+
   },
   {
     Header: 'Department',
     accessor: 'department_t',
+
   },
 ];
 
