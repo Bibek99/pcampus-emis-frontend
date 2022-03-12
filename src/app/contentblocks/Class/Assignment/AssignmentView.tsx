@@ -1,4 +1,3 @@
-import { useAuthContext } from '@app/auth/AuthContext';
 import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import { useAssignmentDelete, useFetchAssignments } from '@app/services';
 import { PlusIcon, TrashIcon } from '@heroicons/react/outline';

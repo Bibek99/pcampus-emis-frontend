@@ -41,3 +41,13 @@ export const useTeacherDashboardService = (userId?: number) => {
   const teacherDashboardData = data?.data;
   return { teacherDashboardData, ...rest };
 };
+
+export const useNotificationsForUser = (userId?: number) => {
+  const { data, ...rest } = useQuery(['user-notifications'], () =>
+    api.get(`notification/show/all/specific/user/${userId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const notifications = data?.data;
+  return { notifications, ...rest };
+};

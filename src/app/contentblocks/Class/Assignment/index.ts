@@ -6,3 +6,4 @@ export * from './AssignmentSubmitForm';
 export * from './AssignmentSubmissionsListView';
 export * from './AssignmentDetailView';
 export * from './SubmissionList';
+export * from './AssignmentEditView';

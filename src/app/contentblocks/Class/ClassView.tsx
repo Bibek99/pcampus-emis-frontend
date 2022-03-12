@@ -18,6 +18,7 @@ import {
 } from 'react-router-dom';
 import {
   AssignmentCreateView,
+  AssignmentEditView,
   AssignmentSubmissionsListView,
   AssignmentSubmitView,
   AssignmentView,
@@ -162,10 +163,16 @@ export const ClassView = () => {
                   />
                 )}
                 {role === 'TEACHER' && (
-                  <Route
-                    path=":assignmentId/"
-                    element={<AssignmentSubmissionsListView />}
-                  />
+                  <>
+                    <Route
+                      path=":assignmentId/"
+                      element={<AssignmentSubmissionsListView />}
+                    />
+                    <Route
+                      path=":assignmentId/edit"
+                      element={<AssignmentEditView />}
+                    />
+                  </>
                 )}
               </Routes>
             }

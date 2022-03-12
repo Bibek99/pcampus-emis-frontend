@@ -165,3 +165,20 @@ export const useFetchAllAssignmentsForAStudent = (studentId?: number) => {
   const assignmentsData = data?.data;
   return { assignmentsData, ...rest };
 };
+
+export const useUpdateAssignment = (
+  config?: UseMutationOptions<any, any, any>,
+  assignment_id?: string
+) => {
+  return useMutation(
+    (updateAssignmentData) =>
+      api.put(
+        `assignment/update/${assignment_id || ''}/`,
+        updateAssignmentData,
+        { headers: authHeader() }
+      ),
+    {
+      ...config,
+    }
+  );
+};
