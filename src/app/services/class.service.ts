@@ -1,4 +1,9 @@
-import { useMutation, UseMutationOptions, useQuery } from 'react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -56,13 +61,14 @@ export const useFetchClassDetail = (class_id?: string) => {
   return { classData, students, teachers, ...rest };
 };
 
-export const useFetchStudentsInAClass = (class_id?: string) => {
+export const useFetchStudentsInAClass = (class_id?: string, config?: any) => {
   const { data, ...rest } = useQuery(
     ['fetch-students-in-a-class', class_id],
     () =>
       api.get(`show/students/in/class/${class_id || ''}/`, {
         headers: authHeader(),
-      })
+      }),
+    { ...config }
   );
   const students = data?.data;
   return { students, ...rest };
@@ -92,4 +98,37 @@ export const useDeleteClass = (config?: UseMutationOptions<any, any, any>) => {
       ...config,
     }
   );
+};
+
+export const useFetchGradeReportForClass = (classId?: string) => {
+  const { data, ...rest } = useQuery(['class-grade-report', classId], () =>
+    api.get(`grade/report/${classId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const gradeReport = data?.data;
+  return { gradeReport, ...rest };
+};
+
+export const useFetchStudentPerformanceReportForAClass = (
+  classId?: string,
+  studentId?: string,
+  config?: any
+) => {
+  const { data, ...rest } = useQuery(
+    ['performance-report', classId, studentId],
+    () =>
+      api.get(
+        `evaluation/performance/point/${classId || ''}/${studentId || ''}/`,
+        {
+          headers: authHeader(),
+        }
+      ),
+    {
+      ...config,
+    }
+  );
+
+  const performanceReport = data?.data;
+  return { performanceReport, ...rest };
 };

@@ -26,11 +26,13 @@ export const useCreateAssignment = (
 };
 
 export const useFetchAssignments = (class_id?: string) => {
-  return useQuery(['assignments', class_id], () =>
+  const { data, ...rest } = useQuery(['assignments', class_id], () =>
     api.get(`assignment/show/all/${class_id || ''}/`, {
       headers: authHeader(),
     })
   );
+  const assignments = data?.data;
+  return { assignments, ...rest };
 };
 
 export const useFetchAssignmentDetailsForAStudent = (

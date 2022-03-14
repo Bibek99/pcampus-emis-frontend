@@ -1,12 +1,11 @@
 import {
   AcademicCapIcon,
-  ArchiveIcon,
   CalendarIcon,
   ClipboardCheckIcon,
-  ClipboardListIcon,
   InformationCircleIcon,
   OfficeBuildingIcon,
   PresentationChartBarIcon,
+  PresentationChartLineIcon,
   TemplateIcon,
   UserGroupIcon,
 } from '@heroicons/react/outline';
@@ -109,10 +108,16 @@ export const teacherRoutes = [
     path: '/classes',
   },
   {
+    title: 'Performance',
+    icon: <PresentationChartLineIcon className="h-6 w-6" />,
+    path: '/performance',
+  },
+  {
     title: 'Calendar',
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',
   },
+
   // {
   //   title: 'Results',
   //   icon: <ClipboardListIcon className="h-6 w-6" />,
