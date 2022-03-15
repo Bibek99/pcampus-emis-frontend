@@ -6,6 +6,7 @@ import {
   OfficeBuildingIcon,
   PresentationChartBarIcon,
   PresentationChartLineIcon,
+  TableIcon,
   TemplateIcon,
   UserGroupIcon,
 } from '@heroicons/react/outline';
@@ -108,9 +109,16 @@ export const teacherRoutes = [
     path: '/classes',
   },
   {
+
     title: 'Performance',
     icon: <PresentationChartLineIcon className="h-6 w-6" />,
     path: '/performance',
+  }, 
+  {
+    title: 'Attendance',
+    icon: <TableIcon className="h-6 w-6" />,
+    path: '/attendance',
+
   },
   {
     title: 'Calendar',

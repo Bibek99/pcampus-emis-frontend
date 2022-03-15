@@ -1,12 +1,17 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { AddUserIcon } from '@app/elements/icons';
-import { TableView } from '@app/layout';
+import { ColumnFilter, TableView } from '@app/layout';
 import { useGetStudents } from '@app/services/user.service';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const columns = [
+  {
+    Header: 'ID',
+    accessor: 'id',
+    disableFilters: true
+  },
   {
     Header: 'Image',
     accessor: 'images',
@@ -22,38 +27,47 @@ const columns = [
         <span></span>
       );
     },
+    disableFilters: true
   },
   {
     Header: 'First Name',
     accessor: 'first_name',
+
   },
   {
     Header: 'Middle Name',
     accessor: 'middle_name',
+
   },
   {
     Header: 'Last Name',
     accessor: 'last_name',
+
   },
   {
     Header: 'Email',
     accessor: 'email',
+
   },
   {
     Header: 'Phone',
     accessor: 'phone',
+
   },
   {
     Header: 'Batch',
     accessor: 'batch',
+
   },
   {
     Header: 'Department',
     accessor: 'department_s',
+
   },
   {
     Header: 'Section',
     accessor: 'section',
+
   },
 ];
 
@@ -69,6 +83,7 @@ export const StudentsView: React.FC = () => {
         batch: student?.batch.name,
         section: student?.section.name,
         ...student?.student,
+        id: index + 1,
         department_s: student?.department.alias,
       };
     });

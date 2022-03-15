@@ -5,7 +5,8 @@ import {
   NoticeView,
 } from '@app/contentblocks';
 import { CalenderView } from '@app/contentblocks/Calender';
-import { ClassList, ClassView } from '@app/contentblocks/Class';
+import { ClassView, ClassList } from '@app/contentblocks/Class';
+import { AttendanceClassView, AttendanceClassList } from '@app/contentblocks/Attendance';
 import { TeacherDashboard } from '@app/contentblocks/Dashboard/TeacherDashboard';
 import { StudentPerformanceByClass } from '@app/contentblocks/Performance';
 import React from 'react';
@@ -61,6 +62,24 @@ export const TeacherRoutes = () => {
         }
       />
       <Route path="calendar" element={<CalenderView />} />
+      <Route
+        path="attendance/*"
+        element={
+          <div className="rounded-md bg-gray-50">
+            <Routes>
+              <Route path="/" element={<AttendanceClassList />} />
+              <Route
+                path=":class-:id/*"
+                element={
+                  <Routes>
+                    <Route path="/*" element={<AttendanceClassView />} />
+                  </Routes>
+                }
+              />
+            </Routes>
+          </div>
+        }
+      />
     </Routes>
   );
 };

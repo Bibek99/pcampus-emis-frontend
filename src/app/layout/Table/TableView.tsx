@@ -3,84 +3,109 @@ import {
   useTable,
   useSortBy,
   useGlobalFilter,
+  useFilters,
+  useRowSelect,
   usePagination,
 } from 'react-table';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@app/elements/icons';
 import { SearchFilter } from './SearchFilter';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
+import { ColumnFilter } from './ColumnFilter';
+import Checkbox from './Checkbox';
 
 type TableViewProps = {
   exportOption?: boolean;
   tableData?: Array<any>;
   columnData?: Array<any>;
+  pagesize?: number;
+  setSelectedRows?: any;
+  initialState?: any;
 };
 
-const COLUMNS = [
-  {
-    Header: 'First Name',
-    accessor: 'first_name',
-  },
-  {
-    Header: 'Last Name',
-    accessor: 'last_name',
-  },
-  {
-    Header: 'Email',
-    accessor: 'email',
-  },
-  {
-    Header: 'Gender',
-    accessor: 'gender',
-  },
-  {
-    Header: 'Phone',
-    accessor: 'phone',
-  },
-];
 
 export const TableView: React.FC<TableViewProps> = ({
   exportOption = false,
+  pagesize = 10,
   tableData,
   columnData,
+  setSelectedRows,
+  initialState,
 }) => {
   const columns = useMemo<any>(() => columnData, []);
   const data = useMemo<any>(() => tableData, [tableData]);
+  const defaultColumn = useMemo<any>(() => {
+    return {
+      Filter: ColumnFilter,
+    }
+  }, []);
 
   const {
     getTableProps,
     getTableBodyProps,
+    getToggleAllRowsSelectedProps,
     headerGroups,
     page,
     prepareRow,
-    state: { globalFilter, pageIndex },
+    state: { globalFilter, pageIndex, pageSize },
     setGlobalFilter,
+    setFilter,
     nextPage,
     previousPage,
     canNextPage,
     canPreviousPage,
     pageOptions,
+    setPageSize,
+    selectedFlatRows,
+    setAllFilters,
   } = useTable(
     {
       columns,
       data,
+      defaultColumn,
+      initialState: initialState,
     },
+    useFilters,
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => {
+        return [
+          {
+            id: 'selection',
+            Header: ({ getToggleAllRowsSelectedProps }) =>
+            (
+              <Checkbox {...getToggleAllRowsSelectedProps()} />
+            ),
+            Cell: ({ row }) => (
+              <Checkbox {...row.getToggleRowSelectedProps()} />
+            )
+          },
+          ...columns
+        ]
+      })
+    }
   );
-
+  setSelectedRows ? setSelectedRows(selectedFlatRows) : null;
+  useEffect(() => {
+    setPageSize(pagesize);
+  }, []);
   if (!data) {
     return <h1>loading</h1>;
   }
-
   return (
     <>
       <SearchFilter
         filter={globalFilter}
-        setFilter={setGlobalFilter}
+        setGlobalFilter={setGlobalFilter}
+        setFilter={setFilter}
         exportOption={exportOption}
+        items={columns}
+        selectedFlatRows={selectedFlatRows}
+        setAllFilters={setAllFilters}
       />
 
       <div className="overflow-x-auto overflow-y-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -96,7 +121,7 @@ export const TableView: React.FC<TableViewProps> = ({
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     className="group px-6 py-4 text-center text-xs font-medium uppercase tracking-wider text-gray-700"
                   >
-                    <span className="flex">
+                    <span className="flex ">
                       {column.render('Header')}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
@@ -108,6 +133,7 @@ export const TableView: React.FC<TableViewProps> = ({
                         ''
                       )}
                     </span>
+                    <div>{column.canFilter ? column.render('Filter') : null}</div>
                   </th>
                 ))}
               </tr>
@@ -130,6 +156,18 @@ export const TableView: React.FC<TableViewProps> = ({
               );
             })}
           </tbody>
+          {/* <p>Data: </p>
+          <pre>
+            <code>
+              {JSON.stringify(
+                {
+                  selectedFlatRows: selectedFlatRows.map((row) => row.original),
+                },
+                null,
+                2,
+              )}
+            </code>
+          </pre> */}
         </table>
       </div>
       <div className="flex justify-between bg-gray-100 py-4">
