@@ -7,14 +7,19 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 interface PieChartCardProps {
   title: string;
   data: any;
+  options?: any;
 }
 
-export const PieChartCard: React.FC<PieChartCardProps> = ({ title, data }) => {
+export const PieChartCard: React.FC<PieChartCardProps> = ({
+  title,
+  data,
+  options,
+}) => {
   return (
     <div className="flex flex-col space-y-4 rounded-lg bg-gray-50 p-6">
       <h4 className="text-lg font-medium">{title}</h4>
       <hr className="border-gray-300" />
-      <Doughnut data={data as any} />
+      <Doughnut data={data as any} options={options} />
     </div>
   );
 };

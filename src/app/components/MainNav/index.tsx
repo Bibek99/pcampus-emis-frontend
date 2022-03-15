@@ -58,6 +58,7 @@ const AvatarDropdown = () => {
             height={32}
             width={32}
             priority
+            className="rounded-full"
           />
         </Menu.Button>
         <Transition

@@ -221,3 +221,18 @@ export const useFilterTeacherByDepartment = (
     })
   );
 };
+
+export const useFetchStudentProfile = (studentId: number, config?: any) => {
+  const { data, ...rest } = useQuery(
+    ['fetch-student-profile', studentId],
+    () =>
+      api.get(`view/student/${studentId}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
+  );
+  const studentData = data?.data;
+  return { studentData, ...rest };
+};

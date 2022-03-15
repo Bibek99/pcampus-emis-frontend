@@ -157,6 +157,11 @@ export const departmentAdminRoutes = [
     path: '/teachers',
   },
   {
+    title: 'Performance',
+    icon: <PresentationChartLineIcon className="h-6 w-6" />,
+    path: '/performance',
+  },
+  {
     title: 'Calendar',
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',

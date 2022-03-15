@@ -16,6 +16,7 @@ import {
   ClassView,
 } from '@app/contentblocks/Class';
 import { DeptAdminDashboard } from '@app/contentblocks/Dashboard/DeptAdminDashboard';
+import { StudentPerformanceByClass } from '@app/contentblocks/Performance';
 import { Route, Routes } from 'react-router-dom';
 
 export const DepartmentAdminRoutes = () => {
@@ -80,6 +81,14 @@ export const DepartmentAdminRoutes = () => {
                 }
               />
             </Routes>
+          </div>
+        }
+      />
+      <Route
+        path="performance"
+        element={
+          <div className="min-h-full rounded-md bg-gray-50">
+            <StudentPerformanceByClass />
           </div>
         }
       />
