@@ -234,6 +234,8 @@ export const StudentPerformanceByClass = () => {
                         columnData={column}
                         tableData={assignmentData}
                         exportOption={false}
+                        searchOption={false}
+                        paginationOption={false}
                       />
                     )}
                   </div>

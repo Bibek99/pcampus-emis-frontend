@@ -22,8 +22,9 @@ type TableViewProps = {
   pagesize?: number;
   setSelectedRows?: any;
   initialState?: any;
+  searchOption?: boolean;
+  paginationOption?: boolean;
 };
-
 
 export const TableView: React.FC<TableViewProps> = ({
   exportOption = false,
@@ -32,13 +33,15 @@ export const TableView: React.FC<TableViewProps> = ({
   columnData,
   setSelectedRows,
   initialState,
+  searchOption = true,
+  paginationOption = true,
 }) => {
   const columns = useMemo<any>(() => columnData, []);
   const data = useMemo<any>(() => tableData, [tableData]);
   const defaultColumn = useMemo<any>(() => {
     return {
       Filter: ColumnFilter,
-    }
+    };
   }, []);
 
   const {
@@ -76,17 +79,16 @@ export const TableView: React.FC<TableViewProps> = ({
         return [
           {
             id: 'selection',
-            Header: ({ getToggleAllRowsSelectedProps }) =>
-            (
+            Header: ({ getToggleAllRowsSelectedProps }) => (
               <Checkbox {...getToggleAllRowsSelectedProps()} />
             ),
             Cell: ({ row }) => (
               <Checkbox {...row.getToggleRowSelectedProps()} />
-            )
+            ),
           },
-          ...columns
-        ]
-      })
+          ...columns,
+        ];
+      });
     }
   );
   setSelectedRows ? setSelectedRows(selectedFlatRows) : null;
@@ -98,15 +100,17 @@ export const TableView: React.FC<TableViewProps> = ({
   }
   return (
     <>
-      <SearchFilter
-        filter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-        setFilter={setFilter}
-        exportOption={exportOption}
-        items={columns}
-        selectedFlatRows={selectedFlatRows}
-        setAllFilters={setAllFilters}
-      />
+      {searchOption && (
+        <SearchFilter
+          filter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          setFilter={setFilter}
+          exportOption={exportOption}
+          items={columns}
+          selectedFlatRows={selectedFlatRows}
+          setAllFilters={setAllFilters}
+        />
+      )}
 
       <div className="overflow-x-auto overflow-y-hidden border-b border-gray-200 shadow sm:rounded-lg">
         <table
@@ -133,7 +137,9 @@ export const TableView: React.FC<TableViewProps> = ({
                         ''
                       )}
                     </span>
-                    <div>{column.canFilter ? column.render('Filter') : null}</div>
+                    <div>
+                      {column.canFilter ? column.render('Filter') : null}
+                    </div>
                   </th>
                 ))}
               </tr>
@@ -170,42 +176,44 @@ export const TableView: React.FC<TableViewProps> = ({
           </pre> */}
         </table>
       </div>
-      <div className="flex justify-between bg-gray-100 py-4">
-        <span></span>
-        <div className="flex items-center space-x-6">
-          <div className="text-sm text-gray-600">
-            Page {pageIndex + 1} of {pageOptions.length}
-          </div>
-          <div className="flex space-x-4">
-            <button
-              type="button"
-              onClick={previousPage}
-              className={classNames(
-                'rounded-md border border-gray-500 p-2 text-gray-700 shadow-sm',
-                !canPreviousPage
-                  ? 'cursor-not-allowed disabled:opacity-50'
-                  : 'hover:border-emerald-500 hover:text-emerald-500'
-              )}
-              disabled={!canPreviousPage}
-            >
-              <ArrowLeftIcon className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={nextPage}
-              disabled={!canNextPage}
-              className={classNames(
-                'rounded-md border border-gray-500 p-2 text-gray-700 shadow-sm',
-                !canNextPage
-                  ? 'cursor-not-allowed disabled:opacity-50'
-                  : 'hover:border-emerald-500 hover:text-emerald-500'
-              )}
-            >
-              <ArrowRightIcon className="h-4 w-4" />
-            </button>
+      {paginationOption && (
+        <div className="flex justify-between bg-gray-100 py-4">
+          <span></span>
+          <div className="flex items-center space-x-6">
+            <div className="text-sm text-gray-600">
+              Page {pageIndex + 1} of {pageOptions.length}
+            </div>
+            <div className="flex space-x-4">
+              <button
+                type="button"
+                onClick={previousPage}
+                className={classNames(
+                  'rounded-md border border-gray-500 p-2 text-gray-700 shadow-sm',
+                  !canPreviousPage
+                    ? 'cursor-not-allowed disabled:opacity-50'
+                    : 'hover:border-emerald-500 hover:text-emerald-500'
+                )}
+                disabled={!canPreviousPage}
+              >
+                <ArrowLeftIcon className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={nextPage}
+                disabled={!canNextPage}
+                className={classNames(
+                  'rounded-md border border-gray-500 p-2 text-gray-700 shadow-sm',
+                  !canNextPage
+                    ? 'cursor-not-allowed disabled:opacity-50'
+                    : 'hover:border-emerald-500 hover:text-emerald-500'
+                )}
+              >
+                <ArrowRightIcon className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
