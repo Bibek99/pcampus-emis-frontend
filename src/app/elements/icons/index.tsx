@@ -356,3 +356,4 @@ export const ChevronUpIcon = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+

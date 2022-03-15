@@ -1,5 +1,5 @@
 import { AddUserIcon } from '@app/elements/icons';
-import { TableView } from '@app/layout';
+import { ColumnFilter, TableView } from '@app/layout';
 import { useGetDepartmentAdmins } from '@app/services';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +7,12 @@ import { Link } from 'react-router-dom';
 
 const columns = [
   {
-    Header: 'Image',
+    Header: 'ID',
+    accessor: 'id',
+    disableFilters: true
+  },
+  {
+    Header: 'Images',
     accessor: 'images',
     Cell: ({ row }: { row: any }) => {
       return row.values.images ? (
@@ -21,30 +26,37 @@ const columns = [
         <span></span>
       );
     },
+    disableFilters: true
   },
   {
     Header: 'First Name',
     accessor: 'first_name',
+
   },
   {
     Header: 'Middle Name',
     accessor: 'middle_name',
+
   },
   {
     Header: 'Last Name',
     accessor: 'last_name',
+
   },
   {
     Header: 'Email',
     accessor: 'email',
+
   },
   {
     Header: 'Phone',
     accessor: 'phone',
+
   },
   {
     Header: 'Department',
     accessor: 'department_alias',
+
   },
 ];
 
@@ -59,6 +71,7 @@ export const DepartmentUsersView = () => {
     departmentAdmins?.map((deptAdmin: any, index: number) => {
       normalizedDeptAdminData[index] = {
         ...deptAdmin?.dept_admin,
+        id: index + 1,
         department_alias: deptAdmin?.department?.alias,
       };
     });
