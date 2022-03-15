@@ -37,7 +37,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, Props>(
 
     return (
       <div className='w-4'>
-        <input type="checkbox" ref={combinedRef} {...rest} />
+        <input type="checkbox"
+          className="form-checkbox h-4 w-4 rounded text-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 focus:ring-offset-0"
+          ref={combinedRef} {...rest} />
       </div>
     );
   },

@@ -19,35 +19,19 @@ type TableViewProps = {
   exportOption?: boolean;
   tableData?: Array<any>;
   columnData?: Array<any>;
+  pagesize?: number;
+  setSelectedRows?: any;
+  initialState?: any;
 };
 
-const COLUMNS = [
-  {
-    Header: 'First Name',
-    accessor: 'first_name',
-  },
-  {
-    Header: 'Last Name',
-    accessor: 'last_name',
-  },
-  {
-    Header: 'Email',
-    accessor: 'email',
-  },
-  {
-    Header: 'Gender',
-    accessor: 'gender',
-  },
-  {
-    Header: 'Phone',
-    accessor: 'phone',
-  },
-];
 
 export const TableView: React.FC<TableViewProps> = ({
   exportOption = false,
+  pagesize = 10,
   tableData,
   columnData,
+  setSelectedRows,
+  initialState,
 }) => {
   const columns = useMemo<any>(() => columnData, []);
   const data = useMemo<any>(() => tableData, [tableData]);
@@ -64,7 +48,7 @@ export const TableView: React.FC<TableViewProps> = ({
     headerGroups,
     page,
     prepareRow,
-    state: { globalFilter, pageIndex },
+    state: { globalFilter, pageIndex, pageSize },
     setGlobalFilter,
     setFilter,
     nextPage,
@@ -72,13 +56,15 @@ export const TableView: React.FC<TableViewProps> = ({
     canNextPage,
     canPreviousPage,
     pageOptions,
+    setPageSize,
     selectedFlatRows,
     setAllFilters,
   } = useTable(
     {
       columns,
       data,
-      defaultColumn
+      defaultColumn,
+      initialState: initialState,
     },
     useFilters,
     useGlobalFilter,
@@ -103,7 +89,10 @@ export const TableView: React.FC<TableViewProps> = ({
       })
     }
   );
-
+  setSelectedRows ? setSelectedRows(selectedFlatRows) : null;
+  useEffect(() => {
+    setPageSize(pagesize);
+  }, []);
   if (!data) {
     return <h1>loading</h1>;
   }
