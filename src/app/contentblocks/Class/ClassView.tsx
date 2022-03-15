@@ -18,6 +18,7 @@ import {
 } from 'react-router-dom';
 import {
   AssignmentCreateView,
+  AssignmentEditView,
   AssignmentSubmissionsListView,
   AssignmentSubmitView,
   AssignmentView,
@@ -35,7 +36,7 @@ const ClassNav = () => {
   else active = 'feed';
 
   return (
-    <section className="sticky -top-6 z-[50] flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm ">
+    <section className="sticky -top-6 z-[30] flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm ">
       <NavLink
         to="."
         className={classNames(
@@ -95,7 +96,7 @@ const ClassNav = () => {
           <span className="hidden sm:block">Materials</span>
         </div>
       </NavLink>
-      {/* <NavLink
+      <NavLink
         to="grades"
         className={classNames(
           'relative',
@@ -113,7 +114,7 @@ const ClassNav = () => {
           <ClipboardCheckIcon className="h-5 w-5" />
           <span className="hidden sm:block">Grades</span>
         </div>
-      </NavLink> */}
+      </NavLink>
     </section>
   );
 };
@@ -162,10 +163,16 @@ export const ClassView = () => {
                   />
                 )}
                 {role === 'TEACHER' && (
-                  <Route
-                    path=":assignmentId/"
-                    element={<AssignmentSubmissionsListView />}
-                  />
+                  <>
+                    <Route
+                      path=":assignmentId/"
+                      element={<AssignmentSubmissionsListView />}
+                    />
+                    <Route
+                      path=":assignmentId/edit"
+                      element={<AssignmentEditView />}
+                    />
+                  </>
                 )}
               </Routes>
             }
@@ -179,7 +186,7 @@ export const ClassView = () => {
               </Routes>
             }
           />
-          {/* <Route path="grades" element={<GradesListView />} /> */}
+          <Route path="grades" element={<GradesListView />} />
         </Routes>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useAuthContext } from '@app/auth/AuthContext';
+import { GreenSpinner } from '@app/components';
 import { SimpleCard } from '@app/components/Card';
 import { RoleBasedRenderer } from '@app/router/guards';
 import { useDeleteClass, useFetchClass } from '@app/services';
@@ -34,10 +35,15 @@ export const ClassList = () => {
   };
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <div className="flex min-h-full w-full items-center justify-center">
+        <GreenSpinner className="h-8 w-8" />
+      </div>
+    );
   }
+
   return (
-    <div className="flex flex-col space-y-6 p-6">
+    <div className="flex h-full flex-col space-y-6 p-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-semibold">Classes</h1>
         {showButton() && (
@@ -55,8 +61,8 @@ export const ClassList = () => {
       <hr className="border border-gray-300" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {classData?.map((classobj: any, index: number) => (
-          <div className="group relative">
-            <Link key={index} to={`${classobj.alias}-${classobj.id}`}>
+          <div key={index} className="group relative">
+            <Link to={`${classobj.alias}-${classobj.id}`}>
               <SimpleCard data={classobj} />
             </Link>
             <RoleBasedRenderer allowRoles={['DEPT_ADMIN']}>

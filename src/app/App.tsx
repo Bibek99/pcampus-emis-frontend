@@ -8,15 +8,23 @@ import {
   ResetPasswordConfirm,
   ResetPasswordInit,
 } from './auth/forgot-password';
+import { UnAuthenticatedRouteGuard } from './router/guards/UnAuthenticatedRouteGuard';
 
 export const App = () => {
   return (
     <BrowserRouter basename="/app">
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
 
-          <Route path="login" element={<LoginPage />} />
+          <Route
+            path="login"
+            element={
+              <UnAuthenticatedRouteGuard>
+                <LoginPage />
+              </UnAuthenticatedRouteGuard>
+            }
+          />
 
           <Route
             path="forgot-password/*"

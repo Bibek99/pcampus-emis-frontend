@@ -5,6 +5,7 @@ import {
   studentRoutes,
   teacherRoutes,
 } from '@app/elements/routes';
+import { Loader } from '@app/layout';
 import { AuthenticatedRouteGuard } from '@app/router/guards';
 import { useUserDept, useUserRole } from '@app/services/account.service';
 import React, { useEffect } from 'react';
@@ -25,7 +26,7 @@ export const RoleBasedDashboardWrapper = () => {
   }, [role?.data, department]);
 
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <Loader />;
   }
 
   switch (role?.data) {

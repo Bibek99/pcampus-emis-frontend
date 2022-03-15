@@ -1,7 +1,11 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomCalendar } from '@app/components/Calendar';
 import { AttendanceCard, DataCard } from '@app/components/Card';
-import { useStudentDashboardService } from '@app/services/dashboard.service';
+import { useFetchAllAssignmentsForAStudent } from '@app/services';
+import {
+  useNotificationsForUser,
+  useStudentDashboardService,
+} from '@app/services/dashboard.service';
 import Image from 'next/image';
 import React from 'react';
 
@@ -10,12 +14,15 @@ export const StudentDashboard = () => {
   const { studentDashboardData } = useStudentDashboardService(
     authenticatedUser?.id
   );
-  console.log(studentDashboardData);
+  const { notifications } = useNotificationsForUser(authenticatedUser?.id);
+  const { assignmentsData } = useFetchAllAssignmentsForAStudent(
+    authenticatedUser?.id
+  );
 
   return (
     <div className="flex flex-col space-y-6">
       <h1 className="text-2xl font-semibold">
-        Welcome Back {authenticatedUser?.first_name} !
+        Welcome back {authenticatedUser?.first_name} !
       </h1>
       <hr className="border border-gray-300" />
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
@@ -31,6 +38,17 @@ export const StudentDashboard = () => {
                 />
               }
               value={studentDashboardData?.classes}
+            />
+            <DataCard
+              title="Assignments Due"
+              icon={
+                <Image
+                  src={'/static/images/assignment.png'}
+                  height={64}
+                  width={64}
+                />
+              }
+              value={assignmentsData?.length}
             />
           </section>
 

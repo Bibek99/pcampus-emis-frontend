@@ -89,11 +89,8 @@ export const NoticesWrapper = () => {
       </div>
       <div className="flex flex-col space-y-6 divide-y-2">
         {!showDept &&
-          globalNotices?.map((notice: any) => (
-            <div
-              className="flex items-start justify-between pt-4"
-              key={notice.id}
-            >
+          globalNotices?.map((notice: any, index: number) => (
+            <div className="flex items-start justify-between pt-4" key={index}>
               <div>
                 <h3 className="pb-2 text-lg font-semibold">{notice?.title}</h3>
                 <p>

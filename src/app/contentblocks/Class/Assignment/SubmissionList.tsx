@@ -160,7 +160,9 @@ export const SubmissionList: React.FC<SubmissionListProps> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-6">
-      <h3 className="text-lg font-semibold">Submissions</h3>
+      <h3 className="text-lg font-semibold">
+        Submissions ({submittedListData?.length})
+      </h3>
       <div className="space-y-6 divide-y-2">
         {submittedListData ? (
           submittedListData.map((submittedListItem: any, index: number) => (

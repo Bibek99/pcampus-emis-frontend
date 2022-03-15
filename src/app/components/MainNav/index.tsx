@@ -6,6 +6,7 @@ import { useAuthContext } from '@app/auth/AuthContext';
 import { BellIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
 import { QueryCache } from 'react-query';
+import { avatarSVG } from '@utils/avatarSVG';
 
 type MainNavProps = {
   isSidebarOpen?: boolean;
@@ -44,7 +45,7 @@ export const MainNav: React.FC<MainNavProps> = ({ setSidebarOpen }) => {
 };
 
 const AvatarDropdown = () => {
-  const { logout } = useAuthContext();
+  const { logout, authenticatedUser } = useAuthContext();
   const navigate = useNavigate();
   const queryCache = new QueryCache();
 
@@ -53,10 +54,11 @@ const AvatarDropdown = () => {
       <div>
         <Menu.Button className="inline-flex w-full justify-center px-4 py-2">
           <Image
-            src="https://joeschmoe.io/api/v1/random"
+            src={avatarSVG(`${authenticatedUser?.first_name}`)}
             height={32}
             width={32}
             priority
+            className="rounded-full"
           />
         </Menu.Button>
         <Transition
@@ -78,7 +80,7 @@ const AvatarDropdown = () => {
                     queryCache.clear();
                     navigate('/login');
                   }}
-                  className="flex items-center space-x-2"
+                  className="flex w-full items-center space-x-2"
                 >
                   <LogoutIcon className="text-emerald-600 group-hover:fill-white" />
                   <span>Logout</span>

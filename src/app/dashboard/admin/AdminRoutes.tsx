@@ -32,7 +32,7 @@ export const AdminRoutes = () => {
       <Route
         path="notices/*"
         element={
-          <div className="rounded-md bg-gray-50 p-6">
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<NoticeView />} />
               <Route path="/create" element={<NoticeCreate />} />
@@ -56,7 +56,7 @@ export const AdminRoutes = () => {
       <Route
         path="students/*"
         element={
-          <div className="rounded-md bg-gray-50 p-6">
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<StudentsView />} />
               <Route path="/add" element={<StudentsAddView />} />
@@ -67,7 +67,7 @@ export const AdminRoutes = () => {
       <Route
         path="teachers/*"
         element={
-          <div className="rounded-md bg-gray-50 p-6">
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<TeachersView />} />
               <Route path="/add" element={<TeachersAddView />} />
@@ -78,7 +78,7 @@ export const AdminRoutes = () => {
       <Route
         path="department-admins/*"
         element={
-          <div className="rounded-md bg-gray-50 p-6">
+          <div className="min-h-full rounded-md bg-gray-50 p-6">
             <Routes>
               <Route path="/" element={<DepartmentUsersView />} />
               <Route path="/add" element={<DepartmentUserAddView />} />

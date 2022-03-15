@@ -1,12 +1,11 @@
 import {
   AcademicCapIcon,
-  ArchiveIcon,
   CalendarIcon,
   ClipboardCheckIcon,
-  ClipboardListIcon,
   InformationCircleIcon,
   OfficeBuildingIcon,
   PresentationChartBarIcon,
+  PresentationChartLineIcon,
   TableIcon,
   TemplateIcon,
   UserGroupIcon,
@@ -110,15 +109,23 @@ export const teacherRoutes = [
     path: '/classes',
   },
   {
+
+    title: 'Performance',
+    icon: <PresentationChartLineIcon className="h-6 w-6" />,
+    path: '/performance',
+  }, 
+  {
     title: 'Attendance',
     icon: <TableIcon className="h-6 w-6" />,
     path: '/attendance',
+
   },
   {
     title: 'Calendar',
     icon: <CalendarIcon className="h-6 w-6" />,
     path: '/calendar',
   },
+
   // {
   //   title: 'Results',
   //   icon: <ClipboardListIcon className="h-6 w-6" />,
@@ -156,6 +163,11 @@ export const departmentAdminRoutes = [
     title: 'Teachers',
     icon: <AcademicCapIcon className="h-6 w-6" />,
     path: '/teachers',
+  },
+  {
+    title: 'Performance',
+    icon: <PresentationChartLineIcon className="h-6 w-6" />,
+    path: '/performance',
   },
   {
     title: 'Calendar',

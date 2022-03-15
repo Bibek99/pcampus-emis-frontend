@@ -34,7 +34,6 @@ export const CustomCalendar = () => {
   }
 
   const daysData = chunk(daysInMonth, 7);
-  console.log(daysData);
 
   return (
     <>

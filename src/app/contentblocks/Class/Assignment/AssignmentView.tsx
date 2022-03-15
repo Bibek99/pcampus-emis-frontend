@@ -1,4 +1,3 @@
-import { useAuthContext } from '@app/auth/AuthContext';
 import { RoleBasedRenderer } from '@app/router/guards/RoleBasedRenderer';
 import { useAssignmentDelete, useFetchAssignments } from '@app/services';
 import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
@@ -63,7 +62,7 @@ export const AssignmentItem = ({ assignment }: { assignment: any }) => {
 
 export const AssignmentView = () => {
   const { id } = useParams();
-  const { data } = useFetchAssignments(id);
+  const { assignments } = useFetchAssignments(id);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -83,7 +82,7 @@ export const AssignmentView = () => {
       </div>
       <hr className="border border-gray-300" />
       <div className="flex flex-col space-y-6 divide-y-2">
-        {data?.data.map((assignment: any, index: number) => (
+        {assignments?.map((assignment: any, index: number) => (
           <AssignmentItem key={index} assignment={assignment} />
         ))}
       </div>

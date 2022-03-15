@@ -1,9 +1,4 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  useQuery,
-  UseQueryOptions,
-} from 'react-query';
+import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -31,11 +26,13 @@ export const useCreateAssignment = (
 };
 
 export const useFetchAssignments = (class_id?: string) => {
-  return useQuery(['assignments', class_id], () =>
+  const { data, ...rest } = useQuery(['assignments', class_id], () =>
     api.get(`assignment/show/all/${class_id || ''}/`, {
       headers: authHeader(),
     })
   );
+  const assignments = data?.data;
+  return { assignments, ...rest };
 };
 
 export const useFetchAssignmentDetailsForAStudent = (
@@ -148,14 +145,40 @@ export const useMarkAssignmentSubmission = (
 };
 
 export const useAssignmentDelete = (
-  config?: UseMutationOptions<any, any, any>,
-  assignment_id?: string
+  config?: UseMutationOptions<any, any, any>
 ) => {
   return useMutation(
     (assignment_id) =>
       api.delete(`assignment/delete/${assignment_id || ''}/`, {
         headers: authHeader(),
       }),
+    {
+      ...config,
+    }
+  );
+};
+
+export const useFetchAllAssignmentsForAStudent = (studentId?: number) => {
+  const { data, ...rest } = useQuery(['fetch-all-assignments', studentId], () =>
+    api.get(`assignment/show/all/class/specific/student/${studentId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const assignmentsData = data?.data;
+  return { assignmentsData, ...rest };
+};
+
+export const useUpdateAssignment = (
+  config?: UseMutationOptions<any, any, any>,
+  assignment_id?: string
+) => {
+  return useMutation(
+    (updateAssignmentData) =>
+      api.put(
+        `assignment/update/${assignment_id || ''}/`,
+        updateAssignmentData,
+        { headers: authHeader() }
+      ),
     {
       ...config,
     }
