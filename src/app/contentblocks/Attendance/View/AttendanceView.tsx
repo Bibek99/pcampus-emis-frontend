@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useFetchStudentsInAClass } from '@app/services';
-import { useFetchAttendanceForAStudent, useFetchAttendanceForStudentsInAClass } from '@app/services/attendance.service';
+import { useFetchAttendanceForAStudent, useFetchAttendanceForStudentsInAClass, useFetchAttendanceTotalWorkingDays } from '@app/services/attendance.service';
 
 const columns = [
   {
@@ -67,6 +67,7 @@ export const AttendanceView: React.FC = () => {
 
 
   const presentDaysList = useFetchAttendanceForStudentsInAClass(students, id);
+  const { totalWorkingDays, isLoading: totalLoading } = useFetchAttendanceTotalWorkingDays(id);
   //   console.log("student.id", student.id);
   //   const { attendance } = useFetchAttendanceForAStudent(id, String(student.id))
   //   return attendance?.student_present_days;
@@ -78,8 +79,8 @@ export const AttendanceView: React.FC = () => {
     ({
       ...student,
       present: presentDaysList[index],
-      total: '4',
-      percent: presentDaysList[index] / 4 * 100,
+      total: totalWorkingDays,
+      percent: String(presentDaysList[index] / totalWorkingDays * 100).split('.')[0] || '0',
     })
   )
 

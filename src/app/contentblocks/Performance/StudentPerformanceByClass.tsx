@@ -43,11 +43,10 @@ export const StudentPerformanceByClass = () => {
       return {
         id: index + 1,
         title: singleAssignment.assignment.title,
-        grade: `${
-          (singleAssignment.obtain_points /
+        grade: `${((singleAssignment.obtain_points /
             singleAssignment.assignment.total_points) *
-          100
-        }%`,
+            100)
+          }%`,
       };
     }
   );
@@ -195,11 +194,11 @@ export const StudentPerformanceByClass = () => {
                             data: [
                               (performanceReport?.present_days /
                                 performanceReport?.total_working_days) *
-                                100,
+                              100,
                               ((performanceReport?.total_working_days -
                                 performanceReport?.present_days) /
                                 performanceReport?.total_working_days) *
-                                100,
+                              100,
                             ],
                             backgroundColor: ['#34d399', '#f87171'],
                             borderColor: ['#34d399', '#f87171'],
