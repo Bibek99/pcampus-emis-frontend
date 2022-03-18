@@ -30,7 +30,7 @@ export const FeedItem = ({ feed }: { feed: any }) => {
 
   return (
     <div className="flex w-full justify-between space-x-4 pt-4">
-      <div>
+      <div className="relative z-[1]">
         <Image
           src="https://joeschmoe.io/api/v1/random"
           height={32}

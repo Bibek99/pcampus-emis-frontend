@@ -50,7 +50,7 @@ const AvatarDropdown = () => {
   const queryCache = new QueryCache();
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative z-[1000] inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center px-4 py-2">
           <Image

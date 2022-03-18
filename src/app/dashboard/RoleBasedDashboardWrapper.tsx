@@ -14,7 +14,8 @@ import DashboardRoutes from './DashboardRoutes';
 
 export const RoleBasedDashboardWrapper = () => {
   const { role, isLoading } = useUserRole();
-  const { department } = useUserDept();
+  const { department, isLoading: isDepartmentLoading } = useUserDept();
+  console.log('department', department);
 
   const { setRole, setDepartment } = useAuthContext();
 
@@ -25,7 +26,7 @@ export const RoleBasedDashboardWrapper = () => {
     setDepartment(department);
   }, [role?.data, department]);
 
-  if (isLoading) {
+  if (isLoading || isDepartmentLoading) {
     return <Loader />;
   }
 

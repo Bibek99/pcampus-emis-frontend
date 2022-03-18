@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import api from './api';
 import { authHeader } from './authheader';
 
@@ -12,11 +12,19 @@ export const useAdminDashboardService = () => {
   return { adminDashboardData, ...rest };
 };
 
-export const useDepartmentAdminDashboardService = (alias?: string) => {
-  const { data, ...rest } = useQuery(['dept-admin-dashboard'], () =>
-    api.get(`show/department/dashboard/${alias || ''}/`, {
-      headers: authHeader(),
-    })
+export const useDepartmentAdminDashboardService = (
+  alias?: string,
+  config?: any
+) => {
+  const { data, ...rest } = useQuery(
+    ['dept-admin-dashboard'],
+    () =>
+      api.get(`show/department/dashboard/${alias || ''}/`, {
+        headers: authHeader(),
+      }),
+    {
+      ...config,
+    }
   );
   const deptDashboardData = data?.data;
   return { deptDashboardData, ...rest };
