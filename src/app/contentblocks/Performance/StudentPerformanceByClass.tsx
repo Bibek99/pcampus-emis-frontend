@@ -111,39 +111,41 @@ export const StudentPerformanceByClass = () => {
                 <span className="text-sm italic text-gray-600">
                   Showing students for class {className}
                 </span>
-                {students?.map((student: any, index: any) => (
-                  <div
-                    key={index}
-                    className={classNames(
-                      'group flex cursor-pointer items-center justify-between rounded-md p-2',
-                      studentObj?.id === student.id
-                        ? 'bg-emerald-500 text-white'
-                        : 'hover:bg-emerald-50'
-                    )}
-                    onClick={() => setStudentObj(student)}
-                  >
-                    <div>
-                      <h4 className="font-semibold">{student.full_name}</h4>
-                      <span
-                        className={classNames(
-                          studentObj?.id === student.id
-                            ? 'text-white'
-                            : 'text-gray-500'
-                        )}
-                      >
-                        {student.rollno}
-                      </span>
-                    </div>
-                    <ChevronRightIcon
+                <div className="h-[500px] space-y-6 overflow-y-auto">
+                  {students?.map((student: any, index: any) => (
+                    <div
+                      key={index}
                       className={classNames(
-                        'hidden h-4 w-4 group-hover:block',
+                        'group flex cursor-pointer items-center justify-between rounded-md p-2',
                         studentObj?.id === student.id
-                          ? 'group-hover:text-white'
-                          : 'group-hover:text-emerald-500'
+                          ? 'bg-emerald-500 text-white'
+                          : 'hover:bg-emerald-50'
                       )}
-                    />
-                  </div>
-                ))}
+                      onClick={() => setStudentObj(student)}
+                    >
+                      <div>
+                        <h4 className="font-semibold">{student.full_name}</h4>
+                        <span
+                          className={classNames(
+                            studentObj?.id === student.id
+                              ? 'text-white'
+                              : 'text-gray-500'
+                          )}
+                        >
+                          {student.rollno}
+                        </span>
+                      </div>
+                      <ChevronRightIcon
+                        className={classNames(
+                          'hidden h-4 w-4 group-hover:block',
+                          studentObj?.id === student.id
+                            ? 'group-hover:text-white'
+                            : 'group-hover:text-emerald-500'
+                        )}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
