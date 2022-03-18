@@ -79,3 +79,15 @@ export const useFetchAttendanceForStudentsInAClass = (
   );
   return userQueries.map((data) => data.data?.data.student_present_days);
 };
+
+export const useFetchStudentAttendance = (studentId?: number) => {
+  const { data, ...rest } = useQuery(
+    ['attendance-student-all', studentId],
+    () =>
+      api.get(`attendance/get/student/${studentId || ''}/`, {
+        headers: authHeader(),
+      })
+  );
+  const attendance = data?.data;
+  return { attendance, ...rest };
+};

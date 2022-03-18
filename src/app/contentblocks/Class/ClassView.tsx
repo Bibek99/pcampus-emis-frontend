@@ -24,7 +24,6 @@ import {
   AssignmentView,
 } from './Assignment';
 import { FeedView } from './Feed';
-import { GradesListView } from './Grades';
 import { FolderDetailView, MaterialView } from './Materials';
 
 const ClassNav = () => {

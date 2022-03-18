@@ -78,7 +78,9 @@ export const CustomCalendar = () => {
                                 className={classNames(
                                   'font-medium  dark:text-gray-100',
                                   Number(today) === day
-                                    ? 'flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 font-medium text-white'
+                                    ? (index + 1) % 7 === 0
+                                      ? 'flex h-8 w-8 items-center justify-center rounded-full bg-red-200 font-medium'
+                                      : 'flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 font-medium text-white'
                                     : 'text-gray-500',
                                   (index + 1) % 7 === 0 ? 'text-red-400' : ''
                                 )}
