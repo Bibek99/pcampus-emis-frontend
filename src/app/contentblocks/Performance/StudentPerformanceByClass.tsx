@@ -37,6 +37,8 @@ export const StudentPerformanceByClass = () => {
       enabled: typeof studentObj?.id == 'number' ? true : false,
     }
   );
+  console.log("performanceReport", performanceReport);
+
 
   const assignmentData = performanceReport?.assignments?.map(
     (singleAssignment: any, index: number) => {
@@ -44,8 +46,8 @@ export const StudentPerformanceByClass = () => {
         id: index + 1,
         title: singleAssignment.assignment.title,
         grade: `${((singleAssignment.obtain_points /
-            singleAssignment.assignment.total_points) *
-            100)
+          singleAssignment.assignment.total_points) *
+          100)
           }%`,
       };
     }

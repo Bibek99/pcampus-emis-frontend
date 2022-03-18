@@ -59,7 +59,7 @@ export const AttendanceView: React.FC = () => {
   const { authenticatedUser } = useAuthContext();
   const userId = String(authenticatedUser?.id);
   const { students, isLoading } = useFetchStudentsInAClass(id);
-  console.log("students", students);
+  // console.log("students", students);
 
   // console.log();
   // const stdd = 23;
@@ -67,6 +67,8 @@ export const AttendanceView: React.FC = () => {
 
 
   const presentDaysList = useFetchAttendanceForStudentsInAClass(students, id);
+  // console.log("presentDaysList", presentDaysList);
+
   const { totalWorkingDays, isLoading: totalLoading } = useFetchAttendanceTotalWorkingDays(id);
   //   console.log("student.id", student.id);
   //   const { attendance } = useFetchAttendanceForAStudent(id, String(student.id))

@@ -1,7 +1,8 @@
 import { useAuthContext } from '@app/auth/AuthContext';
 import { CustomCalendar } from '@app/components/Calendar';
 import { AttendanceCard, DataCard } from '@app/components/Card';
-import { useFetchAllAssignmentsForAStudent } from '@app/services';
+import { ProfileCard } from '@app/components/Card/ProfileCard';
+import { useFetchAllAssignmentsForAStudent, useFetchStudentProfile } from '@app/services';
 import {
   useNotificationsForUser,
   useStudentDashboardService,
@@ -18,7 +19,10 @@ export const StudentDashboard = () => {
   const { assignmentsData } = useFetchAllAssignmentsForAStudent(
     authenticatedUser?.id
   );
-
+  const { studentProfileData } = useFetchStudentProfile(
+    authenticatedUser?.id
+  );
+  console.log('studentProfileData 1', studentProfileData);
   return (
     <div className="flex flex-col space-y-6">
       <h1 className="text-2xl font-semibold">
@@ -51,8 +55,10 @@ export const StudentDashboard = () => {
               value={assignmentsData?.length}
             />
           </section>
-
-          <AttendanceCard title="Attendance" />
+          <div className="flex flex-col space-y-6">
+            <ProfileCard studentProfileData={studentProfileData} />
+            <AttendanceCard title="Attendance" />
+          </div>
         </div>
         <aside className="col-span-3 hidden xl:block">
           <CustomCalendar />
