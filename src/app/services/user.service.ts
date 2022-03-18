@@ -222,17 +222,12 @@ export const useFilterTeacherByDepartment = (
   );
 };
 
-export const useFetchStudentProfile = (studentId: number, config?: any) => {
-  const { data, ...rest } = useQuery(
-    ['fetch-student-profile', studentId],
-    () =>
-      api.get(`view/student/${studentId}/`, {
-        headers: authHeader(),
-      }),
-    {
-      ...config,
-    }
+export const useFetchStudentProfile = (studentId?: number | undefined) => {
+  const { data, ...rest } = useQuery(['fetch-student-profile', studentId], () =>
+    api.get(`show/profile/${studentId || ''}/`, {
+      headers: authHeader(),
+    })
   );
-  const studentData = data?.data;
-  return { studentData, ...rest };
+  const studentProfileData = data?.data;
+  return { studentProfileData, ...rest };
 };

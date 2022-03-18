@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useFetchStudentsInAClass } from '@app/services';
+import moment from 'moment';
 
 const columns = [
   {
@@ -88,9 +89,12 @@ export const AttendanceRecord: React.FC = () => {
 
       let attendanceRecord =
       {
-        date: '2012-11-12',
+        date: moment().format("YYYY-MM-DD"),
+        // date: "2022-03-14",
         absent_list: [...absentList]
       }
+      console.log("absentList=", absentList);
+
       createAttendance(attendanceRecord as any);
     },
   });

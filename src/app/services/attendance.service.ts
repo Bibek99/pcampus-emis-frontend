@@ -77,7 +77,18 @@ export const useFetchAttendanceForStudentsInAClass = (
       };
     }) ?? []
   );
-  return userQueries.map((data) => data.data?.data.student_present_days);
+
+  return userQueries.map((data) => data.data?.data.present_days);
+};
+
+export const useFetchAttendanceTotalWorkingDays = (class_id?: string) => {
+  const { data, ...rest } = useQuery(['total-working-days', class_id], () =>
+    api.get(`attendance/get/total/working/days/${class_id}/`, {
+      headers: authHeader(),
+    })
+  );
+  const totalWorkingDays = data?.data.total_working_days;
+  return { totalWorkingDays, ...rest };
 };
 
 export const useFetchStudentAttendance = (studentId?: number) => {

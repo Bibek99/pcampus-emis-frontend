@@ -4,12 +4,15 @@ import { AttendanceCard, DataCard } from '@app/components/Card';
 import {
   useFetchAllAssignmentsForAStudent,
   useFetchAllDeptNotice,
+  useFetchStudentProfile,
   useFetchClass,
 } from '@app/services';
 import {
   useFetchAttendanceForAStudent,
   useFetchStudentAttendance,
 } from '@app/services/attendance.service';
+import { ProfileCard } from '@app/components/Card/ProfileCard';
+
 import {
   useNotificationsForUser,
   useStudentDashboardService,
@@ -59,6 +62,10 @@ export const StudentDashboard = () => {
     }
   }, [attendance]);
 
+  const { studentProfileData } = useFetchStudentProfile(
+    authenticatedUser?.id
+  );
+
   return (
     <div className="flex flex-col space-y-6">
       <h1 className="text-2xl font-semibold">
@@ -96,6 +103,9 @@ export const StudentDashboard = () => {
             </Link>
           </section>
 
+              <div className="flex flex-col space-y-6">
+            <ProfileCard studentProfileData={studentProfileData} />
+
           <AttendanceCard
             title="Attendance"
             options={{
@@ -125,6 +135,11 @@ export const StudentDashboard = () => {
               ],
             }}
           />
+
+      
+            
+          </div>
+
         </div>
         <aside className="col-span-3 hidden xl:block">
           <div className="flex flex-col space-y-6">

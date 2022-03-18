@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 const studentAddSchema = Yup.object().shape({
   first_name: Yup.string().required('First Name is requied'),
   gender: Yup.string().required('Please select a gender'),
-  roll_no: Yup.number().required('Please enter roll no'),
+  roll_no: Yup.string().required('Please enter roll no'),
 });
 
 export const StudentAddForm: React.FC<{}> = () => {
