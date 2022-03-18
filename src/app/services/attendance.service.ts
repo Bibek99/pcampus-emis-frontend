@@ -90,3 +90,15 @@ export const useFetchAttendanceTotalWorkingDays = (class_id?: string) => {
   const totalWorkingDays = data?.data.total_working_days;
   return { totalWorkingDays, ...rest };
 };
+
+export const useFetchStudentAttendance = (studentId?: number) => {
+  const { data, ...rest } = useQuery(
+    ['attendance-student-all', studentId],
+    () =>
+      api.get(`attendance/get/student/${studentId || ''}/`, {
+        headers: authHeader(),
+      })
+  );
+  const attendance = data?.data;
+  return { attendance, ...rest };
+};

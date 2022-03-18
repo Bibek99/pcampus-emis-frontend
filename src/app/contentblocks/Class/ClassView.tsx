@@ -24,7 +24,6 @@ import {
   AssignmentView,
 } from './Assignment';
 import { FeedView } from './Feed';
-import { GradesListView } from './Grades';
 import { FolderDetailView, MaterialView } from './Materials';
 
 const ClassNav = () => {
@@ -36,7 +35,7 @@ const ClassNav = () => {
   else active = 'feed';
 
   return (
-    <section className="sticky -top-6 z-[30] flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm ">
+    <section className="sticky -top-6 z-[2] flex w-full justify-center space-x-10 rounded-md bg-gray-50 p-4 shadow-sm ">
       <NavLink
         to="."
         className={classNames(
@@ -96,7 +95,7 @@ const ClassNav = () => {
           <span className="hidden sm:block">Materials</span>
         </div>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="grades"
         className={classNames(
           'relative',
@@ -114,7 +113,7 @@ const ClassNav = () => {
           <ClipboardCheckIcon className="h-5 w-5" />
           <span className="hidden sm:block">Grades</span>
         </div>
-      </NavLink>
+      </NavLink> */}
     </section>
   );
 };
@@ -153,9 +152,7 @@ export const ClassView = () => {
             element={
               <Routes>
                 <Route path="/" element={<AssignmentView />} />
-                {role === 'TEACHER' && (
-                  <Route path="create" element={<AssignmentCreateView />} />
-                )}
+
                 {role === 'STUDENT' && (
                   <Route
                     path=":assignmentId/"
@@ -164,6 +161,7 @@ export const ClassView = () => {
                 )}
                 {role === 'TEACHER' && (
                   <>
+                    <Route path="create" element={<AssignmentCreateView />} />
                     <Route
                       path=":assignmentId/"
                       element={<AssignmentSubmissionsListView />}
@@ -186,7 +184,7 @@ export const ClassView = () => {
               </Routes>
             }
           />
-          <Route path="grades" element={<GradesListView />} />
+          {/* <Route path="grades" element={<GradesListView />} /> */}
         </Routes>
       </div>
     </>

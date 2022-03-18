@@ -6,7 +6,10 @@ import {
 } from '@app/contentblocks';
 import { CalenderView } from '@app/contentblocks/Calender';
 import { ClassView, ClassList } from '@app/contentblocks/Class';
-import { AttendanceClassView, AttendanceClassList } from '@app/contentblocks/Attendance';
+import {
+  AttendanceClassView,
+  AttendanceClassList,
+} from '@app/contentblocks/Attendance';
 import { TeacherDashboard } from '@app/contentblocks/Dashboard/TeacherDashboard';
 import { StudentPerformanceByClass } from '@app/contentblocks/Performance';
 import React from 'react';
@@ -65,7 +68,7 @@ export const TeacherRoutes = () => {
       <Route
         path="attendance/*"
         element={
-          <div className="rounded-md bg-gray-50">
+          <div className="min-h-full rounded-md bg-gray-50">
             <Routes>
               <Route path="/" element={<AttendanceClassList />} />
               <Route

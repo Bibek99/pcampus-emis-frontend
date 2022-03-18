@@ -3,6 +3,7 @@ import { useAsyncDebounce } from 'react-table';
 import { XIcon, SearchIcon } from '@heroicons/react/outline';
 import Dropdown from '@app/components/Dropdown';
 import ExportCSV from '@utils/ExportCSV';
+import classNames from 'classnames';
 
 interface SearchFilter {
   filter: any;
@@ -13,7 +14,6 @@ interface SearchFilter {
   selectedFlatRows: any;
   setAllFilters: any;
 }
-
 
 export const SearchFilter: React.FC<SearchFilter> = ({
   filter,
@@ -32,9 +32,14 @@ export const SearchFilter: React.FC<SearchFilter> = ({
   const [filterTag, setFilterTag] = useState<any[]>([]);
 
   const onChange = useAsyncDebounce((value) => {
-    globalFilterState ?
-      setGlobalFilter(value || undefined)
-      : setFilter((items.filter((column: any) => !column.disableFilters)).map((column: any) => column.accessor)[filterIndex], value);
+    globalFilterState
+      ? setGlobalFilter(value || undefined)
+      : setFilter(
+          items
+            .filter((column: any) => !column.disableFilters)
+            .map((column: any) => column.accessor)[filterIndex],
+          value
+        );
   }, 400);
 
   // const onChange = ((value: any) => {
@@ -49,13 +54,13 @@ export const SearchFilter: React.FC<SearchFilter> = ({
   // }, [filterTagKey && filterTagValue]);
   useEffect(() => {
     console.log(filter);
-  })
+  });
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-gray-200/50 p-4 sm:flex-row sm:space-x-4 sm:space-y-0">
       <div className="relative flex w-full flex-auto items-center">
-        <div className="w-full flex flex-col space-y-4">
-          <div className='flex'>
-            <div className='relative flex items-center w-full'>
+        <div className="flex w-full flex-col space-y-4">
+          <div className="flex">
+            <div className="relative flex w-full items-center">
               <input
                 type="text"
                 name="search"
@@ -67,7 +72,7 @@ export const SearchFilter: React.FC<SearchFilter> = ({
                 }}
                 value={value}
               />
-              {value ?
+              {value ? (
                 <XIcon
                   className="absolute right-2 h-4 w-4"
                   onClick={(e) => {
@@ -75,73 +80,83 @@ export const SearchFilter: React.FC<SearchFilter> = ({
                     onChange('');
                   }}
                 />
-                : null
-              }
+              ) : null}
             </div>
             <Dropdown
-              items={(items.filter((column: any) => !column.disableFilters)).map((column: any) => column.Header)}
+              items={items
+                .filter((column: any) => !column.disableFilters)
+                .map((column: any) => column.Header)}
               setGlobalFilterState={setGlobalFilterState}
               setFilterIndex={setFilterIndex}
               setFilterTagKey={setFilterTagKey}
               filterTagKey={filterTagKey}
-              className='pl-2 pr-16'
+              className="pl-2 pr-2"
             />
-            {globalFilterState ? null :
+            {globalFilterState ? null : (
               <button
                 type="button"
                 className="rounded-md border border-emerald-500 bg-emerald-500 px-4 py-2 text-white"
-                onClick={
-                  () => {
-                    setGlobalFilter('');
-                    value && filterTagKey ? setFilterTag([...filterTag, filterTagKey[filterTagKey.length - 1] + ' : ' + value]) : null;
-                    onChange(value);
-                    setValue('');
-                  }
-                }
+                onClick={() => {
+                  setGlobalFilter('');
+                  value && filterTagKey
+                    ? setFilterTag([
+                        ...filterTag,
+                        filterTagKey[filterTagKey.length - 1] + ' : ' + value,
+                      ])
+                    : null;
+                  onChange(value);
+                  setValue('');
+                }}
               >
                 <SearchIcon className="h-6 w-6" />
               </button>
-            }
+            )}
             <SearchIcon className="absolute top-3 left-3 h-5 w-5 text-emerald-500" />
-            {
-              selectedFlatRows.length ?
-                <div className="flex flex-auto space-x-4">
-                  {exportOption && (
-                    <button
-                      type="button"
-                      className="w-full ml-4 rounded-md border border-emerald-500 bg-gray-50 px-6 py-2 text-emerald-500"
-                    >
-                      <ExportCSV data={selectedFlatRows.map((row: any) => row.original)} items={items} />
-                    </button>
+
+            <div className="flex flex-auto">
+              {exportOption && (
+                <button
+                  type="button"
+                  disabled={!selectedFlatRows.length}
+                  className={classNames(
+                    'ml-4 w-full rounded-md border border-emerald-500 bg-gray-50 px-6 py-2 text-emerald-500',
+                    !selectedFlatRows.length && 'cursor-not-allowed'
                   )}
-                  {/* <button
-          type="button"
-          className="w-full rounded-md border border-red-500 bg-gray-50 px-6 py-2 text-red-500"
-        >
-          Delete
-        </button> */}
-                </div> : null
-            }
+                >
+                  <ExportCSV
+                    data={selectedFlatRows.map((row: any) => row.original)}
+                    items={items}
+                    className={classNames(
+                      !selectedFlatRows.length &&
+                        'pointer-events-none cursor-not-allowed'
+                    )}
+                  />
+                </button>
+              )}
+            </div>
           </div>
-          <div className='flex flex-row text-sm text-emerald-600 '>
-            {(filterTag.map((value: any, index: any) => {
+          <div className="flex flex-row text-sm text-emerald-600 ">
+            {filterTag.map((value: any, index: any) => {
               return (
                 <div
-                  // key={index}
-                  className='flex flex-row space-x-2 items-center relative  border border-gray-100 hover:border-gray-300 hover:cursor-default rounded-lg bg-emerald-100 px-2 py-1'>
+                  key={index}
+                  className="relative flex flex-row items-center space-x-2  rounded-lg border border-gray-100 bg-emerald-100 px-2 py-1 hover:cursor-default hover:border-gray-300"
+                >
                   <span>{value}</span>
                   <XIcon
                     id={index}
-                    className="text-black h-3 w-3"
+                    className="h-3 w-3 cursor-pointer text-black"
                     onClick={(e) => {
                       const id = Number((e.target as HTMLTextAreaElement).id);
-                      const header = ((filterTag[id].substring(0, filterTag[id].indexOf(':')))).slice(0, -1);
-                      const accessor = (items.filter((item: any) => item.Header === header)[0].accessor);
+                      const header = filterTag[id]
+                        .substring(0, filterTag[id].indexOf(':'))
+                        .slice(0, -1);
+                      const accessor = items.filter(
+                        (item: any) => item.Header === header
+                      )[0].accessor;
 
-                      setFilterTag(
-                        filtertag => (
-                          filtertag.filter((_, i) => i !== id)
-                        )
+                      setFilterTag((filtertag) =>
+                        filtertag.filter((_, i) => i !== id)
                       );
 
                       setFilter(accessor, '');
@@ -151,11 +166,11 @@ export const SearchFilter: React.FC<SearchFilter> = ({
                     }}
                   />
                 </div>
-              )
-            }))}
+              );
+            })}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };

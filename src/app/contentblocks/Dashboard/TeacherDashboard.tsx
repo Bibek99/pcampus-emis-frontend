@@ -13,7 +13,7 @@ export const TeacherDashboard = () => {
   return (
     <div className="flex flex-col space-y-6">
       <h1 className="text-2xl font-semibold">
-        Welcome Back {authenticatedUser?.first_name} !
+        Welcome back {authenticatedUser?.first_name} !
       </h1>
       <hr className="border border-gray-300" />
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">

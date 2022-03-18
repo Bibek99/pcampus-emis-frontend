@@ -41,9 +41,7 @@ export const CustomCalendar = () => {
         <div className="w-full">
           <div className="rounded-lg rounded-t bg-white dark:bg-gray-800 md:p-6 md:pb-12">
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                {monthYear}
-              </h1>
+              <h1 className="text-2xl font-bold text-gray-800">{monthYear}</h1>
             </div>
             <div className="flex items-center justify-between overflow-x-auto pt-12">
               <table className="w-full">
@@ -52,7 +50,12 @@ export const CustomCalendar = () => {
                     {weekdayshort.map((day, index) => (
                       <th key={index}>
                         <div className="flex w-full justify-center">
-                          <p className="text-center font-medium text-gray-800 dark:text-gray-100">
+                          <p
+                            className={classNames(
+                              'text-center font-medium text-gray-800',
+                              day === 'Sa' ? 'text-red-400' : ''
+                            )}
+                          >
                             {day}
                           </p>
                         </div>
@@ -66,17 +69,20 @@ export const CustomCalendar = () => {
                       {week.map((day, index) =>
                         !day ? (
                           <td key={index} className="pt-2">
-                            <div className="flex w-full cursor-pointer justify-center py-2" />
+                            <div className="flex w-full justify-center py-2" />
                           </td>
                         ) : (
                           <td key={index} className="pt-2">
-                            <div className="flex w-full cursor-pointer justify-center py-2">
+                            <div className="flex w-full justify-center py-2">
                               <p
                                 className={classNames(
                                   'font-medium  dark:text-gray-100',
                                   Number(today) === day
-                                    ? 'flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 font-medium text-white'
-                                    : 'text-gray-500'
+                                    ? (index + 1) % 7 === 0
+                                      ? 'flex h-8 w-8 items-center justify-center rounded-full bg-red-200 font-medium'
+                                      : 'flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 font-medium text-white'
+                                    : 'text-gray-500',
+                                  (index + 1) % 7 === 0 ? 'text-red-400' : ''
                                 )}
                               >
                                 {day}

@@ -22,6 +22,7 @@ ChartJS.register(
 interface AttendanceCardProps {
   title: string;
   data?: any;
+  options: any;
 }
 
 export const options = {
@@ -51,7 +52,11 @@ export const data = {
   ],
 };
 
-export const AttendanceCard: React.FC<AttendanceCardProps> = ({ title }) => {
+export const AttendanceCard: React.FC<AttendanceCardProps> = ({
+  title,
+  options,
+  data,
+}) => {
   return (
     <div className="flex flex-col space-y-4 rounded-lg bg-gray-50 p-6">
       <h4 className="text-lg font-medium">{title}</h4>

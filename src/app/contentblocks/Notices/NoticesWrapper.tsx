@@ -90,7 +90,10 @@ export const NoticesWrapper = () => {
       <div className="flex flex-col space-y-6 divide-y-2">
         {!showDept &&
           globalNotices?.map((notice: any, index: number) => (
-            <div className="flex items-start justify-between pt-4" key={index}>
+            <div
+              className="flex flex-grow items-start justify-between pt-4"
+              key={index}
+            >
               <div>
                 <h3 className="pb-2 text-lg font-semibold">{notice?.title}</h3>
                 <p>
@@ -111,15 +114,15 @@ export const NoticesWrapper = () => {
                 >
                   View Details
                 </Link>
-                {notice?.publish_by?.id === authenticatedUser?.id && (
-                  <button
-                    onClick={() => deleteGlobalNotice(notice?.id)}
-                    className="flex justify-end pt-4 text-gray-500 hover:text-red-500"
-                  >
-                    <TrashIcon className="h-6 w-6" />
-                  </button>
-                )}
               </div>
+              {notice?.publish_by?.id === authenticatedUser?.id && (
+                <button
+                  onClick={() => deleteGlobalNotice(notice?.id)}
+                  className="flex justify-end pt-4 text-gray-500 hover:text-red-500"
+                >
+                  <TrashIcon className="h-6 w-6" />
+                </button>
+              )}
             </div>
           ))}
         {showDept &&

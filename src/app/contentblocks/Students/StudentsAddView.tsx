@@ -17,10 +17,11 @@ export const StudentsAddView = () => {
 
   const { mutate: createBulkStudent, isLoading } = useCreateStudentsInBulk({
     onError: () => {
-      toast.error('error');
+      toast.error('Students account create error');
     },
     onSuccess: () => {
-      toast.success('created');
+      toast.success('Students account Created');
+      setModalOpen(false);
     },
   });
 
