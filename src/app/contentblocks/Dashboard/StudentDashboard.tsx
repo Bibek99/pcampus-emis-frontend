@@ -62,9 +62,7 @@ export const StudentDashboard = () => {
     }
   }, [attendance]);
 
-  const { studentProfileData } = useFetchStudentProfile(
-    authenticatedUser?.id
-  );
+  const { studentProfileData } = useFetchStudentProfile(authenticatedUser?.id);
 
   return (
     <div className="flex flex-col space-y-6">
@@ -103,43 +101,39 @@ export const StudentDashboard = () => {
             </Link>
           </section>
 
-              <div className="flex flex-col space-y-6">
+          <div className="flex flex-col space-y-6">
             <ProfileCard studentProfileData={studentProfileData} />
 
-          <AttendanceCard
-            title="Attendance"
-            options={{
-              responsive: true,
-              scales: {
-                y: { ticks: { stepSize: 1 } },
-              },
-              plugins: {
-                legend: {
-                  position: 'top' as const,
+            <AttendanceCard
+              title="Attendance"
+              options={{
+                responsive: true,
+                scales: {
+                  y: { ticks: { stepSize: 1 } },
                 },
-              },
-            }}
-            data={{
-              labels: classLabels,
-              datasets: [
-                {
-                  label: 'Attendance',
-                  data: presentDays,
-                  backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                plugins: {
+                  legend: {
+                    position: 'top' as const,
+                  },
                 },
-                {
-                  label: 'Total Class Days',
-                  data: totalDays,
-                  backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                },
-              ],
-            }}
-          />
-
-      
-            
+              }}
+              data={{
+                labels: classLabels,
+                datasets: [
+                  {
+                    label: 'Attendance',
+                    data: presentDays,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                  },
+                  {
+                    label: 'Total Class Days',
+                    data: totalDays,
+                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                  },
+                ],
+              }}
+            />
           </div>
-
         </div>
         <aside className="col-span-3 hidden xl:block">
           <div className="flex flex-col space-y-6">

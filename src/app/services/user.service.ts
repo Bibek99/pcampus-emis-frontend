@@ -231,3 +231,13 @@ export const useFetchStudentProfile = (studentId?: number | undefined) => {
   const studentProfileData = data?.data;
   return { studentProfileData, ...rest };
 };
+
+export const useFetchTeacherProfile = (teacherId?: number | undefined) => {
+  const { data, ...rest } = useQuery(['fetch-teacher-profile', teacherId], () =>
+    api.get(`show/teacher/profile/${teacherId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const teacherProfileData = data?.data;
+  return { teacherProfileData, ...rest };
+};

@@ -59,3 +59,13 @@ export const useNotificationsForUser = (userId?: number) => {
   const notifications = data?.data;
   return { notifications, ...rest };
 };
+
+export const useFetchStudentsForATeacher = (teacherId?: number) => {
+  const { data, ...rest } = useQuery(['teacher-students'], () =>
+    api.get(`get/students/for/a/teacher/${teacherId || ''}/`, {
+      headers: authHeader(),
+    })
+  );
+  const students = data?.data;
+  return { students, ...rest };
+};
