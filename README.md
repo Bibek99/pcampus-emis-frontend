@@ -27,3 +27,6 @@ This repository contains code for the EMIS system for Pulchowk Campus.
 #### Project Preview
 
 ![Login Screen](./public/static/images/home-srct.png)
+
+
+[More about this project](https://www.bibekbasyal.com.np/project/pulchowk-emis)
